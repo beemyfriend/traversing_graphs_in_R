@@ -1,0 +1,74 @@
+---
+title: 'Part 2: A Review of magrittr'
+output:
+  html_document: default
+  html_notebook: default
+---
+
+```{r message = F}
+library(igraph)
+library(magrittr)
+```
+
+```{r}
+g <- make_empty_graph(directed = T) +
+  vertices(c('a', 'b', 'c', 'd', 'e'),
+           type = "letter",
+           order = c(1, 2, 3, 4, 5)) +
+  edges(c('a', 'b',
+          'b', 'c',
+          'b', 'd',
+          'c', 'b',
+          'c', 'e'),
+        type = "connection",
+        weight = c(1, 1, 2, 1, 2))
+```
+
+```{r}
+V(g)
+```
+
+can also be written as
+
+```{r}
+g %>% V(.)
+```
+
+The `.` dictates where the left hand side goes. This `.` behaves just like the object on the left hand side would.
+
+```{r}
+g %>% 
+  V(.) %>% 
+  .$type
+```
+
+The right hand side utilize the left hand side in mulitple places
+
+```{r}
+g %>% 
+  V(.) %>% 
+  .$type %>% 
+  paste(., 1:length(.), sep = '_')
+```
+
+The right hand side can even be an anonymous function
+
+```{r}
+g %>% 
+  V(.) %>% 
+  .$type %>%
+  paste(., 1:length(.), sep = '_') %>% 
+  (function(x){
+    assign('savingStep', x, .GlobalEnv)
+    
+    x %>%
+      gsub(1, 'first', .) %>%
+      gsub(length(.), 'last', .)
+  })
+```
+
+The beautiful thing about the anonymous function is that it allows us to save the current state of an object to reference later without preventing us from moving forward with our manipulation on it.  
+
+```{r}
+paste(V(g))
+```

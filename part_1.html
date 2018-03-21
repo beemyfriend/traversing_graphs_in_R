@@ -173,10 +173,10 @@ $(document).ready(function () {
         weight = c(1, 1, 2, 1, 2))</code></pre>
 <p>Let’s take a look at how igraph represents a graph in R</p>
 <pre class="r"><code>g</code></pre>
-<pre><code>## IGRAPH fd39e60 DNWB 5 5 -- 
+<pre><code>## IGRAPH e74098e DNWB 5 5 -- 
 ## + attr: name (v/c), type (v/c), order (v/n), type (e/c), weight
 ## | (e/n)
-## + edges from fd39e60 (vertex names):
+## + edges from e74098e (vertex names):
 ## [1] a-&gt;b b-&gt;c b-&gt;d c-&gt;b c-&gt;e</code></pre>
 <p>igraph also provides a <code>plot()</code> to explore the graph visually</p>
 <pre class="r"><code>set.seed(1234)
@@ -218,9 +218,9 @@ sapply(seq_along(src), function(i){
 <pre class="r"><code>g &lt;- graph_from_adjacency_matrix(matData, mode = 'directed', weighted = 'connections') 
 
 g</code></pre>
-<pre><code>## IGRAPH 367cd61 DN-- 5 5 -- 
+<pre><code>## IGRAPH 9954d34 DN-- 5 5 -- 
 ## + attr: name (v/c), connections (e/n)
-## + edges from 367cd61 (vertex names):
+## + edges from 9954d34 (vertex names):
 ## [1] a-&gt;b b-&gt;c b-&gt;d c-&gt;b c-&gt;e</code></pre>
 </div>
 <div id="creating-a-graph-from-a-data-frame" class="section level3">
@@ -254,10 +254,10 @@ g &lt;- graph_from_data_frame(d = edge_list,
                            vertices = node_list)</code></pre>
 <p>The resulting graph is, for all intents and purposes, identical to the one we built from an empty graph.</p>
 <pre class="r"><code>g</code></pre>
-<pre><code>## IGRAPH eff5b8c DNWB 5 5 -- 
+<pre><code>## IGRAPH bb97e3c DNWB 5 5 -- 
 ## + attr: name (v/c), type (v/c), order (v/n), type (e/c), weight
 ## | (e/n)
-## + edges from eff5b8c (vertex names):
+## + edges from bb97e3c (vertex names):
 ## [1] a-&gt;b b-&gt;c b-&gt;d c-&gt;b c-&gt;e</code></pre>
 </div>
 </div>
@@ -277,19 +277,19 @@ g &lt;- graph_from_data_frame(d = edge_list,
 <h3>V()</h3>
 <p><code>V()</code> only accepts an igraph graph object and returns a vector of vertices. This vector is what we use to explore the vertices of the graph and it acts like a normal <code>c()</code> vector in R with some syntactic sugar</p>
 <pre class="r"><code>V(g)</code></pre>
-<pre><code>## + 5/5 vertices, named, from eff5b8c:
+<pre><code>## + 5/5 vertices, named, from bb97e3c:
 ## [1] a b c d e</code></pre>
 <p>You can access information of a specific vertex by inputting its index number.</p>
 <pre class="r"><code>V(g)[3]</code></pre>
-<pre><code>## + 1/5 vertex, named, from eff5b8c:
+<pre><code>## + 1/5 vertex, named, from bb97e3c:
 ## [1] c</code></pre>
 <p>If the vertex has a name, then you can use its name instead of the index number.</p>
 <pre class="r"><code>V(g)['c']</code></pre>
-<pre><code>## + 1/5 vertex, named, from eff5b8c:
+<pre><code>## + 1/5 vertex, named, from bb97e3c:
 ## [1] c</code></pre>
 <p>Accessing a vertex using double square bracket notation gives you all the information stored in it.</p>
 <pre class="r"><code>V(g)[['c']]</code></pre>
-<pre><code>## + 1/5 vertex, named, from eff5b8c:
+<pre><code>## + 1/5 vertex, named, from bb97e3c:
 ##   name   type order
 ## 3    c letter     3</code></pre>
 <p>A specific attribute can be accessed using dollar sign notation. You should use single square bracket notation when accesing specific attributes.</p>
@@ -300,7 +300,7 @@ g &lt;- graph_from_data_frame(d = edge_list,
 
 #vcount provides the number of vertices in a graph
 V(g)[[1:vcount(g)]]</code></pre>
-<pre><code>## + 5/5 vertices, named, from eff5b8c:
+<pre><code>## + 5/5 vertices, named, from bb97e3c:
 ##   name   type order
 ## 1    a letter     1
 ## 2    b letter     2
@@ -309,13 +309,13 @@ V(g)[[1:vcount(g)]]</code></pre>
 ## 5    e letter     5</code></pre>
 <p>You can access multiple vertices either by providing a vector of names</p>
 <pre class="r"><code>V(g)[[c('c', 'e')]]</code></pre>
-<pre><code>## + 2/5 vertices, named, from eff5b8c:
+<pre><code>## + 2/5 vertices, named, from bb97e3c:
 ##   name   type order
 ## 3    c letter     1
 ## 5    e letter     5</code></pre>
 <p>You can also <strong>query the attributes</strong> of the vertex vector.</p>
 <pre class="r"><code>V(g)[[order == 1]]</code></pre>
-<pre><code>## + 2/5 vertices, named, from eff5b8c:
+<pre><code>## + 2/5 vertices, named, from bb97e3c:
 ##   name   type order
 ## 1    a letter     1
 ## 3    c letter     1</code></pre>
@@ -323,7 +323,7 @@ V(g)[[1:vcount(g)]]</code></pre>
 <pre class="r"><code>ab &lt;- V(g)[[c('a', 'b')]]
 de &lt;- V(g)[[c('d', 'e')]]
 c(ab, de)</code></pre>
-<pre><code>## + 4/5 vertices, named, from eff5b8c:
+<pre><code>## + 4/5 vertices, named, from bb97e3c:
 ## [1] a b d e</code></pre>
 </div>
 <div id="e" class="section level3">
@@ -331,11 +331,11 @@ c(ab, de)</code></pre>
 <p><code>E()</code> behves much in the same way as <code>V()</code>. It only accepts an igraph graph object and returns a vector of edges. A big difference, however, is how we approach accessing data stroed in edges. While edges can have names and can be accessed directly using either a name or an id, this is not the best approach since as graphs get larger, the sheer number and variety of edges make it very impractical to do so.</p>
 <p>Instead edges should be accessed by querying their attributes</p>
 <pre class="r"><code>E(g)[weight == 2]</code></pre>
-<pre><code>## + 2/5 edges from eff5b8c (vertex names):
+<pre><code>## + 2/5 edges from bb97e3c (vertex names):
 ## [1] b-&gt;d c-&gt;e</code></pre>
 <p>Using double square notation gives you more information about the queried edges.</p>
 <pre class="r"><code>E(g)[[weight == 2]]</code></pre>
-<pre><code>## + 2/5 edges from eff5b8c (vertex names):
+<pre><code>## + 2/5 edges from bb97e3c (vertex names):
 ##   tail head tid hid       type weight
 ## 3    b    d   2   4 connection      2
 ## 5    c    e   3   5 connection      2</code></pre>
@@ -344,7 +344,7 @@ c(ab, de)</code></pre>
 
 #ecount() provides the number of edges in a graph
 E(g)[[1:ecount(g)]]</code></pre>
-<pre><code>## + 5/5 edges from eff5b8c (vertex names):
+<pre><code>## + 5/5 edges from bb97e3c (vertex names):
 ##   tail head tid hid       type weight
 ## 1    a    b   1   2 connection      1
 ## 2    b    c   2   3 connection      1
@@ -354,22 +354,22 @@ E(g)[[1:ecount(g)]]</code></pre>
 <p>We can also <strong>query edges for the nodes they connect.</strong></p>
 <p><code>LHS %--% RHS</code> represents any edge between <code>LHS</code> and <code>RHS</code></p>
 <pre class="r"><code>E(g)['a' %--% 'b']</code></pre>
-<pre><code>## + 1/5 edge from eff5b8c (vertex names):
+<pre><code>## + 1/5 edge from bb97e3c (vertex names):
 ## [1] a-&gt;b</code></pre>
 <p><code>LHS %&lt;-% RHS</code> represents edges going to <code>LHS</code> from <code>RHS</code></p>
 <pre class="r"><code>E(g)['c' %&lt;-% 'b']</code></pre>
-<pre><code>## + 1/5 edge from eff5b8c (vertex names):
+<pre><code>## + 1/5 edge from bb97e3c (vertex names):
 ## [1] b-&gt;c</code></pre>
 <p><code>LHS %-&gt;% RHS</code> represents edges leaving from <code>LHS</code> to <code>RHS</code></p>
 <pre class="r"><code>#you don't need to now the specific name of the vertices
 E(g)['b' %-&gt;% V(g)]</code></pre>
-<pre><code>## + 2/5 edges from eff5b8c (vertex names):
+<pre><code>## + 2/5 edges from bb97e3c (vertex names):
 ## [1] b-&gt;c b-&gt;d</code></pre>
 <p>Edge vectors can also be combined together using <code>c()</code></p>
 <pre class="r"><code>b &lt;- E(g)['b' %-&gt;% V(g)]
 c &lt;- E(g)['c' %-&gt;% V(g)]
 c(b, c)</code></pre>
-<pre><code>## + 4/5 edges from eff5b8c (vertex names):
+<pre><code>## + 4/5 edges from bb97e3c (vertex names):
 ## [1] b-&gt;c b-&gt;d c-&gt;b c-&gt;e</code></pre>
 </div>
 </div>
@@ -378,18 +378,18 @@ c(b, c)</code></pre>
 <p><code>induced_subgraph()</code> filters the graph to include only the vertices within the provided vertex vector or vector of vertex names. Any edges between the provided nodes are preserved.</p>
 <pre class="r"><code>abc_sub &lt;- induced_subgraph(g, c('a', 'b', 'c'))
 abc_sub</code></pre>
-<pre><code>## IGRAPH dcd1797 DNWB 3 3 -- 
+<pre><code>## IGRAPH b1b8790 DNWB 3 3 -- 
 ## + attr: name (v/c), type (v/c), order (v/n), type (e/c), weight
 ## | (e/n)
-## + edges from dcd1797 (vertex names):
+## + edges from b1b8790 (vertex names):
 ## [1] a-&gt;b b-&gt;c c-&gt;b</code></pre>
 <p><code>subgraph.edges()</code> filters the graph to include only the edges within the provided edge vector. By default, only vertices that are connected to the edges are kept. If you want to keep all the vertices, then you can set the parameter <code>delete.vertices = F</code></p>
 <pre class="r"><code>b_sub &lt;- subgraph.edges(g, E(g)[&quot;b&quot; %--% V(g)])
 b_sub</code></pre>
-<pre><code>## IGRAPH d7f5b14 DNWB 4 4 -- 
+<pre><code>## IGRAPH ebf3f21 DNWB 4 4 -- 
 ## + attr: name (v/c), type (v/c), order (v/n), type (e/c), weight
 ## | (e/n)
-## + edges from d7f5b14 (vertex names):
+## + edges from ebf3f21 (vertex names):
 ## [1] a-&gt;b b-&gt;c b-&gt;d c-&gt;b</code></pre>
 <div id="subgraphs-gotchas" class="section level3">
 <h3>Subgraphs Gotchas</h3>
@@ -397,7 +397,7 @@ b_sub</code></pre>
 <pre class="r"><code>E(g)[V(b_sub)['b'] %--% V(abc_sub)]</code></pre>
 <p>Instead, you will need to use attributes that you know are in both graphs, like names:</p>
 <pre class="r"><code>E(g)[V(b_sub)['b']$name %--% V(abc_sub)$name]</code></pre>
-<pre><code>## + 3/5 edges from eff5b8c (vertex names):
+<pre><code>## + 3/5 edges from bb97e3c (vertex names):
 ## [1] a-&gt;b b-&gt;c c-&gt;b</code></pre>
 <p>Also, ids don’t stay consistent when a subgraph is created. That is, <code>V(g)[3]</code> won’t necessarily represent the same vertex in the subgraph <code>V(subg)[3]</code>. It is good practice to name the vertices and use the vertex names to keep things consistent. <code>V(g)[&quot;person_1&quot;]</code> will be the same in the subgraph <code>V(subg)[&quot;person_1&quot;]</code></p>
 </div>

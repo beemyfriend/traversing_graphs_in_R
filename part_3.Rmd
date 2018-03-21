@@ -9,13 +9,10 @@ Ok, so we can now access information inside nodes and edges, as well as create s
 
 # Exploratory functions
 
-Other than querying the nodes and edges directly, igraph provides a number of functions to explore graphs. These functions can mostly be grouped as one of the following:
+Other than querying the nodes and edges directly, igraph provides a number of functions to explore graphs. igraph is a very large package that offers a lot of functionality, but here we will focus on 
 
 * Functions that provide information specific to each component
 * Functions that provide information on how each component relates to the overall graph
-* Functions that group components
-
-Here, we will explore the functions of the first three groups. We explore modeling in a seperate section. 
 
 ### Setup
 
@@ -238,6 +235,8 @@ strength(UKfaculty, c('person_31', 'person_29', 'person_69'),  weights = E(UKfac
 
 # Functions that provide information on how each component relates to the overall graph
 
+## Centrality Scores
+
 ### betweenness()
 
 The betweenness value is roughly defined as the number of shortest paths going through a vertex or an edge. A betweenness value of 0 means that no shortest paths go through that vertex - that vertex is not essential for connecting any two vertices. Weights are interpreted as distances and a path with a lower weight will be chosen over a path with a higher weight. 
@@ -280,21 +279,13 @@ eigen_centrality(UKfaculty, directed = F)$vector %>%
   head()
 ```
 
-# Functions that group components
+## Paths
+
+### Shortest Paths
 
 ```{r}
-wc <- cluster_walktrap(UKfaculty)
-wc
-```
-
-```{r}
-modularity(wc)
-membership(wc)
-```
-```{r}
-set.seed(4321)
-plot(wc, UKfaculty,
-     vertex.label = V(UKfaculty)$Group,
-     edge.curved = T,
-     edge.arrow.size = .3)
+shortest_paths(UKfaculty, 'person_1', 'person_2', output = 'both')
+all_shortest_paths(UKfaculty, 'person_1', 'person_2')
+distances(UKfaculty, c('person_1', 'person_2', 'person_62', 'person_54'), c('person_1', 'person_2', 'person_62', 'person_54'))
+distances(UKfaculty, c('person_1', 'person_2', 'person_62', 'person_54'), c('person_1', 'person_2', 'person_62', 'person_54'), weights = NA)
 ```
