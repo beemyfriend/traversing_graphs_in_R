@@ -10,3 +10,10 @@ This repository contains the materials for my eRum 2018 workshop **Graphs: Data 
 * Part 5: Creating a reommendation system
 * Conclusion: The graph ecosystem
 
+You can play with the code for free on the RStudio cloud: [https://rstudio.cloud/project/23699]
+
+If you prefer to code on your own machine, then please make sure that the following are installed:
+
+```
+install.packages(c('igraph', 'igraphdata', 'magrittr'))
+```
