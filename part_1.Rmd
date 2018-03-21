@@ -3,6 +3,7 @@ title: "Part 1: Elements of igraph"
 output:
   html_document:
     df_print: paged
+  html_notebook: default
 ---
 
 This document will focus on understanding an **igraph** graph and it's two main components - **nodes** and **edges**. We can also use these components to filter the graph down to a **subgraph**.

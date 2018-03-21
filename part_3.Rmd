@@ -3,6 +3,7 @@ title: "Part 3: Exploratory Functions"
 output:
   html_document:
     df_print: paged
+  html_notebook: default
 ---
 
 Ok, so we can now access information inside nodes and edges, as well as create subgraphs. What else can we do with these objects?
