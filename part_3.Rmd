@@ -1,0 +1,300 @@
+---
+title: "Part 3: Exploratory Functions"
+output:
+  html_document:
+    df_print: paged
+---
+
+Ok, so we can now access information inside nodes and edges, as well as create subgraphs. What else can we do with these objects?
+
+# Exploratory functions
+
+Other than querying the nodes and edges directly, igraph provides a number of functions to explore graphs. These functions can mostly be grouped as one of the following:
+
+* Functions that provide information specific to each component
+* Functions that provide information on how each component relates to the overall graph
+* Functions that group components
+
+Here, we will explore the functions of the first three groups. We explore modeling in a seperate section. 
+
+### Setup
+
+```{r message = F}
+library(igraph)
+library(igraphdata)
+
+data("UKfaculty")
+
+UKfaculty
+```
+
+If we examine the graph, we know that this is both a directed and weighted graph with the vertex attribute of **Group** and the edge attribute of **weight**. Let's take a look at these attributes.
+
+```{r}
+UKfaculty %>%
+  V() %>%
+  .$Group %>%
+  summary()
+
+UKfaculty %>%
+  E() %>%
+  .$weight %>%
+  summary()
+```
+
+```{r}
+UKfaculty %>%
+  V() %>%
+  .$Group %>%
+  unique() %>%
+  sort()
+
+UKfaculty %>%
+  E() %>%
+  .$weight %>%
+  unique() %>% 
+  sort()
+```
+
+finally, let's make a quick visualization of this graph
+
+```{r}
+set.seed(4321)
+plot(UKfaculty,
+     vertex.label = V(UKfaculty)$Group,
+     edge.curved = T,
+     edge.arrow.size = .3)
+```
+
+We will be filtering this graph down into a subgraph to show the power of some of these functions. In order to keep things consistent between the graph and the subgraph, we will need to name the vertices.
+
+```{r}
+V(UKfaculty)$name <- paste('person', V(UKfaculty), sep = '_')
+```
+# Functions that provide information specific to the components
+
+## Functions that provide information specific to edges
+
+Sometimes we know the edges we , but don't know the nodes they are connected to. This often happens when we query the edges for a specific attribute. We can get get this information. 
+
+Let's look at the relationships that have strong weights. Let's look for light number of quality connections. 
+
+```{r}
+topLiked <- UKfaculty %>%
+  E() %>%
+  .[weight >= 6] %>%
+  head_of(UKfaculty, .)
+
+topLiked %>% sort
+
+hist(topLiked, 
+     vcount(UKfaculty),
+     col = 'lightblue')
+
+topLiked$name %>%
+  table %>%
+  sort(T) %>%
+  head()
+```
+
+```{r}
+topLikers <- UKfaculty %>%
+  E() %>%
+  .[weight >= 6] %>%
+  tail_of(UKfaculty, .)
+
+hist(topLikers, 
+     vcount(UKfaculty), 
+     col = 'lightblue')
+
+topLikers$name %>%
+  table() %>%
+  sort(T) %>%
+  head()
+```
+
+You can also get a matrix of vertex ids
+
+```{r}
+UKfaculty %>%
+  E() %>%
+  .[weight >= 6] %>%
+  ends(UKfaculty, .) %>%
+  head()
+```
+ 
+ Let's go ahead and identify who the most liked person is and who likes the most people.
+ 
+```{r}
+mostLikedPerson <- topLiked$name %>%
+  table() %>%
+  sort(T) %>%
+  .[1] %>%
+  names()
+
+mostLikedPerson
+
+likesTheMost <- topLikers$name %>%
+  table() %>%
+  sort(T) %>%
+  .[1] %>%
+  names() 
+
+likesTheMost
+```
+
+## Functions that provide information specific to nodes
+
+### ego()
+
+The `ego()` function provides all the nodes connected to a node or nodes of interest. The connected nodes can either be directly connected or connected within a certain order of edges. Let's find all the people that liked the `mostLikedPerson` and let's also find all the people the person who `likesTheMost` likes.
+
+```{r}
+mlp_likedBy <- ego(UKfaculty, 1, mostLikedPerson, 'in')
+mlp_likedBy
+
+ltm_likes <- ego(UKfaculty, 1, likesTheMost, 'out')
+ltm_likes
+```
+
+You can enter any number of vertices in the `ego()` function and the order of the list output will correspond to the order the vertices were entered. 
+
+```{r}
+ego(UKfaculty, 1, c(mostLikedPerson, likesTheMost), 'all')
+```
+
+let's combine these two people together and see their subnetwork
+
+```{r}
+mlp_ltm <- c(mlp_likedBy[[1]], ltm_likes[[1]]) %>%
+  induced_subgraph(UKfaculty, .)
+mlp_ltm
+
+set.seed(1234)
+plot(mlp_ltm,
+     vertex.color = sapply(V(mlp_ltm)$name, function(x){
+       if(x %in% c(mostLikedPerson, likesTheMost)){
+         'lightblue'
+       } else {
+         'lightgrey'
+       }
+     }),
+     edge.curved = T,
+     edge.arrow.size = .4,
+     vertex.label = V(mlp_ltm)$Group)
+
+```
+
+`induced.subgraph`s include all edges between the included nodes, but we're just interested in the edges of interest. Particularly, we only want to see incoming edges for the `mostLikedPerson` and we only want to see outgoing edges for the person who `likesTheMost`. Let's add a filtering step. 
+
+```{r}
+mlp_ltm <- mlp_ltm %>%
+  E() %>%
+  .[likesTheMost %->% V(mlp_ltm) | mostLikedPerson %<-% V(mlp_ltm)] %>%
+  .[weight >= 6] %>%
+  subgraph.edges(mlp_ltm, .) 
+
+mlp_ltm
+
+set.seed(1234)
+plot(mlp_ltm,
+     vertex.color = sapply(V(mlp_ltm)$name, function(x){
+       if(x %in% c(mostLikedPerson, likesTheMost)){
+         'lightblue'
+       } else {
+         'lightgrey'
+       }
+     }),
+     edge.curved = T,
+     edge.arrow.size = .4,
+     vertex.label = V(mlp_ltm)$Group)
+```
+
+### degree()
+```{r echo = T}
+degree(UKfaculty, mode = 'out') %>%
+  sort(T) %>%
+  head()
+
+degree(UKfaculty, mode = 'in') %>%
+  sort(T) %>%
+  head()
+
+degree(UKfaculty, c('person_29', 'person_31')) %>%
+  sort(T)
+```
+
+### strength() - Weighted Degree
+
+```{r echo=T}
+strength(UKfaculty, mode = 'out', weights = E(UKfaculty)$weight) %>%
+  sort(T) %>%
+  head()
+strength(UKfaculty, mode = 'in', weights = E(UKfaculty)$weight) %>%
+  sort(T) %>%
+  head()
+strength(UKfaculty, c('person_31', 'person_29', 'person_69'),  weights = E(UKfaculty)$weight)
+```
+
+# Functions that provide information on how each component relates to the overall graph
+
+### betweenness()
+
+The betweenness value is roughly defined as the number of shortest paths going through a vertex or an edge. A betweenness value of 0 means that no shortest paths go through that vertex - that vertex is not essential for connecting any two vertices. Weights are interpreted as distances and a path with a lower weight will be chosen over a path with a higher weight. 
+
+```{r echo = T}
+V(UKfaculty)$betweenness <- betweenness(UKfaculty)
+V(UKfaculty)$unweightedBetweenness <- betweenness(UKfaculty, weights = NA)
+
+V(UKfaculty)[[betweenness == max(betweenness)]]
+V(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]
+
+E(UKfaculty)$betweenness <- edge_betweenness(UKfaculty)
+E(UKfaculty)$unweightedBetweenness <- edge_betweenness(UKfaculty, weights = NA)
+
+E(UKfaculty)[[betweenness == max(betweenness)]]
+E(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]
+```
+
+
+### page_rank()
+
+page_rank came from google. direction matters because of clicks. We're talking about people who like eachother, so the direction doesn't necessarily matter in the same way. 
+
+```{r}
+page_rank(UKfaculty, directed = F)$vector %>%
+  sort(T) %>%
+  head()
+
+page_rank(UKfaculty, weights = NA, directed = F)$vector %>%
+  sort(T) %>%
+  head()
+
+```
+
+### eigen_centrality()
+
+```{r}
+eigen_centrality(UKfaculty, directed = F)$vector %>%
+  sort(T) %>%
+  head()
+```
+
+# Functions that group components
+
+```{r}
+wc <- cluster_walktrap(UKfaculty)
+wc
+```
+
+```{r}
+modularity(wc)
+membership(wc)
+```
+```{r}
+set.seed(4321)
+plot(wc, UKfaculty,
+     vertex.label = V(UKfaculty)$Group,
+     edge.curved = T,
+     edge.arrow.size = .3)
+```

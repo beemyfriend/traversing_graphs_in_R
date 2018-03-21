@@ -1,0 +1,291 @@
+---
+title: "Part 1: Elements of igraph"
+output:
+  html_document:
+    df_print: paged
+---
+
+This document will focus on understanding an **igraph** graph and it's two main components - **nodes** and **edges**. We can also use these components to filter the graph down to a **subgraph**.
+
+First, we need to load the **igraph** package
+
+```{r, message=F}
+library(igraph)
+```
+
+# Building a graph
+
+We now need to create a graph to explore. There are many different ways we can create a new graph, but here we will only cover three of those ways:
+
+1.  Adding vertices and edges to an empty graph by using
+    + `make_empty_graph()`
+    + `vertices()`
+    + `edges()`
+2.  Converting an existing matrix into a graph by
+    + creating a sparse square matrix with the rows and columns representing the nodes
+    + Filling in elements with values to represent the edges
+    + using `graph_from_adjacency_matrix()`
+3.  Converting existing data frames into a graph by
+    + creating a data frame that represents an **edge list**
+    + (optional) creating a data frame that represents a **node list**
+    + using `graph_from_data_frame()`
+
+### Building up an empty graph
+
+When we build a graph up from an empty graph we need to first initiate the vertices so we can refer to them when we build the edges. It is important to note:
+
+* Vertex names don't have to be unique, but it is considered good practice
+* Edges are defined in pairwise order
+    + If `directed = F` then the order within the pair doesn't matter 
+    + If `directed = T` then the first vertex in the pair is the source and the second is the target 
+* Attributes can be explicitly added to both vertices and edges
+
+```{r}
+g <- make_empty_graph(directed = T) +
+  vertices(c('a', 'b', 'c', 'd', 'e'),
+           type = "letter",
+           order = c(1, 2, 3, 4, 5)) +
+  edges(c('a', 'b',
+          'b', 'c',
+          'b', 'd',
+          'c', 'b',
+          'c', 'e'),
+        type = "connection",
+        weight = c(1, 1, 2, 1, 2))
+```
+
+Let's take a look at how igraph represents a graph in R
+
+```{r echo = T}
+g
+```
+
+igraph also provides a `plot()` to explore the graph visually
+
+```{r}
+set.seed(1234)
+plot(g)
+```
+
+### Creating a graph from a matrix
+
+The rows and columns of a matrix represent the vertices of a graph. If the element is not 0, then it represents a link between two vertices. It is important to note:
+
+* The non-zero number matters regardless if the graph is weighted or not.
+    + if `weighted = F` then it represents the number of links between the two vertices
+    + if `weighted = T` then it represents the `weight` of the edge
+    + if `weighted = ` a character constant, the the number becomes an edge attribute named after the constant
+* A symetric matrix is very different if the output graph is directed or not.
+    + if `mode = "directed"` then the rows represent the **source** nodes and the columns represent the **target** nodes
+    + if `mode = "undierected"` then only one element is chosen from either matrix[i][j] or matrix[j][i] 
+
+```{r}
+src <- c('a', 'b', 'b', 'c', 'c')
+tgt <- c('b', 'c', 'd', 'b', 'e')
+wgt <- c(1, 1, 2, 1, 2)
+matData <- matrix(0, nrow = 5, ncol = 5, dimnames = list(letters[1:5], letters[1:5]))
+
+sapply(seq_along(src), function(i){
+  matData[src[i], tgt[i]] <<- wgt[i]
+})
+
+matData
+
+g <- graph_from_adjacency_matrix(matData, mode = 'directed', weighted = 'connections') 
+
+g
+```
+
+### Creating a graph from a data frame
+
+The only data frame that is required to create a graph with `graph_from_data_frame()` is one representing an edges list. However, if we want the nodes to contain information other than their name, then we will need to also provide a data frame representing a node list. It is important to note:
+
+* The first two columns of the edge list must represent the nodes the edges connect
+    + If `directed = T` then the first column is the source and the second is the target
+* If a node list is provided, then its first column must represent the name of the nodes
+    + The names of the nodes must all be unique
+    + Any nodes referred to in the edge list must exist in the node list
+
+```{r directed_df, echo=T}
+node_list <- data.frame(
+  name = c('a', 'b', 'c', 'd', 'e'),
+  type = "letter",
+  order = c(1, 2, 3, 4, 5)
+)
+
+edge_list <- data.frame(
+  source = c('a', 'b', 'b', 'c', 'c'),
+  target = c('b', 'c', 'd', 'b', 'e'),
+  type = 'connection',
+  weight = c(1, 1, 2, 1, 2)
+)
+g <- graph_from_data_frame(d = edge_list, 
+                           directed = T,
+                           vertices = node_list)
+```
+
+The resulting graph is, for all intents and purposes, identical to the one we built from an empty graph.
+
+```{r}
+g
+```
+
+
+# Accessing & Manipulating graph components
+
+Graphs are built with nodes and edges. These components have data stored in them and it is important to understand how this data can be accessed. The two work hourses of graph exploration in igraph are:
+
+* `V()` to access and manipulate data stored in vertices
+* `E()` to access and manipulate data stored in edges
+
+Once we are comfortable with those two functions, we can use them to make a subgraph with either:
+
+* `induced_subgraph()` if we have vector of vertices
+* `subgraph.edges()` if we have a vector of edges
+
+
+### V()
+
+`V()` only accepts an igraph graph object and returns a vector of vertices. This vector is what we use to explore the vertices of the graph and it acts like a normal `c()` vector in R with some syntactic sugar
+
+```{r}
+V(g)
+```
+
+You can access information of a specific vertex by inputting its index number.
+
+```{r}
+V(g)[3]
+```
+
+If the vertex has a name, then you can use its name instead of the index number. 
+
+```{r}
+V(g)['c']
+```
+
+Accessing a vertex using double square bracket notation gives you all the information stored in it.
+
+```{r}
+V(g)[['c']]
+```
+
+A specific attribute can be accessed using dollar sign notation. You should use single square bracket notation when accesing specific attributes.
+
+```{r}
+V(g)['c']$order 
+```
+
+You can use the assignment arrow (`<-`) to change information of a particular vertex
+
+```{r}
+V(g)['c']$order <- 1
+
+#vcount provides the number of vertices in a graph
+V(g)[[1:vcount(g)]]
+```
+
+You can access multiple vertices either by providing a vector of names
+
+```{r}
+V(g)[[c('c', 'e')]]
+```
+
+You can also **query the attributes** of the vertex vector. 
+
+```{r}
+V(g)[[order == 1]]
+```
+
+Vertex vectors can be combined just like any other vector in R
+
+```{r}
+ab <- V(g)[[c('a', 'b')]]
+de <- V(g)[[c('d', 'e')]]
+c(ab, de)
+```
+
+### E()
+
+`E()` behves much in the same way as `V()`. It only accepts an igraph graph object and returns a vector of edges. A big difference, however, is how we approach accessing data stroed in edges. While edges can have names and can be accessed directly using either a name or an id, this is not the best approach since as graphs get larger, the sheer number and variety of edges make it very impractical to do so. 
+
+Instead edges should be accessed by querying their attributes
+
+```{r, edge_access2, echo = T}
+E(g)[weight == 2]
+```
+
+Using double square notation gives you more information about the queried edges.
+
+```{r}
+E(g)[[weight == 2]]
+```
+
+You can also change the attributes of the selected edges. You should use single square notation
+
+```{r}
+E(g)[weight == 2]$weight <- -20000
+
+#ecount() provides the number of edges in a graph
+E(g)[[1:ecount(g)]]
+```
+
+We can also **query edges for the nodes they connect.**
+
+`LHS %--% RHS` represents any edge between `LHS` and `RHS`
+
+```{r}
+E(g)['a' %--% 'b']
+```
+
+`LHS %<-% RHS` represents edges going to `LHS` from `RHS`
+
+```{r}
+E(g)['c' %<-% 'b']
+```
+
+`LHS %->% RHS` represents edges leaving from `LHS` to `RHS`
+
+```{r}
+#you don't need to now the specific name of the vertices
+E(g)['b' %->% V(g)]
+```
+
+Edge vectors can also be combined together using `c()`
+
+```{r}
+b <- E(g)['b' %->% V(g)]
+c <- E(g)['c' %->% V(g)]
+c(b, c)
+```
+
+# Subgraphs
+
+`induced_subgraph()` filters the graph to include only the vertices within the provided vertex vector or vector of vertex names. Any edges between the provided nodes are preserved. 
+
+```{r subgraphs, echo = T}
+abc_sub <- induced_subgraph(g, c('a', 'b', 'c'))
+abc_sub
+```
+
+`subgraph.edges()` filters the graph to include only the edges within the provided edge vector. By default, only vertices that are connected to the edges are kept. If you want to keep all the vertices, then you can set the parameter `delete.vertices = F`
+
+```{r}
+b_sub <- subgraph.edges(g, E(g)["b" %--% V(g)])
+b_sub
+```
+
+### Subgraphs Gotchas
+In igraph, subgraphs are completely new graphs and their components are completely different from those of the graphs they were created from. The below won't work:
+
+```{r eval = F}
+E(g)[V(b_sub)['b'] %--% V(abc_sub)]
+```
+
+Instead, you will need to use attributes that you know are in both graphs, like names:
+
+```{r subgraph_gotcha_good, echo = T}
+E(g)[V(b_sub)['b']$name %--% V(abc_sub)$name]
+```
+
+Also, ids don't stay consistent when a subgraph is created. That is, `V(g)[3]` won't necessarily represent the same vertex in the subgraph `V(subg)[3]`. It is good practice to name the vertices and use the vertex names to keep things consistent. `V(g)["person_1"]` will be the same in the subgraph `V(subg)["person_1"]` 
