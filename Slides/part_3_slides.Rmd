@@ -1,0 +1,147 @@
+---
+title: "Network Measurements"
+author: "Benjamin Ortiz Ulloa"
+date: "3/27/2018"
+output: 
+    ioslides_presentation:  
+        widescreen: true
+        smaller: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(igraph)
+library(igraphdata)
+library(ggplot2)
+library(ggraph)
+data("UKfaculty")
+```
+
+## Degree
+
+```{r}
+V(UKfaculty)$dgr <- degree(UKfaculty)
+V(UKfaculty)$dgr_color <- V(UKfaculty)$dgr %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = dgr_color), size = 4, shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Degree:** The number of edges connected to a node
+
+## Betweeness
+
+```{r}
+V(UKfaculty)$btw <- betweenness(UKfaculty)
+
+V(UKfaculty)$btw_color <- V(UKfaculty)$btw %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = btw_color), size = 4, shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Betweeness:** Defined by the number of shortest paths going through an edge
+
+## Closeness
+
+```{r, warning = F}
+V(UKfaculty)$cls <- closeness(UKfaculty)
+V(UKfaculty)$cls_color <- V(UKfaculty)$cls  %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = cls_color), size = 4, shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Closeness:** Defined by the number of steps required to access every other vertex from a given vertex
+
+## Hub Score
+
+```{r}
+
+V(UKfaculty)$hub <- hub_score(UKfaculty)$vector
+V(UKfaculty)$hub_color <- V(UKfaculty)$hub  %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = hub_color), size = 4, shape = 21)  +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Hub Score:** Defined by the number of Authorities the node points to
+
+## Authority Score
+
+```{r}
+V(UKfaculty)$auth <- authority_score(UKfaculty)$vector
+V(UKfaculty)$auth_color <- V(UKfaculty)$auth  %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = auth_color), size = 4, shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Authority Score:** Defined by the number of Hubs pointing to the node
+
+## Page Rank
+
+```{r}
+V(UKfaculty)$pr <- page_rank(UKfaculty)$vector
+V(UKfaculty)$pr_color <- V(UKfaculty)$pr %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = pr_color), size = 4, shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+Google interprets a link from page A to page B as a vote, by page A, for page B ... Votes cast by pages that are themselves ‘important’ weigh more heavily and help to make other pages ‘important.’ 

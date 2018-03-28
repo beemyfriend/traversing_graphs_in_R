@@ -1,0 +1,157 @@
+---
+title: "Introduction to igraph"
+author: "Benjamin Ortiz Ulloa"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(diagram)
+```
+
+
+## What is a graph?
+
+```{r}
+openplotmat()
+pos <- coordinates(c(3,3,3))
+textellipse(pos[7,], .1, lab = 'Node', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[9,], .1, lab = 'Vertex', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+title("Nodes & Vertices\n")
+```
+
+## What is a graph?
+
+```{r}
+
+openplotmat()
+textellipse(pos[2,], .1, lab = 'A Thing', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[7,], .1, lab = 'Node', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[9,], .1, lab = 'Vertex', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+title("Nodes & Vertices\nAre Just Things")
+```
+
+## What is a graph?
+
+```{r}
+openplotmat()
+straightarrow(pos[7,], pos[2,], lwd = 3, arr.width = 0)
+straightarrow(pos[7,], pos[9,], lwd = 3, arr.width = 0)
+straightarrow(pos[9,], pos[7,], lwd = 3, arr.width = 0)
+text(mean(c(pos[7,1], pos[9,1])),
+     mean(c(pos[7,2], pos[9,2])),
+     "Link",
+     pos = 3,
+     cex = 1.5)
+text(mean(c(pos[7,1], pos[2,1])),
+     mean(c(pos[7,2], pos[2,2])),
+     "Edge",
+     pos = 2,
+     cex = 1.5)
+textellipse(pos[2,], .1, lab = 'A Thing', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[7,], .1, lab = 'Node', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[9,], .1, lab = 'Vertex', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+title("Edges & Links\n")
+```
+
+## What is a graph?
+
+```{r}
+openplotmat()
+straightarrow(pos[7,], pos[2,], lwd = 3, arr.width = 0)
+straightarrow(pos[9,], pos[2,], lwd = 3, arr.width = 0)
+straightarrow(pos[7,], pos[9,], lwd = 3, arr.width = 0)
+straightarrow(pos[9,], pos[7,], lwd = 3, arr.width = 0)
+text(mean(c(pos[7,1], pos[9,1])),
+     mean(c(pos[7,2], pos[9,2])),
+     "Link",
+     pos = 3,
+     cex = 1.5)
+text(mean(c(pos[7,1], pos[2,1])),
+     mean(c(pos[7,2], pos[2,2])),
+     "Edge",
+     pos = 2,
+     cex = 1.5)
+text(mean(c(pos[9,1], pos[2,1])),
+     mean(c(pos[9,2], pos[2,2])),
+     "A Relationship",
+     pos = 4,
+     cex = 1.5)
+textellipse(pos[2,], .1, lab = 'A Thing', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[7,], .1, lab = 'Node', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[9,], .1, lab = 'Vertex', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+title("Edges & Links\nAre Just Relationships")
+```
+
+## What is a graph?
+
+```{r}
+openplotmat()
+straightarrow(pos[7,], pos[2,], lwd = 3, arr.lwd = 3, arr.adj =1)
+straightarrow(pos[9,], pos[2,], lwd = 3, arr.lwd = 3, arr.adj = 1)
+straightarrow(pos[7,], pos[9,], lwd = 3, arr.lwd = 3, arr.adj = 1)
+text(mean(c(pos[7,1], pos[9,1])),
+     mean(c(pos[7,2], pos[9,2])),
+     "Link",
+     cex = 1.5,
+     pos = 3)
+text(mean(c(pos[7,1], pos[2,1])),
+     mean(c(pos[7,2], pos[2,2])),
+     "Edge",
+     pos = 2,
+     cex = 1.5)
+text(mean(c(pos[9,1], pos[2,1])),
+     mean(c(pos[9,2], pos[2,2])),
+     "A Relationship",
+     pos = 4,
+     cex = 1.5)
+textellipse(pos[2,], .1, lab = 'A Thing', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[7,], .1, lab = 'Node', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[9,], .1, lab = 'Vertex', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+title("Edges & Links\nCan Have Direction")
+```
+
+## What is a graph?
+
+```{r}
+openplotmat()
+straightarrow(pos[7,], pos[2,], lwd = 3, arr.lwd = 3, arr.adj =1)
+straightarrow(pos[9,], pos[2,], lwd = 3, arr.lwd = 3, arr.adj = 1)
+curvedarrow(pos[7,], pos[9,], lwd = 3, arr.lwd = 3, arr.adj = 1, curve = .1)
+curvedarrow(pos[9,], pos[7,], lwd = 3, arr.lwd = 3, arr.adj = 1, curve = .1)
+text(mean(c(pos[7,1], pos[9,1])),
+     mean(c(pos[7,2], pos[9,2])),
+     "Links",
+     cex = 1.5)
+text(mean(c(pos[7,1], pos[2,1])),
+     mean(c(pos[7,2], pos[2,2])),
+     "Edge",
+     pos = 2,
+     cex = 1.5)
+text(mean(c(pos[9,1], pos[2,1])),
+     mean(c(pos[9,2], pos[2,2])),
+     "A Relationship",
+     pos = 4,
+     cex = 1.5)
+textellipse(pos[2,], .1, lab = 'A Thing', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[7,], .1, lab = 'Node', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[9,], .1, lab = 'Vertex', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+title("Edges & Links\nThere Can be Multiple Between Nodes")
+```
