@@ -155,3 +155,33 @@ textellipse(pos[9,], .1, lab = 'Vertex', box.col = '#89cff0',
             shadow.size = .005, cex = 1.5)
 title("Edges & Links\nThere Can be Multiple Between Nodes")
 ```
+
+## Why Graph? Social Network Analysis
+```{r out.width = '650px'}
+knitr::include_graphics('part_1_images/twitter_trolls.png')
+```
+
+## Why Graph? Recommendation
+```{r out.width = '700px'}
+knitr::include_graphics('part_1_images/youtube_recommenation.png')
+```
+
+## Why Graph? Knowledge Graphs
+```{r out.width = '700px'}
+knitr::include_graphics("part_1_images/knowledge_graph.png")
+```
+
+## Why Graph? Fraud Detection
+```{r, out.width = "650px"}
+knitr::include_graphics("part_1_images/fraud.png")
+```
+
+## Why Graph? Databases 1
+```{r, out.width = '700px'}
+knitr::include_graphics('part_1_images/sql_dbs.png')
+```
+
+## Why Graph? Databases 2
+```{r, out.width = '700px'}
+knitr::include_graphics('part_1_images/graph_dbs.png')
+```
