@@ -127,8 +127,8 @@ $(document).ready(function () {
 
 <div id="slides" class="section level1">
 <h1>Slides</h1>
-<div id="what-is-a-graph" class="section level2">
-<h2>What is a graph?</h2>
+<div id="whaat-is-a-graph" class="section level2">
+<h2>Whaat is a graph?</h2>
 <ul>
 <li>Graphs are a collection of nodes and edges that can be used to store data
 <ul>
@@ -187,7 +187,11 @@ $(document).ready(function () {
 </ul></li>
 <li>Another model is the Resource Description Framework (RDF) graph
 <ul>
-<li>Used in semantic web and is a family of world wide web consortium (w3c) specifications</li>
+<li>Used in semantic web and is a family of world wide web consortium (w3c) specifications
+<ul>
+<li>Semantic: Self descriptive and resembles natural language making it easy to query</li>
+<li></li>
+</ul></li>
 <li>The concept of triples is fundamental and can be described as using a <strong>subject-predicate-object</strong> model
 <ul>
 <li>Nodes only have one piece of information</li>
@@ -198,6 +202,11 @@ $(document).ready(function () {
 <li>This workshop will mainly focus on property graphs, but as you continue to explore graphs on your own, you’ll begin to see RDF in a lot of places.</li>
 </ul></li>
 </ul></li>
+</ul>
+</div>
+<div id="why-graph" class="section level2">
+<h2>Why Graph?</h2>
+<ul>
 <li>What are the benefits of using a graph for my data?
 <ul>
 <li>Social Network Analysis
@@ -227,17 +236,68 @@ $(document).ready(function () {
 </ul></li>
 <li>Content based recommendations
 <ul>
-<li>Assumes if a user is interested in an object then the user will be interested in similar objects</li>
+<li>Assumes a user is interested in things that are similar</li>
 <li>Focuses on categorizing objects</li>
 </ul></li>
-<li>Ebay; Amazon; Netflix
+<li>Ebay; Amazon; Netflix; Facebook; Twitter
 <ul>
 <li>35% of what consumers buy on amazon and 75% of what users watch on netflix comes from product recommendations</li>
 </ul></li>
 </ul></li>
+<li>Knowledge Graphs
+<ul>
+<li>Can answer specific questions<br />
+</li>
+<li>Uses semantic rdf graphs to store and retrieve data
+<ul>
+<li>Because the graph structure resembles natural language, specific question often resemble the actual graph traversal</li>
+</ul></li>
+</ul></li>
+<li>Fraud Detection
+<ul>
+<li>Each domain has patterns specific to it</li>
+<li>CC is credit card, CK is cookie, IP address, and userID of online transction</li>
+<li>While it multiple different users can use the same credit card, and many credit card holders can use the same computer, when the information comes together in this way, it should raise a flag and be checked.</li>
+</ul></li>
+<li>Natural Language Processing
+<ul>
+<li>If we graph text, then we provide structure to unstructured data.</li>
+<li>In language, words have meaning</li>
+<li>In language, proximity and order matter
+<ul>
+<li>adjectives are normmaly found near nouns</li>
+<li>adverbs are normally found neare verbs</li>
+<li>conjunctions are normally found between two clauses</li>
+<li>a period normally signifies the end</li>
+<li>negating words like “not” completely change the meaning of the following word</li>
+</ul></li>
+<li>Even if we don’t know what a word means, we can infer information about it by the words that surround it
+<ul>
+<li>words as vectices and proximity as edges</li>
+</ul></li>
+<li>There is even structure at a higher level:
+<ul>
+<li>Academic papers generally have an introduction, a body, and a conclusion</li>
+<li>Traditional stories have an Exposition, Rising Action, Climax, Falling Action, and Denouement</li>
+<li>The order of a setence within a paragraph and the order of a paragraph within a chapter</li>
+<li>All of this can be graphed and information can be pulled and inferred</li>
+</ul></li>
+</ul></li>
+<li>Data Bases
+<ul>
+<li>Join tables are often used in relational data bases</li>
+<li>Joins aren’t necessary with graphs because the inforation is already connected</li>
+<li>rather than storing data in multiple tables, information is stored in a single graph</li>
+<li>Queries are simpler with graph databases because you only have to understand how the data relates to eachother rather than understanding how the tables relate with eachother.</li>
+<li>The schema is the model</li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
+</div>
+<div id="code" class="section level1">
+<h1>Code</h1>
+<p>There are a lot of cool things we can do with graphs, but we need to understand the fundamentals before we can do the fun things. I’m sorry if the following is dry. The code and data that we will go through can be found on my github page. If you don’t have R setup on your machine, then you can use the RStudio Cloud and pull up my project by entering:</p>
 </div>
 
 

@@ -73,9 +73,11 @@ V(UKfaculty)$name <- paste('person', V(UKfaculty), sep = '_')
 
 ## Functions that provide information specific to edges
 
-Sometimes we know the edges we , but don't know the nodes they are connected to. This often happens when we query the edges for a specific attribute. We can get get this information. 
+Sometimes we know the edges we want, but don't know the nodes they are connected to. This often happens when we query the edges for a specific attribute. We can get get this information. 
 
-Let's look at the relationships that have strong weights. Let's look for light number of quality connections. 
+Let's look at the relationships that have strong weights. Let's look for the number of quality connections. The above analysis showed the weight's 3rd quartile is 6. So we will use this as the criteria to define a relationship as strong.
+
+For directed edges, we can find the node that is at the head (what the edge is *pointing to*) by using the `head_of()` function. For undirected graphs, the head is simply the second node mentioned in the edge description.
 
 ```{r}
 topLiked <- UKfaculty %>%
@@ -95,6 +97,8 @@ topLiked$name %>%
   head()
 ```
 
+Alternatively, we can get the nodes at the tail of a directed edge (where the edge is *coming from*) by using the `tail_of()` function. For undirected graphs, the tail is simply the first node mentioned in the edge description.
+
 ```{r}
 topLikers <- UKfaculty %>%
   E() %>%
@@ -111,7 +115,7 @@ topLikers$name %>%
   head()
 ```
 
-You can also get a matrix of vertex ids
+You can also get a matrix of vertex ids. The first column represents the tail of the edges and the second column represents the head of the edges.
 
 ```{r}
 UKfaculty %>%
@@ -121,7 +125,7 @@ UKfaculty %>%
   head()
 ```
  
- Let's go ahead and identify who the most liked person is and who likes the most people.
+Let's go ahead and identify who the most liked person is and who likes the most people. Remember, we only care about edges that have a weight of greater than or equal to 6.The results would be different if we included all edges.
  
 ```{r}
 mostLikedPerson <- topLiked$name %>%
@@ -155,7 +159,7 @@ ltm_likes <- ego(UKfaculty, 1, likesTheMost, 'out')
 ltm_likes
 ```
 
-You can enter any number of vertices in the `ego()` function and the order of the list output will correspond to the order the vertices were entered. 
+You can enter any number of vertices in the `ego()` function and the order of the list output will correspond to the order the vertices were entered. Here we will look for all connections (both incomming and outgoing) for each node.
 
 ```{r}
 ego(UKfaculty, 1, c(mostLikedPerson, likesTheMost), 'all')
@@ -209,6 +213,9 @@ plot(mlp_ltm,
 ```
 
 ### degree()
+
+A degree of a node is the simply the raw number of edges incident to it. You can generate this number by using the `degree()` function and can distinguish what direction of edge you want to count.
+
 ```{r echo = T}
 degree(UKfaculty, mode = 'out') %>%
   sort(T) %>%
@@ -218,11 +225,13 @@ degree(UKfaculty, mode = 'in') %>%
   sort(T) %>%
   head()
 
-degree(UKfaculty, c('person_29', 'person_31')) %>%
+degree(UKfaculty, c(likesTheMost, mostLikedPerson)) %>%
   sort(T)
 ```
 
 ### strength() - Weighted Degree
+
+Rather than getting the raw count of incident edges, we can also add the edge attributes stored in them. This is done by using the `strength()` function. This is valuable, because as we seen earlier, the raw number of edges doesn't necessarily show the strength of those relationships. Remember that the node with the most incoming edges doesn't match the person we identified as the person with the most quality connections. 
 
 ```{r echo=T}
 strength(UKfaculty, mode = 'out', weights = E(UKfaculty)$weight) %>%
@@ -234,7 +243,85 @@ strength(UKfaculty, mode = 'in', weights = E(UKfaculty)$weight) %>%
 strength(UKfaculty, c('person_31', 'person_29', 'person_69'),  weights = E(UKfaculty)$weight)
 ```
 
+### Using Strength and Degree together
+
+We can get the average weight of edges incident to a vertex by combining the information `strength()` and `degree()` functions together.
+
+```{r}
+strength(UKfaculty, mode = 'out') %>%
+  { ./degree(UKfaculty, mode = 'out')} %>%
+  sort(T) %>% 
+  head
+
+strength(UKfaculty, mode = 'in') %>%
+  { ./degree(UKfaculty, mode = 'in')} %>%
+  sort(T) %>% 
+  head
+```
+
 # Functions that provide information on how each component relates to the overall graph
+
+## Walks
+
+### shortest_paths
+
+The shortest path between two vertices is the path that uses the least edges. This can be caluculated by using the `shortest_paths()` function
+
+```{r}
+sp <- shortest_paths(UKfaculty, 
+               likesTheMost, 
+               mostLikedPerson, 
+               'out', 
+               output = 'both')
+sp
+
+UKfaculty %>%
+  E() %>%
+  .[[. %in% sp$epath[[1]]]]
+```
+
+It's important to note, however, that shortest paths use the weight attribute of edges. It also interpret the weights as euclidian distances - that is, paths with less accumulated weight are prioritized over paths with more accumulated weight. Sometimes, we want to ignore the weight attribute because it doesn't necessarily make sense in the context of our data.
+
+```{r}
+
+shortest_paths(UKfaculty,
+               likesTheMost,
+               mostLikedPerson,
+               'out',
+               output = 'both',
+               weights = NA) %>%
+  .$epath %>%
+  .[[1]] %>%
+  {E(UKfaculty)[[E(UKfaculty) %in% .]]}
+
+
+```
+
+### distances
+
+If you don't care so much about the actual path and only want to know know the magnitude of the walks, then you can use the `distance()` function. Again, weight matters.
+
+```{r}
+distances(UKfaculty, c(likesTheMost , mostLikedPerson), c(likesTheMost, mostLikedPerson), 'out')
+distances(UKfaculty, c(likesTheMost , mostLikedPerson), c(likesTheMost, mostLikedPerson), 'in')
+distances(UKfaculty, c(likesTheMost , mostLikedPerson), c(likesTheMost, mostLikedPerson), 'all', weights = NA)
+```
+
+### Random Walks
+
+From the given start vertex, take the given number of steps, choosing an edge from the actual vertex uniformly randomly. If the graph is directed, then the random walk only uses edges that traverse outwards. Random walks are fundamental in both community detection and centrality measurements. 
+
+```{r}
+set.seed(1234)
+random_walk(UKfaculty, likesTheMost, 2)
+```
+```{r}
+sapply(1:100, function(i){
+  random_walk(UKfaculty, likesTheMost, 2)[[2]]
+}) %>% 
+  table() %>%
+  sort(T)
+```
 
 ## Centrality Scores
 
@@ -242,17 +329,26 @@ strength(UKfaculty, c('person_31', 'person_29', 'person_69'),  weights = E(UKfac
 
 The betweenness value is roughly defined as the number of shortest paths going through a vertex or an edge. A betweenness value of 0 means that no shortest paths go through that vertex - that vertex is not essential for connecting any two vertices. Weights are interpreted as distances and a path with a lower weight will be chosen over a path with a higher weight. 
 
+```{r}
+betweenness(UKfaculty, likesTheMost)
+```
+
 ```{r echo = T}
 V(UKfaculty)$betweenness <- betweenness(UKfaculty)
-V(UKfaculty)$unweightedBetweenness <- betweenness(UKfaculty, weights = NA)
-
 V(UKfaculty)[[betweenness == max(betweenness)]]
+```
+
+```{r}
+V(UKfaculty)$unweightedBetweenness <- betweenness(UKfaculty, weights = NA)
 V(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]
+```
 
+```{r}
 E(UKfaculty)$betweenness <- edge_betweenness(UKfaculty)
-E(UKfaculty)$unweightedBetweenness <- edge_betweenness(UKfaculty, weights = NA)
-
 E(UKfaculty)[[betweenness == max(betweenness)]]
+```
+```{r}
+E(UKfaculty)$unweightedBetweenness <- edge_betweenness(UKfaculty, weights = NA)
 E(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]
 ```
 
@@ -280,13 +376,3 @@ eigen_centrality(UKfaculty, directed = F)$vector %>%
   head()
 ```
 
-## Paths
-
-### Shortest Paths
-
-```{r}
-shortest_paths(UKfaculty, 'person_1', 'person_2', output = 'both')
-all_shortest_paths(UKfaculty, 'person_1', 'person_2')
-distances(UKfaculty, c('person_1', 'person_2', 'person_62', 'person_54'), c('person_1', 'person_2', 'person_62', 'person_54'))
-distances(UKfaculty, c('person_1', 'person_2', 'person_62', 'person_54'), c('person_1', 'person_2', 'person_62', 'person_54'), weights = NA)
-```

@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Slides
 
-## What is a graph?
+## Whaat is a graph?
 
 * Graphs are a collection of nodes and edges that can be used to store data
     + What are nodes?
@@ -52,11 +52,16 @@ knitr::opts_chunk$set(echo = TRUE)
                 + similar to JSON objects, Python dictionaries, or R lists where the name or index can hold a value
         - Another model is the Resource Description Framework (RDF) graph
             + Used in semantic web and is a family of world wide web consortium (w3c) specifications
+                - Semantic: Self descriptive and resembles natural language making it easy to query
+                - 
             + The concept of triples is fundamental and can be described as using a **subject-predicate-object** model
                 + Nodes only have one piece of information
                 + Edges connect the information stored in nodes
             + The goal of RDF is to maximize searchability. If there is only one node that represents the concept of "Person", then we only need to find a single node and move outwords. The alternative would be to search every node for an attribute of 'Person'.
         - This workshop will mainly focus on property graphs, but as you continue to explore graphs on your own, you'll begin to see RDF in a lot of places.
+        
+## Why Graph?
+
 * What are the benefits of using a graph for my data?
     + Social Network Analysis
         - A very common use case for graphs is social network analysis
@@ -73,7 +78,41 @@ knitr::opts_chunk$set(echo = TRUE)
             + Assumes that similar users are interested in the same things
             + User product interactions
         - Content based recommendations
-            + Assumes if a user is interested in an object then the user will be interested in similar objects
+            + Assumes a user is interested in things that are similar
             + Focuses on categorizing objects
-        - Ebay; Amazon; Netflix
+        - Ebay; Amazon; Netflix; Facebook; Twitter
             + 35% of what consumers buy on amazon and 75% of what users watch on netflix comes from product recommendations
+    + Knowledge Graphs
+        - Can answer specific questions    
+        - Uses semantic rdf graphs to store and retrieve data
+            + Because the graph structure resembles natural language, specific question often resemble the actual graph traversal
+    + Fraud Detection
+        - Each domain has patterns specific to it
+        - CC is credit card, CK is cookie, IP address, and userID of online transction
+        - While it multiple different users can use the same credit card, and many credit card holders can use the same computer, when the information comes together in this way, it should raise a flag and be checked. 
+    + Natural Language Processing
+        - If we graph text, then we provide structure to unstructured data.
+        - In language, words have meaning
+        - In language, proximity and order matter
+            + adjectives are normmaly found near nouns
+            + adverbs are normally found neare verbs
+            + conjunctions are normally found between two clauses
+            + a period normally signifies the end
+            + negating words like "not" completely change the meaning of the following word
+        - Even if we don't know what a word means, we can infer information about it by the words that surround it
+            + words as vectices and proximity as edges
+        - There is even structure at a higher level:
+            + Academic papers generally have an introduction, a body, and a conclusion
+            + Traditional stories have an Exposition, Rising Action, Climax, Falling Action, and Denouement
+            + The order of a setence within a paragraph and the order of a paragraph within a chapter
+            + All of this can be graphed and information can be pulled and inferred
+    + Data Bases
+        + Join tables are often used in relational data bases
+        + Joins aren't necessary with graphs because the inforation is already connected
+        + rather than storing data in multiple tables, information is stored in a single graph
+        + Queries are simpler with graph databases because you only have to understand how the data relates to eachother rather than understanding how the tables relate with eachother.
+        + The schema is the model
+
+# Code
+
+There are a lot of cool things we can do with graphs, but we need to understand the fundamentals before we can do the fun things. I'm sorry if the following is dry. The code and data that we will go through can be found on my github page. If you don't have R setup on your machine, then you can use the RStudio Cloud and pull up my project by entering:
