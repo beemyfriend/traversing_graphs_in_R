@@ -10,6 +10,10 @@ library(igraph)
 library(magrittr)
 ```
 
+## Quick Review of Magrittr:
+
+
+
 ```{r}
 g <- make_empty_graph(directed = T) +
   vertices(c('a', 'b', 'c', 'd', 'e'),

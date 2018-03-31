@@ -1,0 +1,79 @@
+---
+title: 'Part1: Notes'
+author: "Benjamin Ortiz Ulloa"
+date: "3/30/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Slides
+
+## What is a graph?
+
+* Graphs are a collection of nodes and edges that can be used to store data
+    + What are nodes?
+        - They are also known as vertices and the two names are often used interchangeably 
+        - A correlation to the english language would be nouns
+        - Nodes often represent people, places, and things
+        - Nodes can have attributes like names, types, color, or whatever you want to use to describe them
+        - To continue with the metaphor, these attributes could be described as adjectives
+    + What are edges?
+        - They are also known as links and the two names are often used interchangeably
+        - A correlation to the english language would be verbs
+        - Edges often represent relationships:
+            + Two people can **be friends**
+            + A person can **purchase** something
+            + A thing can **distributed** to different store locations
+        - Edges can have attributes like:
+            + a start date of a friendship. 
+            + It could be a strong or weak friendships.
+            + the amount of money spent on a purchase
+            + whether there was haggling or not.
+            + the number of items being distributed
+            + the date of distribution
+        - To continue with the metaphore, these attributes could be described as adjectives
+        - Sometimes, these attributes can be represented as numeric weights and can be used in certain graph algorithms
+        - There can be multiple edges between nodes
+            + a person can be both a friend and a coworker with another person
+            + a person can purchase an item multiple times at different prices
+            + stores restock the same items often
+        - Edges can have direction
+            + you can follow someone who doesn't follow you back on twitter
+            + semantically, a person **buys** something and this relationship can be showed with direction
+            + A store can request a certain amount of items, but depending on the stock, a supplier might have to deliver a different amount
+    + What are different graph models?
+        - What I've been explaining up to now is called the Property Graph model
+            + There is no limitation the the amount of information that can be stored in any given node or edge
+            + Nodes can have multiple edges between them
+            + Can be explained as an **entity-attribute-value** model
+                + similar to JSON objects, Python dictionaries, or R lists where the name or index can hold a value
+        - Another model is the Resource Description Framework (RDF) graph
+            + Used in semantic web and is a family of world wide web consortium (w3c) specifications
+            + The concept of triples is fundamental and can be described as using a **subject-predicate-object** model
+                + Nodes only have one piece of information
+                + Edges connect the information stored in nodes
+            + The goal of RDF is to maximize searchability. If there is only one node that represents the concept of "Person", then we only need to find a single node and move outwords. The alternative would be to search every node for an attribute of 'Person'.
+        - This workshop will mainly focus on property graphs, but as you continue to explore graphs on your own, you'll begin to see RDF in a lot of places.
+* What are the benefits of using a graph for my data?
+    + Social Network Analysis
+        - A very common use case for graphs is social network analysis
+            + This is useful for epidimiology
+                - If we know who has a certain contagious disease, and if we know who they have come in contact with, then we can predict the likelihood of a person getting sick
+            + Citation and collaboration analysis can be used to identify who are top performers in a particular academic field. It can also be used to identify sub-communities within a greater acdemic field. 
+            + Social media has been used to identify similar people. This is useful for marketing because they can identify who information about a potential market. 
+            + Once a group has been identified, you can get a better understanding of how they behave. NBC and the Mueller indictment released the Twitter handles of known Russian Twitter Trolls. Developers at neo4j analyzed this information and learned:
+                - The trolls took up identities as either a typical american citizen, a local media outlet, or a local political perty.
+                - There were only a handful of content creators and the a majority just retweeted in an attempt to amplify this message
+                - Red is rightwing trolls, yellow is leftwing, purple is black lives matter
+    + Recommendation Systems
+        - Collaborative Filtering
+            + Assumes that similar users are interested in the same things
+            + User product interactions
+        - Content based recommendations
+            + Assumes if a user is interested in an object then the user will be interested in similar objects
+            + Focuses on categorizing objects
+        - Ebay; Amazon; Netflix
+            + 35% of what consumers buy on amazon and 75% of what users watch on netflix comes from product recommendations
