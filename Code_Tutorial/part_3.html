@@ -315,10 +315,10 @@ ltm_likes</code></pre>
 <pre class="r"><code>mlp_ltm &lt;- c(mlp_likedBy[[1]], ltm_likes[[1]]) %&gt;%
   induced_subgraph(UKfaculty, .)
 mlp_ltm</code></pre>
-<pre><code>## IGRAPH 1c0cd50 DNW- 42 410 -- 
+<pre><code>## IGRAPH 264b169 DNW- 42 410 -- 
 ## + attr: Type (g/c), Date (g/c), Citation (g/c), Author (g/c),
 ## | Group (v/n), name (v/c), weight (e/n)
-## + edges from 1c0cd50 (vertex names):
+## + edges from 264b169 (vertex names):
 ##  [1] person_57-&gt;person_52 person_43-&gt;person_34 person_58-&gt;person_51
 ##  [4] person_7 -&gt;person_29 person_6 -&gt;person_58 person_21-&gt;person_8 
 ##  [7] person_43-&gt;person_21 person_37-&gt;person_64 person_19-&gt;person_46
@@ -348,10 +348,10 @@ plot(mlp_ltm,
   subgraph.edges(mlp_ltm, .) 
 
 mlp_ltm</code></pre>
-<pre><code>## IGRAPH f0e7a61 DNW- 24 30 -- 
+<pre><code>## IGRAPH cba4001 DNW- 24 30 -- 
 ## + attr: Type (g/c), Date (g/c), Citation (g/c), Author (g/c),
 ## | Group (v/n), name (v/c), weight (e/n)
-## + edges from f0e7a61 (vertex names):
+## + edges from cba4001 (vertex names):
 ##  [1] person_29-&gt;person_2  person_19-&gt;person_31 person_29-&gt;person_69
 ##  [4] person_29-&gt;person_35 person_29-&gt;person_54 person_21-&gt;person_31
 ##  [7] person_29-&gt;person_18 person_29-&gt;person_7  person_29-&gt;person_21
@@ -517,7 +517,7 @@ random_walk(UKfaculty, likesTheMost, 2)</code></pre>
 <h2>Centrality Scores</h2>
 <div id="betweenness" class="section level3">
 <h3>betweenness()</h3>
-<p>The betweenness value is roughly defined as the number of shortest paths going through a vertex or an edge. A betweenness value of 0 means that no shortest paths go through that vertex - that vertex is not essential for connecting any two vertices. Weights are interpreted as distances and a path with a lower weight will be chosen over a path with a higher weight.</p>
+<p>The betweenness value is roughly defined as the number of shortest paths going through a vertex or an edge. A betweenness value of 0 means that no shortest paths go through that vertex - that vertex is not essential for connecting any two vertices. Weights are interpreted as distances and a path with a lower weight will be chosen over a path with a higher weight. The betweenness value of a vertex can be calculated with the <code>betweenness()</code> function.</p>
 <pre class="r"><code>betweenness(UKfaculty, likesTheMost)</code></pre>
 <pre><code>## person_29 
 ##  684.1951</code></pre>
@@ -531,6 +531,7 @@ V(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]</code></pre>
 <pre><code>## + 1/81 vertex, named, from 6f42903:
 ##    Group      name betweenness unweightedBetweenness
 ## 62     3 person_62     965.596              1098.767</code></pre>
+<p>Betweenness can also be calculated for edges by using the <code>edge_betweeness()</code> function:</p>
 <pre class="r"><code>E(UKfaculty)$betweenness &lt;- edge_betweenness(UKfaculty)
 E(UKfaculty)[[betweenness == max(betweenness)]]</code></pre>
 <pre><code>## + 1/817 edge from 6f42903 (vertex names):

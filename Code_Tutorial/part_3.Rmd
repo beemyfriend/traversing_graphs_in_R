@@ -327,7 +327,7 @@ sapply(1:100, function(i){
 
 ### betweenness()
 
-The betweenness value is roughly defined as the number of shortest paths going through a vertex or an edge. A betweenness value of 0 means that no shortest paths go through that vertex - that vertex is not essential for connecting any two vertices. Weights are interpreted as distances and a path with a lower weight will be chosen over a path with a higher weight. 
+The betweenness value is roughly defined as the number of shortest paths going through a vertex or an edge. A betweenness value of 0 means that no shortest paths go through that vertex - that vertex is not essential for connecting any two vertices. Weights are interpreted as distances and a path with a lower weight will be chosen over a path with a higher weight. The betweenness value of a vertex can be calculated with the `betweenness()` function.
 
 ```{r}
 betweenness(UKfaculty, likesTheMost)
@@ -343,6 +343,8 @@ V(UKfaculty)$unweightedBetweenness <- betweenness(UKfaculty, weights = NA)
 V(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]
 ```
 
+Betweenness can also be calculated for edges by using the `edge_betweeness()` function:
+
 ```{r}
 E(UKfaculty)$betweenness <- edge_betweenness(UKfaculty)
 E(UKfaculty)[[betweenness == max(betweenness)]]
@@ -355,7 +357,7 @@ E(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]
 
 ### page_rank()
 
-page_rank came from google. direction matters because of clicks. We're talking about people who like eachother, so the direction doesn't necessarily matter in the same way. 
+PageRank is a centrality metric created by Google.PageRank works by counting the number and quality of links to a page to determine a rough estimate of how important the website is. The underlying assumption is that more important websites are likely to receive more links from other websites. For undirected graphs, PageRank treats each edge as a bidirectional edge. PageRank can be calculated by using `page_rank()`
 
 ```{r}
 page_rank(UKfaculty, directed = F)$vector %>%
