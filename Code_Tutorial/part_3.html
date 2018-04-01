@@ -315,10 +315,10 @@ ltm_likes</code></pre>
 <pre class="r"><code>mlp_ltm &lt;- c(mlp_likedBy[[1]], ltm_likes[[1]]) %&gt;%
   induced_subgraph(UKfaculty, .)
 mlp_ltm</code></pre>
-<pre><code>## IGRAPH 264b169 DNW- 42 410 -- 
+<pre><code>## IGRAPH 13e9fe4 DNW- 42 410 -- 
 ## + attr: Type (g/c), Date (g/c), Citation (g/c), Author (g/c),
 ## | Group (v/n), name (v/c), weight (e/n)
-## + edges from 264b169 (vertex names):
+## + edges from 13e9fe4 (vertex names):
 ##  [1] person_57-&gt;person_52 person_43-&gt;person_34 person_58-&gt;person_51
 ##  [4] person_7 -&gt;person_29 person_6 -&gt;person_58 person_21-&gt;person_8 
 ##  [7] person_43-&gt;person_21 person_37-&gt;person_64 person_19-&gt;person_46
@@ -348,10 +348,10 @@ plot(mlp_ltm,
   subgraph.edges(mlp_ltm, .) 
 
 mlp_ltm</code></pre>
-<pre><code>## IGRAPH cba4001 DNW- 24 30 -- 
+<pre><code>## IGRAPH 1f73c4d DNW- 24 30 -- 
 ## + attr: Type (g/c), Date (g/c), Citation (g/c), Author (g/c),
 ## | Group (v/n), name (v/c), weight (e/n)
-## + edges from cba4001 (vertex names):
+## + edges from 1f73c4d (vertex names):
 ##  [1] person_29-&gt;person_2  person_19-&gt;person_31 person_29-&gt;person_69
 ##  [4] person_29-&gt;person_35 person_29-&gt;person_54 person_21-&gt;person_31
 ##  [7] person_29-&gt;person_18 person_29-&gt;person_7  person_29-&gt;person_21
@@ -543,9 +543,46 @@ E(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]</code></pre>
 ##          tail      head tid hid weight betweenness unweightedBetweenness
 ## 520 person_17 person_62  17  62      1    561.5816                342.03</code></pre>
 </div>
+<div id="closeness" class="section level3">
+<h3>closeness()</h3>
+<p>Closeness measures how many steps is required to access every other vertex from a given vertex.</p>
+<pre class="r"><code>closeness(UKfaculty, mode = 'out') %&gt;% 
+  sort(T) %&gt;% 
+  head</code></pre>
+<pre><code>##   person_62   person_29   person_37    person_5   person_52   person_34 
+## 0.004651163 0.004347826 0.004255319 0.004219409 0.004016064 0.003831418</code></pre>
+<pre class="r"><code>closeness(UKfaculty, mode = 'in') %&gt;%
+  sort(T) %&gt;%
+  head</code></pre>
+<pre><code>##   person_11   person_18   person_10   person_54   person_58    person_7 
+## 0.002283105 0.002277904 0.002262443 0.002262443 0.002257336 0.002247191</code></pre>
+</div>
+<div id="eigen_centrality" class="section level3">
+<h3>eigen_centrality()</h3>
+<p>In general, vertices with high eigenvector centralities are those which are connected to many other vertices which are, in turn, connected to many others (and so on).</p>
+<pre class="r"><code>eigen_centrality(UKfaculty, directed = F)$vector %&gt;%
+  sort(T) %&gt;%
+  head()</code></pre>
+<pre><code>## person_29 person_31 person_21 person_79 person_35 person_19 
+## 1.0000000 0.8221039 0.7400463 0.5895395 0.5872218 0.5145590</code></pre>
+</div>
+</div>
+<div id="authority_score-hub_score" class="section level2">
+<h2>authority_score() &amp; hub_score()</h2>
+<p>Keinberg’s Hyperlink-Induced Topic Search (HITS) - also known as Hubs and Authorities - stemmed from a particular insight into the creation of web pages when the Internet was originally forming; that is, certain web pages, known as hubs, served as large directories that were not actually authoritative in the information that they held, but were used as compilations of a broad catalog of information that led users direct to other authoritative pages. In other words, a good hub represented a page that pointed to many other pages, and a good authority represented a page that was linked by many different hubs. These can be calculated using the <code>authority_score()</code> and <code>hub_score()</code> functions.</p>
+<pre class="r"><code>authority_score(UKfaculty)$vector %&gt;% 
+  sort(T) %&gt;%
+  head()</code></pre>
+<pre><code>## person_31 person_21 person_29 person_35 person_79  person_2 
+## 1.0000000 0.9086895 0.8235752 0.7727795 0.7607748 0.6349021</code></pre>
+<pre class="r"><code>page_rank(UKfaculty)$vector %&gt;%
+  sort(T) %&gt;%
+  head()</code></pre>
+<pre><code>##  person_77  person_31  person_10  person_75  person_69  person_50 
+## 0.03050407 0.02968359 0.02740006 0.02611524 0.02604082 0.02549718</code></pre>
 <div id="page_rank" class="section level3">
 <h3>page_rank()</h3>
-<p>page_rank came from google. direction matters because of clicks. We’re talking about people who like eachother, so the direction doesn’t necessarily matter in the same way.</p>
+<p>PageRank is a centrality metric created by Google.PageRank works by counting the number and quality of links to a page to determine a rough estimate of how important the website is. The underlying assumption is that more important websites are likely to receive more links from other websites. For undirected graphs, PageRank treats each edge as a bidirectional edge. PageRank can be calculated by using <code>page_rank()</code></p>
 <pre class="r"><code>page_rank(UKfaculty, directed = F)$vector %&gt;%
   sort(T) %&gt;%
   head()</code></pre>
@@ -556,14 +593,6 @@ E(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]</code></pre>
   head()</code></pre>
 <pre><code>##  person_29  person_37  person_62  person_77  person_52   person_5 
 ## 0.03273052 0.02919849 0.02530033 0.02346460 0.02169196 0.02143179</code></pre>
-</div>
-<div id="eigen_centrality" class="section level3">
-<h3>eigen_centrality()</h3>
-<pre class="r"><code>eigen_centrality(UKfaculty, directed = F)$vector %&gt;%
-  sort(T) %&gt;%
-  head()</code></pre>
-<pre><code>## person_29 person_31 person_21 person_79 person_35 person_19 
-## 1.0000000 0.8221039 0.7400463 0.5895395 0.5872218 0.5145590</code></pre>
 </div>
 </div>
 </div>

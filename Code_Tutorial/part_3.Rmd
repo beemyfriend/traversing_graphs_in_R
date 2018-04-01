@@ -354,6 +354,43 @@ E(UKfaculty)$unweightedBetweenness <- edge_betweenness(UKfaculty, weights = NA)
 E(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]
 ```
 
+### closeness()
+
+Closeness measures how many steps is required to access every other vertex from a given vertex.
+
+```{r, warning=F}
+closeness(UKfaculty, mode = 'out') %>% 
+  sort(T) %>% 
+  head
+
+closeness(UKfaculty, mode = 'in') %>%
+  sort(T) %>%
+  head
+```
+
+### eigen_centrality()
+
+In general, vertices with high eigenvector centralities are those which are connected to many other vertices which are, in turn, connected to many others (and so on). 
+
+```{r}
+eigen_centrality(UKfaculty, directed = F)$vector %>%
+  sort(T) %>%
+  head()
+```
+
+## authority_score() & hub_score() 
+
+Keinberg's Hyperlink-Induced Topic Search (HITS) - also known as Hubs and Authorities - stemmed from a particular insight into the creation of web pages when the Internet was originally forming; that is, certain web pages, known as hubs, served as large directories that were not actually authoritative in the information that they held, but were used as compilations of a broad catalog of information that led users direct to other authoritative pages. In other words, a good hub represented a page that pointed to many other pages, and a good authority represented a page that was linked by many different hubs. These can be calculated using the `authority_score()` and `hub_score()` functions.
+
+```{r}
+authority_score(UKfaculty)$vector %>% 
+  sort(T) %>%
+  head()
+
+page_rank(UKfaculty)$vector %>%
+  sort(T) %>%
+  head()
+```
 
 ### page_rank()
 
@@ -370,11 +407,5 @@ page_rank(UKfaculty, weights = NA, directed = F)$vector %>%
 
 ```
 
-### eigen_centrality()
 
-```{r}
-eigen_centrality(UKfaculty, directed = F)$vector %>%
-  sort(T) %>%
-  head()
-```
 

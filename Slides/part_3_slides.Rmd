@@ -136,6 +136,28 @@ ggraph(UKfaculty, layout = 'drl' ) +
 
 **Closeness:** Defined by the number of steps required to access every other vertex from a given vertex
 
+## Eigenvector Centrality
+
+```{r, warning=F}
+V(UKfaculty)$ec <- eigen_centrality(UKfaculty, directed = T)$vector
+V(UKfaculty)$ec_color <- V(UKfaculty)$ec  %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = ec_color,
+                      size = ec), shape = 21)  +
+  theme_void() +
+  theme(legend.position = 'none')
+
+```
+
 ## Hub Score
 
 ```{r}
