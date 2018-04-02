@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Slides
 
-## Whaat is a graph?
+## What is a graph?
 
 * Graphs are a collection of nodes and edges that can be used to store data
     + What are nodes?

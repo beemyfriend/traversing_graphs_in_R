@@ -10,12 +10,350 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(diagram)
 library(igraph)
 library(igraphdata)
 library(ggplot2)
 library(ggraph)
 data("UKfaculty")
 ```
+
+## Traversal: Relative Orientation
+
+```{r}
+pos = coordinates(c(3))
+openplotmat()
+
+arrow1 <- straightarrow(pos[1,], pos[2,], lwd = 3)
+arrow2 <- straightarrow(pos[2,], pos[3,], lwd = 3)
+textellipse(pos[1,], .1, lab = 'Node 1', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[2,], .1, lab = 'Node 2', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[3,], .1, lab = "Node 3", box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+text(arrow1[1],
+     arrow1[2],
+     "Link 1",
+     pos = 3,
+     cex = 1.5)
+text(arrow2[1],
+     arrow2[2],
+     "Link 2",
+     pos = 3,
+     cex = 1.5)
+```
+
+## Traversal: Sequential Queries
+
+```{r}
+pos <- coordinates(c(3,3,3))
+openplotmat()
+
+
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+
+```
+
+## Traversal: Sequential Queries
+
+```{r}
+pos <- coordinates(c(3,3,3))
+openplotmat()
+
+teaches <- straightarrow(pos[4,], pos[5,], lwd = 3)
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[5,], .075, lab = 'Course 1', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+
+text(teaches[1],
+     teaches[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+```
+
+## Traversal: Sequential Queries
+
+```{r}
+pos <- coordinates(c(3,3,3))
+openplotmat()
+
+teaches <- straightarrow(pos[4,], pos[5,], lwd = 3)
+attends1 <- straightarrow(pos[3,], pos[5,], lwd = 3)
+attends2 <- straightarrow(pos[6,], pos[5,], lwd = 3)
+attends3 <- straightarrow(pos[9,], pos[5,], lwd = 3)
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[5,], .075, lab = 'Course 1', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[3,], .075, lab = 'Student 1', box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[6,], .075, lab = "Student 2", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[9,], .075, lab = "Student 3", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+
+text(teaches[1],
+     teaches[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(attends1[1],
+     attends1[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends2[1],
+     attends2[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends3[1],
+     attends3[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+
+```
+
+## Traversal: Sequential Queries
+
+```{r}
+pos <- coordinates(c(3,3,3,3,3))
+openplotmat()
+
+teaches1 <- straightarrow(pos[4,], pos[5,], lwd = 3)
+teaches2 <- straightarrow(pos[10,], pos[11,], lwd = 3)
+attends1 <- straightarrow(pos[3,], pos[5,], lwd = 3)
+attends2 <- straightarrow(pos[6,], pos[5,], lwd = 3)
+attends3 <- straightarrow(pos[9,], pos[5,], lwd = 3)
+attends4 <- straightarrow(pos[9,], pos[11,], lwd = 3)
+attends5 <- straightarrow(pos[12,], pos[11,], lwd = 3)
+attends6 <- straightarrow(pos[15,], pos[11,], lwd = 3)
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[10,], .075, lab = 'Teacher 2', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[5,], .075, lab = 'Course 1', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[11,], .075, lab = 'Course 2', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[3,], .075, lab = 'Student 1', box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[6,], .075, lab = "Student 2", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[9,], .075, lab = "Student 3", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[12,], .075, lab = "Student 4", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[15,], .075, lab = "Student 5", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+
+text(teaches1[1],
+     teaches1[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(teaches2[1],
+     teaches2[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(attends1[1],
+     attends1[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends2[1],
+     attends2[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends3[1],
+     attends3[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends4[1],
+     attends4[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends5[1],
+     attends5[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends6[1],
+     attends6[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+
+```
+
+## Traversal: Sequential Queries
+
+```{r}
+pos <- coordinates(c(3,3,3,3,3))
+openplotmat()
+
+teaches1 <- straightarrow(pos[4,], pos[5,], lwd = 3)
+teaches2 <- straightarrow(pos[10,], pos[11,], lwd = 3)
+attends1 <- straightarrow(pos[3,], pos[5,], lwd = 3)
+attends2 <- straightarrow(pos[6,], pos[5,], lwd = 3)
+attends3 <- straightarrow(pos[9,], pos[5,], lwd = 3)
+attends4 <- straightarrow(pos[9,], pos[11,], lwd = 3)
+attends5 <- straightarrow(pos[12,], pos[11,], lwd = 3)
+attends6 <- straightarrow(pos[15,], pos[11,], lwd = 3)
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[10,], .075, lab = 'Teacher 2', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[5,], .075, lab = 'Course 1', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[11,], .075, lab = 'Course 2', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[3,], .075, lab = 'Student 1', box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[6,], .075, lab = "Student 2", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[9,], .075, lab = "Student 3", box.col = 'gold',
+            shadow.size = .005, cex = 1)
+textellipse(pos[12,], .075, lab = "Student 4", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[15,], .075, lab = "Student 5", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+
+text(teaches1[1],
+     teaches1[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(teaches2[1],
+     teaches2[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(attends1[1],
+     attends1[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends2[1],
+     attends2[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends3[1],
+     attends3[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends4[1],
+     attends4[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends5[1],
+     attends5[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends6[1],
+     attends6[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+
+```
+
+
+## Traversal: Sequential Queries
+
+```{r}
+pos <- coordinates(c(3,3,3,3,3))
+openplotmat()
+
+teaches1 <- straightarrow(pos[4,], pos[5,], lwd = 3)
+teaches2 <- straightarrow(pos[10,], pos[11,], lwd = 3)
+attends1 <- straightarrow(pos[3,], pos[5,], lwd = 3)
+attends2 <- straightarrow(pos[6,], pos[5,], lwd = 3)
+attends3 <- straightarrow(pos[9,], pos[5,], lwd = 3)
+attends4 <- straightarrow(pos[9,], pos[11,], lwd = 3)
+attends5 <- straightarrow(pos[12,], pos[11,], lwd = 3)
+attends6 <- straightarrow(pos[15,], pos[11,], lwd = 3)
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[10,], .075, lab = 'Teacher 2', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[5,], .075, lab = 'Biology 101', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[11,], .075, lab = 'Physics 101', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[3,], .075, lab = 'Envir. Studies\nMajor', box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[6,], .075, lab = "Biology\nMajor", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[9,], .075, lab = "PreMed\nMajor", box.col = 'gold',
+            shadow.size = .005, cex = 1)
+textellipse(pos[12,], .075, lab = "Engineering\nMajor", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[15,], .075, lab = "Physics\nMajor", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+
+text(teaches1[1],
+     teaches1[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(teaches2[1],
+     teaches2[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(attends1[1],
+     attends1[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends2[1],
+     attends2[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends3[1],
+     attends3[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends4[1],
+     attends4[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends5[1],
+     attends5[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends6[1],
+     attends6[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+
+```
+
 
 ## Degree
 
