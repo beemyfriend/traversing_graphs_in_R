@@ -495,6 +495,29 @@ ggraph(UKfaculty, layout = 'drl' ) +
   theme(legend.position = 'none')
 
 ```
+ 
+## Authority Score
+
+```{r}
+#![](part_3_images/UKfaculty_authority_score.png)
+V(UKfaculty)$auth <- authority_score(UKfaculty)$vector
+V(UKfaculty)$auth_color <- V(UKfaculty)$auth  %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = auth_color,
+                      size = auth), shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Authority Score:** Defined by the number of Hubs pointing to the node
 
 ## Hub Score
 
@@ -520,29 +543,6 @@ ggraph(UKfaculty, layout = 'drl' ) +
 
 **Hub Score:** Defined by the number of Authorities the node points to
 
-## Authority Score
-
-
-```{r}
-#![](part_3_images/UKfaculty_authority_score.png)
-V(UKfaculty)$auth <- authority_score(UKfaculty)$vector
-V(UKfaculty)$auth_color <- V(UKfaculty)$auth  %>%
-  sapply(function(x){
-    pct <- (length(.)-5)/length(.)
-    pct <- quantile(., pct)
-    x >= pct
-  })
-
-set.seed(1234)
-ggraph(UKfaculty, layout = 'drl' ) +
-  geom_edge_link(colour = 'lightgrey') +
-  geom_node_point(aes(fill = auth_color,
-                      size = auth), shape = 21) +
-  theme_void() +
-  theme(legend.position = 'none')
-```
-
-**Authority Score:** Defined by the number of Hubs pointing to the node
 
 ## Page Rank
 

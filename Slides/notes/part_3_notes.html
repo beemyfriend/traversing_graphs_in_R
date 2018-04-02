@@ -221,7 +221,22 @@ $(document).ready(function () {
 <li>A high EigenCentrality score indicates a strong influence over other nodes in the network. It is useful because it indicates not just direct influence, but also implies influence over nodes more than one ‘hop’ away.</li>
 <li>Eigenvector centrality is the basis for many popular centrality measurements.</li>
 </ul></li>
-<li></li>
+<li>Kleinberg’s HITS (hyperlink-induced topic search):
+<ul>
+<li>even if trying to find pages that contain the query words should be the starting point, a different ranking system is needed in order to find those pages that are authoritative for a given query.</li>
+<li>Page i is called an authority for the query “automobile makers” if it contains valuable information on the subject.
+<ul>
+<li>Official web sites of car manufacturers, such as www.bmw.com, HyundaiUSA.com, www.mercedes-benz.com would be authorities for this search. Commercial web sites selling cars might be authorities on the subject as well.</li>
+</ul></li>
+<li>there is a second category of pages relevant to the process of finding the authoritative pages, called hubs. Their role is to advertise the authoritative pages. They contain useful links towards the authoritative pages.</li>
+<li>In other words, hubs point the search engine in the “right direction”. In real life, when you buy a car, you are more inclined to purchase it from a certain dealer that your friend recommends. Following the analogy, the authority in this case would be the car dealer, and the hub would be your friend. You trust your friend, therefore you trust what your friend recommends.</li>
+<li>In the world wide web, hubs for our query about automobiles might be pages that contain rankings of the cars, blogs where people discuss about the cars that they purchased, and so on.</li>
+</ul></li>
+<li>PageRank:
+<ul>
+<li>PageRank can be thought of as a model of user behavior. We assume there is a “random surfer” who is given a web page at random and keeps clicking on links, never hitting “back” but eventually gets bored and starts on another random page. The probability that the random surfer visits a page is its PageRank. And, the d damping factor is the probability at each page the “random surfer” will get bored and request another random page. One important variation is to only add the damping factor d to a single page, or a group of pages.</li>
+<li>Another intuitive justification is that a page can have a high PageRank if there are many pages that point to it, or if there are some pages that point to it and have a high PageRank. Intuitively, pages that are well cited from many places around the web are worth looking at. Also, pages that have perhaps only one citation from something like the Yahoo! homepage are also generally worth looking at. If a page was not high quality, or was a broken link, it is quite likely that Yahoo’s homepage would not link to it.</li>
+</ul></li>
 </ul>
 </div>
 
