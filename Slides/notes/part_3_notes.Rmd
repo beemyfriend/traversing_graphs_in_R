@@ -70,3 +70,5 @@ knitr::opts_chunk$set(echo = TRUE)
     + Relative scores are assigned to all nodes in the network based on the concept that connections to high-scoring nodes contribute more to the score of the node in question than equal connections to low-scoring nodes. 
     + A high eigenvector score means that a node is connected to many nodes who themselves have high scores.
     + A high EigenCentrality score indicates a strong influence over other nodes in the network. It is useful because it indicates not just direct influence, but also implies influence over nodes more than one ‘hop’ away.
+    + Eigenvector centrality is the basis for many popular centrality measurements.
+* 
