@@ -51,7 +51,7 @@ g <- make_empty_graph(directed = T) +
           'b', 'd',
           'c', 'b',
           'c', 'e'),
-        type = "distance",
+        type = "is connected to",
         weight = c(1, 1, 2, 1, 2))
 ```
 
@@ -92,7 +92,7 @@ sapply(seq_along(src), function(i){
 
 matData
 
-g <- graph_from_adjacency_matrix(matData, mode = 'directed', weighted = 'distance') 
+g <- graph_from_adjacency_matrix(matData, mode = 'directed', weighted = 'weight') 
 
 g
 ```
@@ -103,7 +103,7 @@ If we wanted to convert a graph back to a matrix, then we can do that as well:
 * If `attr` is provided, the matrix is filled with that particular edge attribute. The attribute must be either numeric or logical
 ```{r}
 as_adjacency_matrix(g)
-as_adjacency_matrix(g, attr = 'distance')
+as_adjacency_matrix(g, attr = 'weight')
 ```
 
 ### Creating a graph from a data frame

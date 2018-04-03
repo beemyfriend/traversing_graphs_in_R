@@ -315,10 +315,10 @@ ltm_likes</code></pre>
 <pre class="r"><code>mlp_ltm &lt;- c(mlp_likedBy[[1]], ltm_likes[[1]]) %&gt;%
   induced_subgraph(UKfaculty, .)
 mlp_ltm</code></pre>
-<pre><code>## IGRAPH 13e9fe4 DNW- 42 410 -- 
+<pre><code>## IGRAPH b9217ff DNW- 42 410 -- 
 ## + attr: Type (g/c), Date (g/c), Citation (g/c), Author (g/c),
 ## | Group (v/n), name (v/c), weight (e/n)
-## + edges from 13e9fe4 (vertex names):
+## + edges from b9217ff (vertex names):
 ##  [1] person_57-&gt;person_52 person_43-&gt;person_34 person_58-&gt;person_51
 ##  [4] person_7 -&gt;person_29 person_6 -&gt;person_58 person_21-&gt;person_8 
 ##  [7] person_43-&gt;person_21 person_37-&gt;person_64 person_19-&gt;person_46
@@ -348,10 +348,10 @@ plot(mlp_ltm,
   subgraph.edges(mlp_ltm, .) 
 
 mlp_ltm</code></pre>
-<pre><code>## IGRAPH 1f73c4d DNW- 24 30 -- 
+<pre><code>## IGRAPH 8929de7 DNW- 24 30 -- 
 ## + attr: Type (g/c), Date (g/c), Citation (g/c), Author (g/c),
 ## | Group (v/n), name (v/c), weight (e/n)
-## + edges from 1f73c4d (vertex names):
+## + edges from 8929de7 (vertex names):
 ##  [1] person_29-&gt;person_2  person_19-&gt;person_31 person_29-&gt;person_69
 ##  [4] person_29-&gt;person_35 person_29-&gt;person_54 person_21-&gt;person_31
 ##  [7] person_29-&gt;person_18 person_29-&gt;person_7  person_29-&gt;person_21
@@ -498,19 +498,19 @@ sp</code></pre>
 <h3>Random Walks</h3>
 <p>From the given start vertex, take the given number of steps, choosing an edge from the actual vertex uniformly randomly. If the graph is directed, then the random walk only uses edges that traverse outwards. Random walks are fundamental in both community detection and centrality measurements.</p>
 <pre class="r"><code>set.seed(1234)
-random_walk(UKfaculty, likesTheMost, 2)</code></pre>
-<pre><code>## + 2/81 vertices, named, from 6f42903:
-## [1] person_29 person_8</code></pre>
+random_walk(UKfaculty, likesTheMost, 3)</code></pre>
+<pre><code>## + 3/81 vertices, named, from 6f42903:
+## [1] person_29 person_8  person_41</code></pre>
 <pre class="r"><code>sapply(1:100, function(i){
-  random_walk(UKfaculty, likesTheMost, 2)[[2]]
+  random_walk(UKfaculty, likesTheMost, 3)[[2]]
 }) %&gt;% 
   table() %&gt;%
   sort(T)</code></pre>
 <pre><code>## .
-## 23 37  4 15 21 70  2 14 18 19 20 22 24 39 41 50 52 66 71  6  7  8 27 35 51 
-##  9  7  5  4  4  4  3  3  3  3  3  3  3  3  3  3  3  3  3  2  2  2  2  2  2 
-## 54 57 58 64 69 34 43 46 55 62 80 
-##  2  2  2  2  2  1  1  1  1  1  1</code></pre>
+## 23 14 15 32  7 22 24 80  8 18 19 20 27 37 46 52 55 66 71  2 21 26 34 35 57 
+##  7  6  5  5  4  4  4  4  3  3  3  3  3  3  3  3  3  3  3  2  2  2  2  2  2 
+## 69 77 79  4  6 39 41 50 51 54 58 62 64 
+##  2  2  2  1  1  1  1  1  1  1  1  1  1</code></pre>
 </div>
 </div>
 <div id="centrality-scores" class="section level2">

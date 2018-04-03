@@ -313,11 +313,11 @@ From the given start vertex, take the given number of steps, choosing an edge fr
 
 ```{r}
 set.seed(1234)
-random_walk(UKfaculty, likesTheMost, 2)
+random_walk(UKfaculty, likesTheMost, 3)
 ```
 ```{r}
 sapply(1:100, function(i){
-  random_walk(UKfaculty, likesTheMost, 2)[[2]]
+  random_walk(UKfaculty, likesTheMost, 3)[[2]]
 }) %>% 
   table() %>%
   sort(T)
