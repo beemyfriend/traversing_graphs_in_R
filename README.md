@@ -3,9 +3,9 @@
 This repository contains the materials for my eRum 2018 workshop **Graphs: Data Structures to Query**. 
 
 * Introduction: Why graphs?
-* Part 1: Elements of igraph [Code](http://htmlpreview.github.com/?https://github.com/beemyfriend/traversing_graphs_in_R/blob/master/Code_Tutorial/part_1.html) [Slides](http://htmlpreview.github.com/?https://github.com/beemyfriend/traversing_graphs_in_R/blob/master/Slides/part_1_slides.html)
+* Part 1: Elements of igraph [Code](https://beemyfriend.github.io/Tutorials/intro_to_igraph/part_1.html) [Slides](https://beemyfriend.github.io/Tutorials/intro_to_igraph/part_1_slides.html) [Notes](https://beemyfriend.github.io/Tutorials/intro_to_igraph/part_1_notes.html)
 * Part 2: A Review of magrittr
-* Part 3: Exploratory Functions [Code](http://htmlpreview.github.com/?https://github.com/beemyfriend/traversing_graphs_in_R/blob/master/Code_Tutorial/part_3.html) [Slides](http://htmlpreview.github.com/?https://github.com/beemyfriend/traversing_graphs_in_R/blob/master/Slides/part_3_slides.html)
+* Part 3: Exploratory Functions [Code](https://beemyfriend.github.io/Tutorials/intro_to_igraph/part_3.html) [Slides](https://beemyfriend.github.io/Tutorials/intro_to_igraph/part_3_slides.html) [Notes](https://beemyfriend.github.io/Tutorials/intro_to_igraph/part_3_notes.html)
 * Part 4: Exploring natural language as a graph
 * Part 5: Creating a reommendation system
 * Conclusion: The graph ecosystem
