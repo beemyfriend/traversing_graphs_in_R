@@ -240,10 +240,10 @@ $(document).ready(function () {
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ1xuYGBgIn0= -->
 <pre class="r"><code>g</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiSUdSQVBIIGNlZmUzZmUgRE5XQiA1IDUgLS0gXG4rIGF0dHI6IG5hbWUgKHYvYyksIHR5cGUgKHYvYyksIG9yZGVyICh2L24pLCB0eXBlIChlL2MpLCB3ZWlnaHQgKGUvbilcbisgZWRnZXMgZnJvbSBjZWZlM2ZlICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGEtPmIgYi0+YyBiLT5kIGMtPmIgYy0+ZVxuIn0= -->
-<pre><code>IGRAPH cefe3fe DNWB 5 5 -- 
+<!-- rnb-output-begin eyJkYXRhIjoiSUdSQVBIIDFhNzgwYjkgRE5XQiA1IDUgLS0gXG4rIGF0dHI6IG5hbWUgKHYvYyksIHR5cGUgKHYvYyksIG9yZGVyICh2L24pLCB0eXBlIChlL2MpLCB3ZWlnaHQgKGUvbilcbisgZWRnZXMgZnJvbSAxYTc4MGI5ICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGEtPmIgYi0+YyBiLT5kIGMtPmIgYy0+ZVxuIn0= -->
+<pre><code>IGRAPH 1a780b9 DNWB 5 5 -- 
 + attr: name (v/c), type (v/c), order (v/n), type (e/c), weight (e/n)
-+ edges from cefe3fe (vertex names):
++ edges from 1a780b9 (vertex names):
 [1] a-&gt;b b-&gt;c b-&gt;d c-&gt;b c-&gt;e</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -302,14 +302,18 @@ c 0 1 0 0 2
 d 0 0 0 0 0
 e 0 0 0 0 0</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZyA8LSBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgobWF0RGF0YSwgbW9kZSA9ICdkaXJlY3RlZCcsIHdlaWdodGVkID0gJ3dlaWdodCcpIFxuZ1xuYGBgIn0= -->
 <pre class="r"><code>g &lt;- graph_from_adjacency_matrix(matData, mode = 'directed', weighted = 'weight') 
 g</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiSUdSQVBIIDE5YzYwMzYgRE5XLSA1IDUgLS0gXG4rIGF0dHI6IG5hbWUgKHYvYyksIHdlaWdodCAoZS9uKVxuKyBlZGdlcyBmcm9tIDE5YzYwMzYgKHZlcnRleCBuYW1lcyk6XG5bMV0gYS0+YiBiLT5jIGItPmQgYy0+YiBjLT5lXG4ifQ== -->
-<pre><code>IGRAPH 19c6036 DNW- 5 5 -- 
+<!-- rnb-output-begin eyJkYXRhIjoiSUdSQVBIIGIxMTc4Y2EgRE5XLSA1IDUgLS0gXG4rIGF0dHI6IG5hbWUgKHYvYyksIHdlaWdodCAoZS9uKVxuKyBlZGdlcyBmcm9tIGIxMTc4Y2EgKHZlcnRleCBuYW1lcyk6XG5bMV0gYS0+YiBiLT5jIGItPmQgYy0+YiBjLT5lXG4ifQ== -->
+<pre><code>IGRAPH b1178ca DNW- 5 5 -- 
 + attr: name (v/c), weight (e/n)
-+ edges from 19c6036 (vertex names):
++ edges from b1178ca (vertex names):
 [1] a-&gt;b b-&gt;c b-&gt;d c-&gt;b c-&gt;e</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -364,7 +368,7 @@ e . . . . .</code></pre>
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm9kZV9saXN0IDwtIGRhdGEuZnJhbWUoXG4gIG5hbWUgPSBjKCdhJywgJ2InLCAnYycsICdkJywgJ2UnKSxcbiAgdHlwZSA9IFwibGV0dGVyXCIsXG4gIG9yZGVyID0gYygxLCAyLCAzLCA0LCA1KVxuKVxuZWRnZV9saXN0IDwtIGRhdGEuZnJhbWUoXG4gIHNvdXJjZSA9IGMoJ2EnLCAnYicsICdiJywgJ2MnLCAnYycpLFxuICB0YXJnZXQgPSBjKCdiJywgJ2MnLCAnZCcsICdiJywgJ2UnKSxcbiAgdHlwZSA9ICdkaXN0YW5jZScsXG4gIHdlaWdodCA9IGMoMSwgMSwgMiwgMSwgMilcbilcbmcgPC0gZ3JhcGhfZnJvbV9kYXRhX2ZyYW1lKGQgPSBlZGdlX2xpc3QsIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgZGlyZWN0ZWQgPSBULFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgdmVydGljZXMgPSBub2RlX2xpc3QpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm9kZV9saXN0IDwtIGRhdGEuZnJhbWUoXG4gIG5hbWUgPSBjKCdhJywgJ2InLCAnYycsICdkJywgJ2UnKSxcbiAgdHlwZSA9IFwibGV0dGVyXCIsXG4gIG9yZGVyID0gYygxLCAyLCAzLCA0LCA1KVxuKVxuZWRnZV9saXN0IDwtIGRhdGEuZnJhbWUoXG4gIHNvdXJjZSA9IGMoJ2EnLCAnYicsICdiJywgJ2MnLCAnYycpLFxuICB0YXJnZXQgPSBjKCdiJywgJ2MnLCAnZCcsICdiJywgJ2UnKSxcbiAgdHlwZSA9ICdpcyBjb25uZWN0ZWQgdG8nLFxuICB3ZWlnaHQgPSBjKDEsIDEsIDIsIDEsIDIpXG4pXG5nIDwtIGdyYXBoX2Zyb21fZGF0YV9mcmFtZShkID0gZWRnZV9saXN0LCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIGRpcmVjdGVkID0gVCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIHZlcnRpY2VzID0gbm9kZV9saXN0KVxuYGBgIn0= -->
 <pre class="r"><code>node_list &lt;- data.frame(
   name = c('a', 'b', 'c', 'd', 'e'),
   type = &quot;letter&quot;,
@@ -373,7 +377,7 @@ e . . . . .</code></pre>
 edge_list &lt;- data.frame(
   source = c('a', 'b', 'b', 'c', 'c'),
   target = c('b', 'c', 'd', 'b', 'e'),
-  type = 'distance',
+  type = 'is connected to',
   weight = c(1, 1, 2, 1, 2)
 )
 g &lt;- graph_from_data_frame(d = edge_list, 
@@ -388,10 +392,10 @@ g &lt;- graph_from_data_frame(d = edge_list,
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ1xuYGBgIn0= -->
 <pre class="r"><code>g</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiSUdSQVBIIDQ0MzI3NTkgRE5XQiA1IDUgLS0gXG4rIGF0dHI6IG5hbWUgKHYvYyksIHR5cGUgKHYvYyksIG9yZGVyICh2L24pLCB0eXBlIChlL2MpLCB3ZWlnaHQgKGUvbilcbisgZWRnZXMgZnJvbSA0NDMyNzU5ICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGEtPmIgYi0+YyBiLT5kIGMtPmIgYy0+ZVxuIn0= -->
-<pre><code>IGRAPH 4432759 DNWB 5 5 -- 
+<!-- rnb-output-begin eyJkYXRhIjoiSUdSQVBIIDk3ZTI0N2IgRE5XQiA1IDUgLS0gXG4rIGF0dHI6IG5hbWUgKHYvYyksIHR5cGUgKHYvYyksIG9yZGVyICh2L24pLCB0eXBlIChlL2MpLCB3ZWlnaHQgKGUvbilcbisgZWRnZXMgZnJvbSA5N2UyNDdiICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGEtPmIgYi0+YyBiLT5kIGMtPmIgYy0+ZVxuIn0= -->
+<pre><code>IGRAPH 97e247b DNWB 5 5 -- 
 + attr: name (v/c), type (v/c), order (v/n), type (e/c), weight (e/n)
-+ edges from 4432759 (vertex names):
++ edges from 97e247b (vertex names):
 [1] a-&gt;b b-&gt;c b-&gt;d c-&gt;b c-&gt;e</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -408,7 +412,7 @@ g &lt;- graph_from_data_frame(d = edge_list,
 <!-- rnb-output-begin eyJkYXRhIjoiJHZlcnRpY2VzXG4ifQ== -->
 <pre><code>$vertices</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6NX0sInJkZiI6Ikg0c0lBQUFBQUFBQUE1MVJ5M0xDSUJTOUFkTFd6TlRKalA2R0xOeDFwUXUvd0pWYlRHaWJrVUtHNEtoLzdSZEVBYmtkazEzTERKekR1ZHduMjgxdVdld0tBQ0JBR1FOQ1BXWEVIeGt3bUFROEE5Q1pKOEZTK3AyalFTRFpJNm1RMUVqa3lPbEZTZWVrL2ZjTllCcWlyYTRRMXhvU3ZpVXNFODZUWWRoTHJzV1A3RkpKTklrc2lNamRwVVdlRzF1SGpJTUlFMnRPL0RuS1g2Y3hyS2RTb3NOSUtCYTFjSUovMmxBVlFEOXllVFd0YTR6MlRtUVcwdytkTXpzU3lxTU81ZGFMNnZ1b0Q0dmxSOGdRN1kvOW5qQi80dlNSazl6R255ZjFWNk4vNTZQRVhxcDBtZnE1eExIdzFqYmFZU3RlN2JnelR1QzdvaklLbGRnYzlIZVJ1VXNNZ3dJQUFBPT0ifQ== -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6NX0sInJkZiI6Ikg0c0lBQUFBQUFBQUE1MVIzVzdDSUJRK0Jick5Kak5OOURVa2NTK2dGejZCVjk1aXk3WkdCZzNGcUcvdEUxUUJPWXZ0M1VZQzM4ZDNPTDlzTjd1UFlsY0FBQUhLR0JEcUtTUCt5SURCSk9BWmdNNDhDWmJTN3h3TkFza2VTWVdrUmlKSFRpOUtPaWZ0djI4QTB4QnRkWVc0MXBEd0xXR1pjSjRNdzE1eUxYNWtsMHFpU1dSQlJPNHVMZkxjMkRwa0hFU1lXSFBpejFIK09vMWhQWlVTSFVaQ3NhaUZFL3pUaHFvQStwSExxMmxkWTdSM0lyT1lmdWljMlpGUUhuVW90MTVVMzBkOVdDeVhJVU8wUC9aN3d2eUowMGRPY2h0L250UmZqZjZkanhKN3FkSmw2dWNTeDhKYjIyaUhyWGkxNDg0NGdlK0t5aWhVWW5QUTN3RUlnaXdFZ3dJQUFBPT0ifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["order"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"letter","3":"1","_rn_":"a"},{"1":"b","2":"letter","3":"2","_rn_":"b"},{"1":"c","2":"letter","3":"3","_rn_":"c"},{"1":"d","2":"letter","3":"4","_rn_":"d"},{"1":"e","2":"letter","3":"5","_rn_":"e"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[5]},"pages":{}}}
@@ -419,10 +423,10 @@ g &lt;- graph_from_data_frame(d = edge_list,
 <pre><code>
 $edges</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6NX0sInJkZiI6Ikg0c0lBQUFBQUFBQUE2VlJ3VzdDTUF3MWFjSkdKUkFTMzBFUDNIYmFEdnVDbmJpR05FQzBrbFJwRU50dG43d3ZZSFBhV052UzNhamsrdms1enk5dVg1NjNtM0piQWdDRGduTmdCVUxPOERVQkRyT1kzd0NLVldReGxoaUNHcExBYmdUVUQ4aEU0eVAxcUtVejBYMXR1aUN0MGpmWEFJczQ5L0VUK29meUUveGZaNTlDV0huU1hib2NUeVRmZTNkS21BVkhiSGh2eVg1NjBlWndETm13bVhlWGlnYk9vL2hqc0JTNXEycGtSNjVFbHJVTXN0cDcxR04xelNSM3JnM0dXUlN4MVREeGozamlNMko1dHZFbTlWb2R6L1oxdlhtSURuMS9pSG5LNGhmbWd5Zjd5bjdXVk51RHNiUzdhT1JPTjZsWTRNcjl4bFhyalEyMENySmRGVnlRZEs1VXJpR21YdzZ1MzhHL3VSeW9BZ0FBIn0= -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6NX0sInJkZiI6Ikg0c0lBQUFBQUFBQUE3VlJTMjdDTUJBZEhKdUtTRkFrTHNBRmlBUVhnRVZQMEJWYjR4aXdHdXpJTVlMdU9ESW5vTFVUVHo5T3Q0MDBtVGR2L09aNWt0ZVg3U3JmNWdCQUlLTVVTT1loSmY0MUFBcWprSzhBMlN5d1BxWStHRFk0Z2wwUGlHK1FpUHBIeWw1TEpxSm4xY3lGMFZvS0o4dTVNLzlLQTB5Qzlmb083WU41QTMvWHlkZGltcDlrRSs5UEkwbjMxcHdpSmwvTzFMM1hNdUxoUmFyRDBTWERSdFpjQ2h3NER1SmJaOGxTVjFIeEJsMlJ6RXZ1ZUxHM1h1K3JSeUo1TXJWVFJuc1JtWFVUZjRrSE5pR21aeDF1VWk3RThhemZGc3RsY0dqN1hZeGpaajh3N1R6SlIvSS9oMUlmbE1iZFdjVjNzb3JGeEsvY2JselVWbW1IcTNpMktaeHhITS9sd2xUSXRNdkI0eE9TaUM0ZXl3SUFBQT09In0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["from"],"name":[1],"type":["chr"],"align":["left"]},{"label":["to"],"name":[2],"type":["chr"],"align":["left"]},{"label":["type"],"name":[3],"type":["chr"],"align":["left"]},{"label":["weight"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"b","3":"distance","4":"1","_rn_":"1"},{"1":"b","2":"c","3":"distance","4":"1","_rn_":"2"},{"1":"b","2":"d","3":"distance","4":"2","_rn_":"3"},{"1":"c","2":"b","3":"distance","4":"1","_rn_":"4"},{"1":"c","2":"e","3":"distance","4":"2","_rn_":"5"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[5]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["from"],"name":[1],"type":["chr"],"align":["left"]},{"label":["to"],"name":[2],"type":["chr"],"align":["left"]},{"label":["type"],"name":[3],"type":["chr"],"align":["left"]},{"label":["weight"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"b","3":"is connected to","4":"1","_rn_":"1"},{"1":"b","2":"c","3":"is connected to","4":"1","_rn_":"2"},{"1":"b","2":"d","3":"is connected to","4":"2","_rn_":"3"},{"1":"c","2":"b","3":"is connected to","4":"1","_rn_":"4"},{"1":"c","2":"e","3":"is connected to","4":"2","_rn_":"5"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[5]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
@@ -453,8 +457,8 @@ $edges</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVihnKVxuYGBgIn0= -->
 <pre class="r"><code>V(g)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyA1LzUgdmVydGljZXMsIG5hbWVkLCBmcm9tIDQ0MzI3NTk6XG5bMV0gYSBiIGMgZCBlXG4ifQ== -->
-<pre><code>+ 5/5 vertices, named, from 4432759:
+<!-- rnb-output-begin eyJkYXRhIjoiKyA1LzUgdmVydGljZXMsIG5hbWVkLCBmcm9tIDk3ZTI0N2I6XG5bMV0gYSBiIGMgZCBlXG4ifQ== -->
+<pre><code>+ 5/5 vertices, named, from 97e247b:
 [1] a b c d e</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -465,8 +469,8 @@ $edges</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVihnKVszXVxuYGBgIn0= -->
 <pre class="r"><code>V(g)[3]</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyAxLzUgdmVydGV4LCBuYW1lZCwgZnJvbSA0NDMyNzU5OlxuWzFdIGNcbiJ9 -->
-<pre><code>+ 1/5 vertex, named, from 4432759:
+<!-- rnb-output-begin eyJkYXRhIjoiKyAxLzUgdmVydGV4LCBuYW1lZCwgZnJvbSA5N2UyNDdiOlxuWzFdIGNcbiJ9 -->
+<pre><code>+ 1/5 vertex, named, from 97e247b:
 [1] c</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -477,8 +481,8 @@ $edges</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVihnKVsnYyddXG5gYGAifQ== -->
 <pre class="r"><code>V(g)['c']</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyAxLzUgdmVydGV4LCBuYW1lZCwgZnJvbSA0NDMyNzU5OlxuWzFdIGNcbiJ9 -->
-<pre><code>+ 1/5 vertex, named, from 4432759:
+<!-- rnb-output-begin eyJkYXRhIjoiKyAxLzUgdmVydGV4LCBuYW1lZCwgZnJvbSA5N2UyNDdiOlxuWzFdIGNcbiJ9 -->
+<pre><code>+ 1/5 vertex, named, from 97e247b:
 [1] c</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -489,14 +493,24 @@ $edges</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVihnKVtbJ2MnXV1cbmBgYCJ9 -->
 <pre class="r"><code>V(g)[['c']]</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyAxLzUgdmVydGV4LCBuYW1lZCwgZnJvbSA0NDMyNzU5OlxuICBuYW1lICAgdHlwZSBvcmRlclxuMyAgICBjIGxldHRlciAgICAgM1xuIn0= -->
-<pre><code>+ 1/5 vertex, named, from 4432759:
+<!-- rnb-output-begin eyJkYXRhIjoiKyAxLzUgdmVydGV4LCBuYW1lZCwgZnJvbSA5N2UyNDdiOlxuICBuYW1lICAgdHlwZSBvcmRlclxuMyAgICBjIGxldHRlciAgICAgM1xuIn0= -->
+<pre><code>+ 1/5 vertex, named, from 97e247b:
   name   type order
 3    c letter     3</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>A specific attribute can be accessed using dollar sign notation. You should use single square bracket notation when accesing specific attributes.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVihnKSRvcmRlclxuYGBgIn0= -->
+<pre class="r"><code>V(g)$order</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEgMiAzIDQgNVxuIn0= -->
+<pre><code>[1] 1 2 3 4 5</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVihnKVsnYyddJG9yZGVyIFxuYGBgIn0= -->
@@ -515,8 +529,8 @@ $edges</code></pre>
 #vcount provides the number of vertices in a graph
 V(g)[[1:vcount(g)]]</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyA1LzUgdmVydGljZXMsIG5hbWVkLCBmcm9tIDQ0MzI3NTk6XG4gIG5hbWUgICB0eXBlIG9yZGVyXG4xICAgIGEgbGV0dGVyICAgICAxXG4yICAgIGIgbGV0dGVyICAgICAyXG4zICAgIGMgbGV0dGVyICAgICAxXG40ICAgIGQgbGV0dGVyICAgICA0XG41ICAgIGUgbGV0dGVyICAgICA1XG4ifQ== -->
-<pre><code>+ 5/5 vertices, named, from 4432759:
+<!-- rnb-output-begin eyJkYXRhIjoiKyA1LzUgdmVydGljZXMsIG5hbWVkLCBmcm9tIDk3ZTI0N2I6XG4gIG5hbWUgICB0eXBlIG9yZGVyXG4xICAgIGEgbGV0dGVyICAgICAxXG4yICAgIGIgbGV0dGVyICAgICAyXG4zICAgIGMgbGV0dGVyICAgICAxXG40ICAgIGQgbGV0dGVyICAgICA0XG41ICAgIGUgbGV0dGVyICAgICA1XG4ifQ== -->
+<pre><code>+ 5/5 vertices, named, from 97e247b:
   name   type order
 1    a letter     1
 2    b letter     2
@@ -532,8 +546,8 @@ V(g)[[1:vcount(g)]]</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVihnKVtbYygnYycsICdlJyldXVxuYGBgIn0= -->
 <pre class="r"><code>V(g)[[c('c', 'e')]]</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyAyLzUgdmVydGljZXMsIG5hbWVkLCBmcm9tIDQ0MzI3NTk6XG4gIG5hbWUgICB0eXBlIG9yZGVyXG4zICAgIGMgbGV0dGVyICAgICAxXG41ICAgIGUgbGV0dGVyICAgICA1XG4ifQ== -->
-<pre><code>+ 2/5 vertices, named, from 4432759:
+<!-- rnb-output-begin eyJkYXRhIjoiKyAyLzUgdmVydGljZXMsIG5hbWVkLCBmcm9tIDk3ZTI0N2I6XG4gIG5hbWUgICB0eXBlIG9yZGVyXG4zICAgIGMgbGV0dGVyICAgICAxXG41ICAgIGUgbGV0dGVyICAgICA1XG4ifQ== -->
+<pre><code>+ 2/5 vertices, named, from 97e247b:
   name   type order
 3    c letter     1
 5    e letter     5</code></pre>
@@ -546,8 +560,8 @@ V(g)[[1:vcount(g)]]</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVihnKVtbb3JkZXIgPT0gMV1dXG5gYGAifQ== -->
 <pre class="r"><code>V(g)[[order == 1]]</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyAyLzUgdmVydGljZXMsIG5hbWVkLCBmcm9tIDQ0MzI3NTk6XG4gIG5hbWUgICB0eXBlIG9yZGVyXG4xICAgIGEgbGV0dGVyICAgICAxXG4zICAgIGMgbGV0dGVyICAgICAxXG4ifQ== -->
-<pre><code>+ 2/5 vertices, named, from 4432759:
+<!-- rnb-output-begin eyJkYXRhIjoiKyAyLzUgdmVydGljZXMsIG5hbWVkLCBmcm9tIDk3ZTI0N2I6XG4gIG5hbWUgICB0eXBlIG9yZGVyXG4xICAgIGEgbGV0dGVyICAgICAxXG4zICAgIGMgbGV0dGVyICAgICAxXG4ifQ== -->
+<pre><code>+ 2/5 vertices, named, from 97e247b:
   name   type order
 1    a letter     1
 3    c letter     1</code></pre>
@@ -562,8 +576,8 @@ V(g)[[1:vcount(g)]]</code></pre>
 de &lt;- V(g)[[c('d', 'e')]]
 c(ab, de)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyA0LzUgdmVydGljZXMsIG5hbWVkLCBmcm9tIDQ0MzI3NTk6XG5bMV0gYSBiIGQgZVxuIn0= -->
-<pre><code>+ 4/5 vertices, named, from 4432759:
+<!-- rnb-output-begin eyJkYXRhIjoiKyA0LzUgdmVydGljZXMsIG5hbWVkLCBmcm9tIDk3ZTI0N2I6XG5bMV0gYSBiIGQgZVxuIn0= -->
+<pre><code>+ 4/5 vertices, named, from 97e247b:
 [1] a b d e</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -572,6 +586,17 @@ c(ab, de)</code></pre>
 <div id="e" class="section level3">
 <h3>E()</h3>
 <p><code>E()</code> behves much in the same way as <code>V()</code>. It only accepts an igraph graph object and returns a vector of edges. A big difference, however, is how we approach accessing data stroed in edges. While edges can have names and can be accessed directly using either a name or an id, this is not the best approach since as graphs get larger, the sheer number and variety of edges make it very impractical to do so.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRShnKVxuYGBgIn0= -->
+<pre class="r"><code>E(g)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiKyA1LzUgZWRnZXMgZnJvbSA5N2UyNDdiICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGEtPmIgYi0+YyBiLT5kIGMtPmIgYy0+ZVxuIn0= -->
+<pre><code>+ 5/5 edges from 97e247b (vertex names):
+[1] a-&gt;b b-&gt;c b-&gt;d c-&gt;b c-&gt;e</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <p>Instead edges should be accessed by querying their attributes</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -586,8 +611,8 @@ c(ab, de)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRShnKVt3ZWlnaHQgPT0gMl1cbmBgYCJ9 -->
 <pre class="r"><code>E(g)[weight == 2]</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyAyLzUgZWRnZXMgZnJvbSA0NDMyNzU5ICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGItPmQgYy0+ZVxuIn0= -->
-<pre><code>+ 2/5 edges from 4432759 (vertex names):
+<!-- rnb-output-begin eyJkYXRhIjoiKyAyLzUgZWRnZXMgZnJvbSA5N2UyNDdiICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGItPmQgYy0+ZVxuIn0= -->
+<pre><code>+ 2/5 edges from 97e247b (vertex names):
 [1] b-&gt;d c-&gt;e</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -598,11 +623,11 @@ c(ab, de)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRShnKVtbd2VpZ2h0ID09IDJdXVxuYGBgIn0= -->
 <pre class="r"><code>E(g)[[weight == 2]]</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyAyLzUgZWRnZXMgZnJvbSA0NDMyNzU5ICh2ZXJ0ZXggbmFtZXMpOlxuICB0YWlsIGhlYWQgdGlkIGhpZCAgICAgdHlwZSB3ZWlnaHRcbjMgICAgYiAgICBkICAgMiAgIDQgZGlzdGFuY2UgICAgICAyXG41ICAgIGMgICAgZSAgIDMgICA1IGRpc3RhbmNlICAgICAgMlxuIn0= -->
-<pre><code>+ 2/5 edges from 4432759 (vertex names):
-  tail head tid hid     type weight
-3    b    d   2   4 distance      2
-5    c    e   3   5 distance      2</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiKyAyLzUgZWRnZXMgZnJvbSA5N2UyNDdiICh2ZXJ0ZXggbmFtZXMpOlxuICB0YWlsIGhlYWQgdGlkIGhpZCAgICAgICAgICAgIHR5cGUgd2VpZ2h0XG4zICAgIGIgICAgZCAgIDIgICA0IGlzIGNvbm5lY3RlZCB0byAgICAgIDJcbjUgICAgYyAgICBlICAgMyAgIDUgaXMgY29ubmVjdGVkIHRvICAgICAgMlxuIn0= -->
+<pre><code>+ 2/5 edges from 97e247b (vertex names):
+  tail head tid hid            type weight
+3    b    d   2   4 is connected to      2
+5    c    e   3   5 is connected to      2</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -615,14 +640,14 @@ c(ab, de)</code></pre>
 #ecount() provides the number of edges in a graph
 E(g)[[1:ecount(g)]]</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyA1LzUgZWRnZXMgZnJvbSA0NDMyNzU5ICh2ZXJ0ZXggbmFtZXMpOlxuICB0YWlsIGhlYWQgdGlkIGhpZCAgICAgdHlwZSB3ZWlnaHRcbjEgICAgYSAgICBiICAgMSAgIDIgZGlzdGFuY2UgICAgICAxXG4yICAgIGIgICAgYyAgIDIgICAzIGRpc3RhbmNlICAgICAgMVxuMyAgICBiICAgIGQgICAyICAgNCBkaXN0YW5jZSAtMjAwMDBcbjQgICAgYyAgICBiICAgMyAgIDIgZGlzdGFuY2UgICAgICAxXG41ICAgIGMgICAgZSAgIDMgICA1IGRpc3RhbmNlIC0yMDAwMFxuIn0= -->
-<pre><code>+ 5/5 edges from 4432759 (vertex names):
-  tail head tid hid     type weight
-1    a    b   1   2 distance      1
-2    b    c   2   3 distance      1
-3    b    d   2   4 distance -20000
-4    c    b   3   2 distance      1
-5    c    e   3   5 distance -20000</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiKyA1LzUgZWRnZXMgZnJvbSA5N2UyNDdiICh2ZXJ0ZXggbmFtZXMpOlxuICB0YWlsIGhlYWQgdGlkIGhpZCAgICAgICAgICAgIHR5cGUgd2VpZ2h0XG4xICAgIGEgICAgYiAgIDEgICAyIGlzIGNvbm5lY3RlZCB0byAgICAgIDFcbjIgICAgYiAgICBjICAgMiAgIDMgaXMgY29ubmVjdGVkIHRvICAgICAgMVxuMyAgICBiICAgIGQgICAyICAgNCBpcyBjb25uZWN0ZWQgdG8gLTIwMDAwXG40ICAgIGMgICAgYiAgIDMgICAyIGlzIGNvbm5lY3RlZCB0byAgICAgIDFcbjUgICAgYyAgICBlICAgMyAgIDUgaXMgY29ubmVjdGVkIHRvIC0yMDAwMFxuIn0= -->
+<pre><code>+ 5/5 edges from 97e247b (vertex names):
+  tail head tid hid            type weight
+1    a    b   1   2 is connected to      1
+2    b    c   2   3 is connected to      1
+3    b    d   2   4 is connected to -20000
+4    c    b   3   2 is connected to      1
+5    c    e   3   5 is connected to -20000</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -632,8 +657,8 @@ E(g)[[1:ecount(g)]]</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRShnKVsnYScgJS0tJSAnYiddXG5gYGAifQ== -->
 <pre class="r"><code>E(g)['a' %--% 'b']</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyAxLzUgZWRnZSBmcm9tIDQ0MzI3NTkgKHZlcnRleCBuYW1lcyk6XG5bMV0gYS0+YlxuIn0= -->
-<pre><code>+ 1/5 edge from 4432759 (vertex names):
+<!-- rnb-output-begin eyJkYXRhIjoiKyAxLzUgZWRnZSBmcm9tIDk3ZTI0N2IgKHZlcnRleCBuYW1lcyk6XG5bMV0gYS0+YlxuIn0= -->
+<pre><code>+ 1/5 edge from 97e247b (vertex names):
 [1] a-&gt;b</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -644,8 +669,8 @@ E(g)[[1:ecount(g)]]</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRShnKVsnYycgJTwtJSAnYiddXG5gYGAifQ== -->
 <pre class="r"><code>E(g)['c' %&lt;-% 'b']</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyAxLzUgZWRnZSBmcm9tIDQ0MzI3NTkgKHZlcnRleCBuYW1lcyk6XG5bMV0gYi0+Y1xuIn0= -->
-<pre><code>+ 1/5 edge from 4432759 (vertex names):
+<!-- rnb-output-begin eyJkYXRhIjoiKyAxLzUgZWRnZSBmcm9tIDk3ZTI0N2IgKHZlcnRleCBuYW1lcyk6XG5bMV0gYi0+Y1xuIn0= -->
+<pre><code>+ 1/5 edge from 97e247b (vertex names):
 [1] b-&gt;c</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -657,8 +682,8 @@ E(g)[[1:ecount(g)]]</code></pre>
 <pre class="r"><code>#you don't need to now the specific name of the vertices
 E(g)['b' %-&gt;% V(g)]</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyAyLzUgZWRnZXMgZnJvbSA0NDMyNzU5ICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGItPmMgYi0+ZFxuIn0= -->
-<pre><code>+ 2/5 edges from 4432759 (vertex names):
+<!-- rnb-output-begin eyJkYXRhIjoiKyAyLzUgZWRnZXMgZnJvbSA5N2UyNDdiICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGItPmMgYi0+ZFxuIn0= -->
+<pre><code>+ 2/5 edges from 97e247b (vertex names):
 [1] b-&gt;c b-&gt;d</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -674,10 +699,10 @@ E(g)['b' %-&gt;% V(g)]</code></pre>
 <pre class="r"><code>abc_sub &lt;- induced_subgraph(g, c('a', 'b', 'c'))
 abc_sub</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiSUdSQVBIIGFiMTM4ZjggRE5XQiAzIDMgLS0gXG4rIGF0dHI6IG5hbWUgKHYvYyksIHR5cGUgKHYvYyksIG9yZGVyICh2L24pLCB0eXBlIChlL2MpLCB3ZWlnaHQgKGUvbilcbisgZWRnZXMgZnJvbSBhYjEzOGY4ICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGEtPmIgYi0+YyBjLT5iXG4ifQ== -->
-<pre><code>IGRAPH ab138f8 DNWB 3 3 -- 
+<!-- rnb-output-begin eyJkYXRhIjoiSUdSQVBIIGQ4ZjRiNjAgRE5XQiAzIDMgLS0gXG4rIGF0dHI6IG5hbWUgKHYvYyksIHR5cGUgKHYvYyksIG9yZGVyICh2L24pLCB0eXBlIChlL2MpLCB3ZWlnaHQgKGUvbilcbisgZWRnZXMgZnJvbSBkOGY0YjYwICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGEtPmIgYi0+YyBjLT5iXG4ifQ== -->
+<pre><code>IGRAPH d8f4b60 DNWB 3 3 -- 
 + attr: name (v/c), type (v/c), order (v/n), type (e/c), weight (e/n)
-+ edges from ab138f8 (vertex names):
++ edges from d8f4b60 (vertex names):
 [1] a-&gt;b b-&gt;c c-&gt;b</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -690,8 +715,8 @@ abc_sub</code></pre>
 c &lt;- E(g)['c' %-&gt;% V(g)]
 c(b, c)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiKyA0LzUgZWRnZXMgZnJvbSA0NDMyNzU5ICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGItPmMgYi0+ZCBjLT5iIGMtPmVcbiJ9 -->
-<pre><code>+ 4/5 edges from 4432759 (vertex names):
+<!-- rnb-output-begin eyJkYXRhIjoiKyA0LzUgZWRnZXMgZnJvbSA5N2UyNDdiICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGItPmMgYi0+ZCBjLT5iIGMtPmVcbiJ9 -->
+<pre><code>+ 4/5 edges from 97e247b (vertex names):
 [1] b-&gt;c b-&gt;d c-&gt;b c-&gt;e</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -712,6 +737,10 @@ c(b, c)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRShnKVtWKGJfc3ViKVsnYiddJG5hbWUgJS0tJSBWKGFiY19zdWIpJG5hbWVdXG5gYGAifQ== -->
 <pre class="r"><code>E(g)[V(b_sub)['b']$name %--% V(abc_sub)$name]</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiKyAzLzUgZWRnZXMgZnJvbSA5N2UyNDdiICh2ZXJ0ZXggbmFtZXMpOlxuWzFdIGEtPmIgYi0+YyBjLT5iXG4ifQ== -->
+<pre><code>+ 3/5 edges from 97e247b (vertex names):
+[1] a-&gt;b b-&gt;c c-&gt;b</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Also, ids don’t stay consistent when a subgraph is created. That is, <code>V(g)[3]</code> won’t necessarily represent the same vertex in the subgraph <code>V(subg)[3]</code>. It is good practice to name the vertices and use the vertex names to keep things consistent. <code>V(g)[&quot;person_1&quot;]</code> will be the same in the subgraph <code>V(subg)[&quot;person_1&quot;]</code></p>
@@ -719,7 +748,7 @@ c(b, c)</code></pre>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUGFydCAxOiBFbGVtZW50cyBvZiBpZ3JhcGgiCm91dHB1dDoKICBodG1sX2RvY3VtZW50OgogICAgZGZfcHJpbnQ6IHBhZ2VkCiAgaHRtbF9ub3RlYm9vazogZGVmYXVsdAotLS0KClRoaXMgZG9jdW1lbnQgd2lsbCBmb2N1cyBvbiB1bmRlcnN0YW5kaW5nIGFuICoqaWdyYXBoKiogZ3JhcGggYW5kIGl0J3MgdHdvIG1haW4gY29tcG9uZW50cyAtICoqbm9kZXMqKiBhbmQgKiplZGdlcyoqLiBXZSBjYW4gYWxzbyB1c2UgdGhlc2UgY29tcG9uZW50cyB0byBmaWx0ZXIgdGhlIGdyYXBoIGRvd24gdG8gYSAqKnN1YmdyYXBoKiouCgpGaXJzdCwgd2UgbmVlZCB0byBsb2FkIHRoZSAqKmlncmFwaCoqIHBhY2thZ2UKCmBgYHtyLCBtZXNzYWdlPUZ9CmxpYnJhcnkoaWdyYXBoKQpgYGAKCiMgQnVpbGRpbmcgYSBncmFwaAoKV2Ugbm93IG5lZWQgdG8gY3JlYXRlIGEgZ3JhcGggdG8gZXhwbG9yZS4gVGhlcmUgYXJlIG1hbnkgZGlmZmVyZW50IHdheXMgd2UgY2FuIGNyZWF0ZSBhIG5ldyBncmFwaCwgYnV0IGhlcmUgd2Ugd2lsbCBvbmx5IGNvdmVyIHRocmVlIG9mIHRob3NlIHdheXM6CgoxLiAgQWRkaW5nIHZlcnRpY2VzIGFuZCBlZGdlcyB0byBhbiBlbXB0eSBncmFwaCBieSB1c2luZwogICAgKyBgbWFrZV9lbXB0eV9ncmFwaCgpYAogICAgKyBgdmVydGljZXMoKWAKICAgICsgYGVkZ2VzKClgCjIuICBDb252ZXJ0aW5nIGFuIGV4aXN0aW5nIG1hdHJpeCBpbnRvIGEgZ3JhcGggYnkKICAgICsgY3JlYXRpbmcgYSBzcGFyc2Ugc3F1YXJlIG1hdHJpeCB3aXRoIHRoZSByb3dzIGFuZCBjb2x1bW5zIHJlcHJlc2VudGluZyB0aGUgbm9kZXMKICAgICsgRmlsbGluZyBpbiBlbGVtZW50cyB3aXRoIHZhbHVlcyB0byByZXByZXNlbnQgdGhlIGVkZ2VzCiAgICArIHVzaW5nIGBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgoKWAKMy4gIENvbnZlcnRpbmcgZXhpc3RpbmcgZGF0YSBmcmFtZXMgaW50byBhIGdyYXBoIGJ5CiAgICArIGNyZWF0aW5nIGEgZGF0YSBmcmFtZSB0aGF0IHJlcHJlc2VudHMgYW4gKiplZGdlIGxpc3QqKgogICAgKyAob3B0aW9uYWwpIGNyZWF0aW5nIGEgZGF0YSBmcmFtZSB0aGF0IHJlcHJlc2VudHMgYSAqKm5vZGUgbGlzdCoqCiAgICArIHVzaW5nIGBncmFwaF9mcm9tX2RhdGFfZnJhbWUoKWAKCiMjIyBCdWlsZGluZyB1cCBhbiBlbXB0eSBncmFwaAoKV2hlbiB3ZSBidWlsZCBhIGdyYXBoIHVwIGZyb20gYW4gZW1wdHkgZ3JhcGggd2UgbmVlZCB0byBmaXJzdCBpbml0aWF0ZSB0aGUgdmVydGljZXMgc28gd2UgY2FuIHJlZmVyIHRvIHRoZW0gd2hlbiB3ZSBidWlsZCB0aGUgZWRnZXMuIEl0IGlzIGltcG9ydGFudCB0byBub3RlOgoKKiBWZXJ0ZXggbmFtZXMgZG9uJ3QgaGF2ZSB0byBiZSB1bmlxdWUsIGJ1dCBpdCBpcyBjb25zaWRlcmVkIGdvb2QgcHJhY3RpY2UKKiBFZGdlcyBhcmUgZGVmaW5lZCBpbiBwYWlyd2lzZSBvcmRlcgogICAgKyBJZiBgZGlyZWN0ZWQgPSBGYCB0aGVuIHRoZSBvcmRlciB3aXRoaW4gdGhlIHBhaXIgZG9lc24ndCBtYXR0ZXIgCiAgICArIElmIGBkaXJlY3RlZCA9IFRgIHRoZW4gdGhlIGZpcnN0IHZlcnRleCBpbiB0aGUgcGFpciBpcyB0aGUgc291cmNlIGFuZCB0aGUgc2Vjb25kIGlzIHRoZSB0YXJnZXQgCiogQXR0cmlidXRlcyBjYW4gYmUgZXhwbGljaXRseSBhZGRlZCB0byBib3RoIHZlcnRpY2VzIGFuZCBlZGdlcwoKYGBge3J9CmcgPC0gbWFrZV9lbXB0eV9ncmFwaChkaXJlY3RlZCA9IFQpICsKICB2ZXJ0aWNlcyhjKCdhJywgJ2InLCAnYycsICdkJywgJ2UnKSwKICAgICAgICAgICB0eXBlID0gImxldHRlciIsCiAgICAgICAgICAgb3JkZXIgPSBjKDEsIDIsIDMsIDQsIDUpKSArCiAgZWRnZXMoYygnYScsICdiJywKICAgICAgICAgICdiJywgJ2MnLAogICAgICAgICAgJ2InLCAnZCcsCiAgICAgICAgICAnYycsICdiJywKICAgICAgICAgICdjJywgJ2UnKSwKICAgICAgICB0eXBlID0gImlzIGNvbm5lY3RlZCB0byIsCiAgICAgICAgd2VpZ2h0ID0gYygxLCAxLCAyLCAxLCAyKSkKYGBgCgpMZXQncyB0YWtlIGEgbG9vayBhdCBob3cgaWdyYXBoIHJlcHJlc2VudHMgYSBncmFwaCBpbiBSCgpgYGB7ciBlY2hvID0gVH0KZwpgYGAKCmlncmFwaCBhbHNvIHByb3ZpZGVzIGEgYHBsb3QoKWAgdG8gZXhwbG9yZSB0aGUgZ3JhcGggdmlzdWFsbHkKCmBgYHtyfQpzZXQuc2VlZCgxMjM0KQpwbG90KGcpCmBgYAoKIyMjIENyZWF0aW5nIGEgZ3JhcGggZnJvbSBhIG1hdHJpeAoKVGhlIHJvd3MgYW5kIGNvbHVtbnMgb2YgYSBtYXRyaXggcmVwcmVzZW50IHRoZSB2ZXJ0aWNlcyBvZiBhIGdyYXBoLiBJZiB0aGUgZWxlbWVudCBpcyBub3QgMCwgdGhlbiBpdCByZXByZXNlbnRzIGEgbGluayBiZXR3ZWVuIHR3byB2ZXJ0aWNlcy4gSXQgaXMgaW1wb3J0YW50IHRvIG5vdGU6CgoqIFRoZSBub24temVybyBudW1iZXIgbWF0dGVycyByZWdhcmRsZXNzIGlmIHRoZSBncmFwaCBpcyB3ZWlnaHRlZCBvciBub3QuCiAgICArIGlmIGB3ZWlnaHRlZCA9IEZgIHRoZW4gaXQgcmVwcmVzZW50cyB0aGUgbnVtYmVyIG9mIGxpbmtzIGJldHdlZW4gdGhlIHR3byB2ZXJ0aWNlcwogICAgKyBpZiBgd2VpZ2h0ZWQgPSBUYCB0aGVuIGl0IHJlcHJlc2VudHMgdGhlIGB3ZWlnaHRgIG9mIHRoZSBlZGdlCiAgICArIGlmIGB3ZWlnaHRlZCA9IGAgYSBjaGFyYWN0ZXIgY29uc3RhbnQsIHRoZSB0aGUgbnVtYmVyIGJlY29tZXMgYW4gZWRnZSBhdHRyaWJ1dGUgbmFtZWQgYWZ0ZXIgdGhlIGNvbnN0YW50CiogQSBzeW1ldHJpYyBtYXRyaXggaXMgdmVyeSBkaWZmZXJlbnQgaWYgdGhlIG91dHB1dCBncmFwaCBpcyBkaXJlY3RlZCBvciBub3QuCiAgICArIGlmIGBtb2RlID0gImRpcmVjdGVkImAgdGhlbiB0aGUgcm93cyByZXByZXNlbnQgdGhlICoqc291cmNlKiogbm9kZXMgYW5kIHRoZSBjb2x1bW5zIHJlcHJlc2VudCB0aGUgKip0YXJnZXQqKiBub2RlcwogICAgKyBpZiBgbW9kZSA9ICJ1bmRpcmVjdGVkImAgdGhlbiBvbmx5IG9uZSBlbGVtZW50IGlzIGNob3NlbiBmcm9tIGVpdGhlciBtYXRyaXhbaV1bal0gb3IgbWF0cml4W2pdW2ldIAoKYGBge3J9CnNyYyA8LSBjKCdhJywgJ2InLCAnYicsICdjJywgJ2MnKQp0Z3QgPC0gYygnYicsICdjJywgJ2QnLCAnYicsICdlJykKd2d0IDwtIGMoMSwgMSwgMiwgMSwgMikKbWF0RGF0YSA8LSBtYXRyaXgoMCwgbnJvdyA9IDUsIG5jb2wgPSA1LCBkaW1uYW1lcyA9IGxpc3QobGV0dGVyc1sxOjVdLCBsZXR0ZXJzWzE6NV0pKQoKc2FwcGx5KHNlcV9hbG9uZyhzcmMpLCBmdW5jdGlvbihpKXsKICBtYXREYXRhW3NyY1tpXSwgdGd0W2ldXSA8PC0gd2d0W2ldCn0pCgptYXREYXRhCgpnIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeChtYXREYXRhLCBtb2RlID0gJ2RpcmVjdGVkJywgd2VpZ2h0ZWQgPSAnd2VpZ2h0JykgCgpnCmBgYAoKSWYgd2Ugd2FudGVkIHRvIGNvbnZlcnQgYSBncmFwaCBiYWNrIHRvIGEgbWF0cml4LCB0aGVuIHdlIGNhbiBkbyB0aGF0IGFzIHdlbGw6CgoqIElmIG5vIGBhdHRyYCBpcyBwcm92aWRlZCwgdGhlbiBhbiBhZGphY2VuY3kgbWF0cml4IGlzIHByb3ZpZGVkCiogSWYgYGF0dHJgIGlzIHByb3ZpZGVkLCB0aGUgbWF0cml4IGlzIGZpbGxlZCB3aXRoIHRoYXQgcGFydGljdWxhciBlZGdlIGF0dHJpYnV0ZS4gVGhlIGF0dHJpYnV0ZSBtdXN0IGJlIGVpdGhlciBudW1lcmljIG9yIGxvZ2ljYWwKYGBge3J9CmFzX2FkamFjZW5jeV9tYXRyaXgoZykKYXNfYWRqYWNlbmN5X21hdHJpeChnLCBhdHRyID0gJ3dlaWdodCcpCmBgYAoKIyMjIENyZWF0aW5nIGEgZ3JhcGggZnJvbSBhIGRhdGEgZnJhbWUKClRoZSBvbmx5IGRhdGEgZnJhbWUgdGhhdCBpcyByZXF1aXJlZCB0byBjcmVhdGUgYSBncmFwaCB3aXRoIGBncmFwaF9mcm9tX2RhdGFfZnJhbWUoKWAgaXMgb25lIHJlcHJlc2VudGluZyBhbiBlZGdlcyBsaXN0LiBIb3dldmVyLCBpZiB3ZSB3YW50IHRoZSBub2RlcyB0byBjb250YWluIGluZm9ybWF0aW9uIG90aGVyIHRoYW4gdGhlaXIgbmFtZSwgdGhlbiB3ZSB3aWxsIG5lZWQgdG8gYWxzbyBwcm92aWRlIGEgZGF0YSBmcmFtZSByZXByZXNlbnRpbmcgYSBub2RlIGxpc3QuIEl0IGlzIGltcG9ydGFudCB0byBub3RlOgoKKiBUaGUgZmlyc3QgdHdvIGNvbHVtbnMgb2YgdGhlIGVkZ2UgbGlzdCBtdXN0IHJlcHJlc2VudCB0aGUgbm9kZXMgdGhlIGVkZ2VzIGNvbm5lY3QKICAgICsgSWYgYGRpcmVjdGVkID0gVGAgdGhlbiB0aGUgZmlyc3QgY29sdW1uIGlzIHRoZSBzb3VyY2UgYW5kIHRoZSBzZWNvbmQgaXMgdGhlIHRhcmdldAoqIElmIGEgbm9kZSBsaXN0IGlzIHByb3ZpZGVkLCB0aGVuIGl0cyBmaXJzdCBjb2x1bW4gbXVzdCByZXByZXNlbnQgdGhlIG5hbWUgb2YgdGhlIG5vZGVzCiAgICArIFRoZSBuYW1lcyBvZiB0aGUgbm9kZXMgbXVzdCBhbGwgYmUgdW5pcXVlCiAgICArIEFueSBub2RlcyByZWZlcnJlZCB0byBpbiB0aGUgZWRnZSBsaXN0IG11c3QgZXhpc3QgaW4gdGhlIG5vZGUgbGlzdAoKYGBge3IgZGlyZWN0ZWRfZGYsIGVjaG89VH0Kbm9kZV9saXN0IDwtIGRhdGEuZnJhbWUoCiAgbmFtZSA9IGMoJ2EnLCAnYicsICdjJywgJ2QnLCAnZScpLAogIHR5cGUgPSAibGV0dGVyIiwKICBvcmRlciA9IGMoMSwgMiwgMywgNCwgNSkKKQoKZWRnZV9saXN0IDwtIGRhdGEuZnJhbWUoCiAgc291cmNlID0gYygnYScsICdiJywgJ2InLCAnYycsICdjJyksCiAgdGFyZ2V0ID0gYygnYicsICdjJywgJ2QnLCAnYicsICdlJyksCiAgdHlwZSA9ICdkaXN0YW5jZScsCiAgd2VpZ2h0ID0gYygxLCAxLCAyLCAxLCAyKQopCmcgPC0gZ3JhcGhfZnJvbV9kYXRhX2ZyYW1lKGQgPSBlZGdlX2xpc3QsIAogICAgICAgICAgICAgICAgICAgICAgICAgICBkaXJlY3RlZCA9IFQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgIHZlcnRpY2VzID0gbm9kZV9saXN0KQpgYGAKClRoZSByZXN1bHRpbmcgZ3JhcGggaXMsIGZvciBhbGwgaW50ZW50cyBhbmQgcHVycG9zZXMsIGlkZW50aWNhbCB0byB0aGUgb25lIHdlIGJ1aWx0IGZyb20gYW4gZW1wdHkgZ3JhcGguCgpgYGB7cn0KZwpgYGAKCldlIGNhbiBhbHNvIGNvbnZlcnQgdGhlIGdyYXBoIGJhY2sgdG8gYSBkYXRhIGZyYW1lOgoKKiBUaGUgYHdoYXRgIGFyZ3VtZW50IGFjY2VwdHMgdGhlIHN0cmluZ3MgImVkZ2VzIiwgInZlcnRpY2VzIiwgb3IgImJvdGgiIGFuZCB3aWxsIHJldHVybiB0aGUgYXBwcm9wcmlhdGUgZGF0YSBmcmFtZS4gSWYgJ2JvdGgnIGlzIGVudGVyZWQsIHRoZW4gYSBsaXN0IHdpdGggYm90aGUgZGF0YSBmcmFtZXMgaXMgcmV0dXJuZWQuCgpgYGB7cn0KYXNfZGF0YV9mcmFtZShnLCAnYm90aCcpCmBgYAoKCiMgQWNjZXNzaW5nICYgTWFuaXB1bGF0aW5nIGdyYXBoIGNvbXBvbmVudHMKCkdyYXBocyBhcmUgYnVpbHQgd2l0aCBub2RlcyBhbmQgZWRnZXMuIFRoZXNlIGNvbXBvbmVudHMgaGF2ZSBkYXRhIHN0b3JlZCBpbiB0aGVtIGFuZCBpdCBpcyBpbXBvcnRhbnQgdG8gdW5kZXJzdGFuZCBob3cgdGhpcyBkYXRhIGNhbiBiZSBhY2Nlc3NlZC4gVGhlIHR3byB3b3JrIGhvdXJzZXMgb2YgZ3JhcGggZXhwbG9yYXRpb24gaW4gaWdyYXBoIGFyZToKCiogYFYoKWAgdG8gYWNjZXNzIGFuZCBtYW5pcHVsYXRlIGRhdGEgc3RvcmVkIGluIHZlcnRpY2VzCiogYEUoKWAgdG8gYWNjZXNzIGFuZCBtYW5pcHVsYXRlIGRhdGEgc3RvcmVkIGluIGVkZ2VzCgpPbmNlIHdlIGFyZSBjb21mb3J0YWJsZSB3aXRoIHRob3NlIHR3byBmdW5jdGlvbnMsIHdlIGNhbiB1c2UgdGhlbSB0byBtYWtlIGEgc3ViZ3JhcGggd2l0aCBlaXRoZXI6CgoqIGBpbmR1Y2VkX3N1YmdyYXBoKClgIGlmIHdlIGhhdmUgdmVjdG9yIG9mIHZlcnRpY2VzCiogYHN1YmdyYXBoLmVkZ2VzKClgIGlmIHdlIGhhdmUgYSB2ZWN0b3Igb2YgZWRnZXMKCgojIyMgVigpCgpgVigpYCBvbmx5IGFjY2VwdHMgYW4gaWdyYXBoIGdyYXBoIG9iamVjdCBhbmQgcmV0dXJucyBhIHZlY3RvciBvZiB2ZXJ0aWNlcy4gVGhpcyB2ZWN0b3IgaXMgd2hhdCB3ZSB1c2UgdG8gZXhwbG9yZSB0aGUgdmVydGljZXMgb2YgdGhlIGdyYXBoIGFuZCBpdCBhY3RzIGxpa2UgYSBub3JtYWwgYGMoKWAgdmVjdG9yIGluIFIgd2l0aCBzb21lIHN5bnRhY3RpYyBzdWdhcgoKYGBge3J9ClYoZykKYGBgCgpZb3UgY2FuIGFjY2VzcyBpbmZvcm1hdGlvbiBvZiBhIHNwZWNpZmljIHZlcnRleCBieSBpbnB1dHRpbmcgaXRzIGluZGV4IG51bWJlci4KCmBgYHtyfQpWKGcpWzNdCmBgYAoKSWYgdGhlIHZlcnRleCBoYXMgYSBuYW1lLCB0aGVuIHlvdSBjYW4gdXNlIGl0cyBuYW1lIGluc3RlYWQgb2YgdGhlIGluZGV4IG51bWJlci4gCgpgYGB7cn0KVihnKVsnYyddCmBgYAoKQWNjZXNzaW5nIGEgdmVydGV4IHVzaW5nIGRvdWJsZSBzcXVhcmUgYnJhY2tldCBub3RhdGlvbiBnaXZlcyB5b3UgYWxsIHRoZSBpbmZvcm1hdGlvbiBzdG9yZWQgaW4gaXQuCgpgYGB7cn0KVihnKVtbJ2MnXV0KYGBgCgpBIHNwZWNpZmljIGF0dHJpYnV0ZSBjYW4gYmUgYWNjZXNzZWQgdXNpbmcgZG9sbGFyIHNpZ24gbm90YXRpb24uIFlvdSBzaG91bGQgdXNlIHNpbmdsZSBzcXVhcmUgYnJhY2tldCBub3RhdGlvbiB3aGVuIGFjY2VzaW5nIHNwZWNpZmljIGF0dHJpYnV0ZXMuCgpgYGB7cn0KVihnKVsnYyddJG9yZGVyIApgYGAKCllvdSBjYW4gdXNlIHRoZSBhc3NpZ25tZW50IGFycm93IChgPC1gKSB0byBjaGFuZ2UgaW5mb3JtYXRpb24gb2YgYSBwYXJ0aWN1bGFyIHZlcnRleAoKYGBge3J9ClYoZylbJ2MnXSRvcmRlciA8LSAxCgojdmNvdW50IHByb3ZpZGVzIHRoZSBudW1iZXIgb2YgdmVydGljZXMgaW4gYSBncmFwaApWKGcpW1sxOnZjb3VudChnKV1dCmBgYAoKWW91IGNhbiBhY2Nlc3MgbXVsdGlwbGUgdmVydGljZXMgZWl0aGVyIGJ5IHByb3ZpZGluZyBhIHZlY3RvciBvZiBuYW1lcwoKYGBge3J9ClYoZylbW2MoJ2MnLCAnZScpXV0KYGBgCgpZb3UgY2FuIGFsc28gKipxdWVyeSB0aGUgYXR0cmlidXRlcyoqIG9mIHRoZSB2ZXJ0ZXggdmVjdG9yLiAKCmBgYHtyfQpWKGcpW1tvcmRlciA9PSAxXV0KYGBgCgpWZXJ0ZXggdmVjdG9ycyBjYW4gYmUgY29tYmluZWQganVzdCBsaWtlIGFueSBvdGhlciB2ZWN0b3IgaW4gUgoKYGBge3J9CmFiIDwtIFYoZylbW2MoJ2EnLCAnYicpXV0KZGUgPC0gVihnKVtbYygnZCcsICdlJyldXQpjKGFiLCBkZSkKYGBgCgojIyMgRSgpCgpgRSgpYCBiZWh2ZXMgbXVjaCBpbiB0aGUgc2FtZSB3YXkgYXMgYFYoKWAuIEl0IG9ubHkgYWNjZXB0cyBhbiBpZ3JhcGggZ3JhcGggb2JqZWN0IGFuZCByZXR1cm5zIGEgdmVjdG9yIG9mIGVkZ2VzLiBBIGJpZyBkaWZmZXJlbmNlLCBob3dldmVyLCBpcyBob3cgd2UgYXBwcm9hY2ggYWNjZXNzaW5nIGRhdGEgc3Ryb2VkIGluIGVkZ2VzLiBXaGlsZSBlZGdlcyBjYW4gaGF2ZSBuYW1lcyBhbmQgY2FuIGJlIGFjY2Vzc2VkIGRpcmVjdGx5IHVzaW5nIGVpdGhlciBhIG5hbWUgb3IgYW4gaWQsIHRoaXMgaXMgbm90IHRoZSBiZXN0IGFwcHJvYWNoIHNpbmNlIGFzIGdyYXBocyBnZXQgbGFyZ2VyLCB0aGUgc2hlZXIgbnVtYmVyIGFuZCB2YXJpZXR5IG9mIGVkZ2VzIG1ha2UgaXQgdmVyeSBpbXByYWN0aWNhbCB0byBkbyBzby4gCgpJbnN0ZWFkIGVkZ2VzIHNob3VsZCBiZSBhY2Nlc3NlZCBieSBxdWVyeWluZyB0aGVpciBhdHRyaWJ1dGVzCgpgYGB7ciwgZWRnZV9hY2Nlc3MyLCBlY2hvID0gVH0KRShnKVt3ZWlnaHQgPT0gMl0KYGBgCgpVc2luZyBkb3VibGUgc3F1YXJlIG5vdGF0aW9uIGdpdmVzIHlvdSBtb3JlIGluZm9ybWF0aW9uIGFib3V0IHRoZSBxdWVyaWVkIGVkZ2VzLgoKYGBge3J9CkUoZylbW3dlaWdodCA9PSAyXV0KYGBgCgpZb3UgY2FuIGFsc28gY2hhbmdlIHRoZSBhdHRyaWJ1dGVzIG9mIHRoZSBzZWxlY3RlZCBlZGdlcy4gWW91IHNob3VsZCB1c2Ugc2luZ2xlIHNxdWFyZSBub3RhdGlvbgoKYGBge3J9CkUoZylbd2VpZ2h0ID09IDJdJHdlaWdodCA8LSAtMjAwMDAKCiNlY291bnQoKSBwcm92aWRlcyB0aGUgbnVtYmVyIG9mIGVkZ2VzIGluIGEgZ3JhcGgKRShnKVtbMTplY291bnQoZyldXQpgYGAKCldlIGNhbiBhbHNvICoqcXVlcnkgZWRnZXMgZm9yIHRoZSBub2RlcyB0aGV5IGNvbm5lY3QuKioKCmBMSFMgJS0tJSBSSFNgIHJlcHJlc2VudHMgYW55IGVkZ2UgYmV0d2VlbiBgTEhTYCBhbmQgYFJIU2AKCmBgYHtyfQpFKGcpWydhJyAlLS0lICdiJ10KYGBgCgpgTEhTICU8LSUgUkhTYCByZXByZXNlbnRzIGVkZ2VzIGdvaW5nIHRvIGBMSFNgIGZyb20gYFJIU2AKCmBgYHtyfQpFKGcpWydjJyAlPC0lICdiJ10KYGBgCgpgTEhTICUtPiUgUkhTYCByZXByZXNlbnRzIGVkZ2VzIGxlYXZpbmcgZnJvbSBgTEhTYCB0byBgUkhTYAoKYGBge3J9CiN5b3UgZG9uJ3QgbmVlZCB0byBub3cgdGhlIHNwZWNpZmljIG5hbWUgb2YgdGhlIHZlcnRpY2VzCkUoZylbJ2InICUtPiUgVihnKV0KYGBgCgpFZGdlIHZlY3RvcnMgY2FuIGFsc28gYmUgY29tYmluZWQgdG9nZXRoZXIgdXNpbmcgYGMoKWAKCmBgYHtyfQpiIDwtIEUoZylbJ2InICUtPiUgVihnKV0KYyA8LSBFKGcpWydjJyAlLT4lIFYoZyldCmMoYiwgYykKYGBgCgojIFN1YmdyYXBocwoKYGluZHVjZWRfc3ViZ3JhcGgoKWAgZmlsdGVycyB0aGUgZ3JhcGggdG8gaW5jbHVkZSBvbmx5IHRoZSB2ZXJ0aWNlcyB3aXRoaW4gdGhlIHByb3ZpZGVkIHZlcnRleCB2ZWN0b3Igb3IgdmVjdG9yIG9mIHZlcnRleCBuYW1lcy4gQW55IGVkZ2VzIGJldHdlZW4gdGhlIHByb3ZpZGVkIG5vZGVzIGFyZSBwcmVzZXJ2ZWQuIAoKYGBge3Igc3ViZ3JhcGhzLCBlY2hvID0gVH0KYWJjX3N1YiA8LSBpbmR1Y2VkX3N1YmdyYXBoKGcsIGMoJ2EnLCAnYicsICdjJykpCmFiY19zdWIKYGBgCgpgc3ViZ3JhcGguZWRnZXMoKWAgZmlsdGVycyB0aGUgZ3JhcGggdG8gaW5jbHVkZSBvbmx5IHRoZSBlZGdlcyB3aXRoaW4gdGhlIHByb3ZpZGVkIGVkZ2UgdmVjdG9yLiBCeSBkZWZhdWx0LCBvbmx5IHZlcnRpY2VzIHRoYXQgYXJlIGNvbm5lY3RlZCB0byB0aGUgZWRnZXMgYXJlIGtlcHQuIElmIHlvdSB3YW50IHRvIGtlZXAgYWxsIHRoZSB2ZXJ0aWNlcywgdGhlbiB5b3UgY2FuIHNldCB0aGUgcGFyYW1ldGVyIGBkZWxldGUudmVydGljZXMgPSBGYAoKYGBge3J9CmJfc3ViIDwtIHN1YmdyYXBoLmVkZ2VzKGcsIEUoZylbImIiICUtLSUgVihnKV0pCmJfc3ViCmBgYAoKIyMjIFN1YmdyYXBocyBHb3RjaGFzCkluIGlncmFwaCwgc3ViZ3JhcGhzIGFyZSBjb21wbGV0ZWx5IG5ldyBncmFwaHMgYW5kIHRoZWlyIGNvbXBvbmVudHMgYXJlIGNvbXBsZXRlbHkgZGlmZmVyZW50IGZyb20gdGhvc2Ugb2YgdGhlIGdyYXBocyB0aGV5IHdlcmUgY3JlYXRlZCBmcm9tLiBUaGUgYmVsb3cgd29uJ3Qgd29yazoKCmBgYHtyIGV2YWwgPSBGfQpFKGcpW1YoYl9zdWIpWydiJ10gJS0tJSBWKGFiY19zdWIpXQpgYGAKCkluc3RlYWQsIHlvdSB3aWxsIG5lZWQgdG8gdXNlIGF0dHJpYnV0ZXMgdGhhdCB5b3Uga25vdyBhcmUgaW4gYm90aCBncmFwaHMsIGxpa2UgbmFtZXM6CgpgYGB7ciBzdWJncmFwaF9nb3RjaGFfZ29vZCwgZWNobyA9IFR9CkUoZylbVihiX3N1YilbJ2InXSRuYW1lICUtLSUgVihhYmNfc3ViKSRuYW1lXQpgYGAKCkFsc28sIGlkcyBkb24ndCBzdGF5IGNvbnNpc3RlbnQgd2hlbiBhIHN1YmdyYXBoIGlzIGNyZWF0ZWQuIFRoYXQgaXMsIGBWKGcpWzNdYCB3b24ndCBuZWNlc3NhcmlseSByZXByZXNlbnQgdGhlIHNhbWUgdmVydGV4IGluIHRoZSBzdWJncmFwaCBgVihzdWJnKVszXWAuIEl0IGlzIGdvb2QgcHJhY3RpY2UgdG8gbmFtZSB0aGUgdmVydGljZXMgYW5kIHVzZSB0aGUgdmVydGV4IG5hbWVzIHRvIGtlZXAgdGhpbmdzIGNvbnNpc3RlbnQuIGBWKGcpWyJwZXJzb25fMSJdYCB3aWxsIGJlIHRoZSBzYW1lIGluIHRoZSBzdWJncmFwaCBgVihzdWJnKVsicGVyc29uXzEiXWAg</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUGFydCAxOiBFbGVtZW50cyBvZiBpZ3JhcGgiCm91dHB1dDoKICBodG1sX2RvY3VtZW50OgogICAgZGZfcHJpbnQ6IHBhZ2VkCiAgaHRtbF9ub3RlYm9vazogZGVmYXVsdAotLS0KClRoaXMgZG9jdW1lbnQgd2lsbCBmb2N1cyBvbiB1bmRlcnN0YW5kaW5nIGFuICoqaWdyYXBoKiogZ3JhcGggYW5kIGl0J3MgdHdvIG1haW4gY29tcG9uZW50cyAtICoqbm9kZXMqKiBhbmQgKiplZGdlcyoqLiBXZSBjYW4gYWxzbyB1c2UgdGhlc2UgY29tcG9uZW50cyB0byBmaWx0ZXIgdGhlIGdyYXBoIGRvd24gdG8gYSAqKnN1YmdyYXBoKiouCgpGaXJzdCwgd2UgbmVlZCB0byBsb2FkIHRoZSAqKmlncmFwaCoqIHBhY2thZ2UKCmBgYHtyLCBtZXNzYWdlPUZ9CmxpYnJhcnkoaWdyYXBoKQpgYGAKCiMgQnVpbGRpbmcgYSBncmFwaAoKV2Ugbm93IG5lZWQgdG8gY3JlYXRlIGEgZ3JhcGggdG8gZXhwbG9yZS4gVGhlcmUgYXJlIG1hbnkgZGlmZmVyZW50IHdheXMgd2UgY2FuIGNyZWF0ZSBhIG5ldyBncmFwaCwgYnV0IGhlcmUgd2Ugd2lsbCBvbmx5IGNvdmVyIHRocmVlIG9mIHRob3NlIHdheXM6CgoxLiAgQWRkaW5nIHZlcnRpY2VzIGFuZCBlZGdlcyB0byBhbiBlbXB0eSBncmFwaCBieSB1c2luZwogICAgKyBgbWFrZV9lbXB0eV9ncmFwaCgpYAogICAgKyBgdmVydGljZXMoKWAKICAgICsgYGVkZ2VzKClgCjIuICBDb252ZXJ0aW5nIGFuIGV4aXN0aW5nIG1hdHJpeCBpbnRvIGEgZ3JhcGggYnkKICAgICsgY3JlYXRpbmcgYSBzcGFyc2Ugc3F1YXJlIG1hdHJpeCB3aXRoIHRoZSByb3dzIGFuZCBjb2x1bW5zIHJlcHJlc2VudGluZyB0aGUgbm9kZXMKICAgICsgRmlsbGluZyBpbiBlbGVtZW50cyB3aXRoIHZhbHVlcyB0byByZXByZXNlbnQgdGhlIGVkZ2VzCiAgICArIHVzaW5nIGBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgoKWAKMy4gIENvbnZlcnRpbmcgZXhpc3RpbmcgZGF0YSBmcmFtZXMgaW50byBhIGdyYXBoIGJ5CiAgICArIGNyZWF0aW5nIGEgZGF0YSBmcmFtZSB0aGF0IHJlcHJlc2VudHMgYW4gKiplZGdlIGxpc3QqKgogICAgKyAob3B0aW9uYWwpIGNyZWF0aW5nIGEgZGF0YSBmcmFtZSB0aGF0IHJlcHJlc2VudHMgYSAqKm5vZGUgbGlzdCoqCiAgICArIHVzaW5nIGBncmFwaF9mcm9tX2RhdGFfZnJhbWUoKWAKCiMjIyBCdWlsZGluZyB1cCBhbiBlbXB0eSBncmFwaAoKV2hlbiB3ZSBidWlsZCBhIGdyYXBoIHVwIGZyb20gYW4gZW1wdHkgZ3JhcGggd2UgbmVlZCB0byBmaXJzdCBpbml0aWF0ZSB0aGUgdmVydGljZXMgc28gd2UgY2FuIHJlZmVyIHRvIHRoZW0gd2hlbiB3ZSBidWlsZCB0aGUgZWRnZXMuIEl0IGlzIGltcG9ydGFudCB0byBub3RlOgoKKiBWZXJ0ZXggbmFtZXMgZG9uJ3QgaGF2ZSB0byBiZSB1bmlxdWUsIGJ1dCBpdCBpcyBjb25zaWRlcmVkIGdvb2QgcHJhY3RpY2UKKiBFZGdlcyBhcmUgZGVmaW5lZCBpbiBwYWlyd2lzZSBvcmRlcgogICAgKyBJZiBgZGlyZWN0ZWQgPSBGYCB0aGVuIHRoZSBvcmRlciB3aXRoaW4gdGhlIHBhaXIgZG9lc24ndCBtYXR0ZXIgCiAgICArIElmIGBkaXJlY3RlZCA9IFRgIHRoZW4gdGhlIGZpcnN0IHZlcnRleCBpbiB0aGUgcGFpciBpcyB0aGUgc291cmNlIGFuZCB0aGUgc2Vjb25kIGlzIHRoZSB0YXJnZXQgCiogQXR0cmlidXRlcyBjYW4gYmUgZXhwbGljaXRseSBhZGRlZCB0byBib3RoIHZlcnRpY2VzIGFuZCBlZGdlcwoKYGBge3J9CmcgPC0gbWFrZV9lbXB0eV9ncmFwaChkaXJlY3RlZCA9IFQpICsKICB2ZXJ0aWNlcyhjKCdhJywgJ2InLCAnYycsICdkJywgJ2UnKSwKICAgICAgICAgICB0eXBlID0gImxldHRlciIsCiAgICAgICAgICAgb3JkZXIgPSBjKDEsIDIsIDMsIDQsIDUpKSArCiAgZWRnZXMoYygnYScsICdiJywKICAgICAgICAgICdiJywgJ2MnLAogICAgICAgICAgJ2InLCAnZCcsCiAgICAgICAgICAnYycsICdiJywKICAgICAgICAgICdjJywgJ2UnKSwKICAgICAgICB0eXBlID0gImlzIGNvbm5lY3RlZCB0byIsCiAgICAgICAgd2VpZ2h0ID0gYygxLCAxLCAyLCAxLCAyKSkKYGBgCgpMZXQncyB0YWtlIGEgbG9vayBhdCBob3cgaWdyYXBoIHJlcHJlc2VudHMgYSBncmFwaCBpbiBSCgpgYGB7ciBlY2hvID0gVH0KZwpgYGAKCmlncmFwaCBhbHNvIHByb3ZpZGVzIGEgYHBsb3QoKWAgdG8gZXhwbG9yZSB0aGUgZ3JhcGggdmlzdWFsbHkKCmBgYHtyfQpzZXQuc2VlZCgxMjM0KQpwbG90KGcpCmBgYAoKIyMjIENyZWF0aW5nIGEgZ3JhcGggZnJvbSBhIG1hdHJpeAoKVGhlIHJvd3MgYW5kIGNvbHVtbnMgb2YgYSBtYXRyaXggcmVwcmVzZW50IHRoZSB2ZXJ0aWNlcyBvZiBhIGdyYXBoLiBJZiB0aGUgZWxlbWVudCBpcyBub3QgMCwgdGhlbiBpdCByZXByZXNlbnRzIGEgbGluayBiZXR3ZWVuIHR3byB2ZXJ0aWNlcy4gSXQgaXMgaW1wb3J0YW50IHRvIG5vdGU6CgoqIFRoZSBub24temVybyBudW1iZXIgbWF0dGVycyByZWdhcmRsZXNzIGlmIHRoZSBncmFwaCBpcyB3ZWlnaHRlZCBvciBub3QuCiAgICArIGlmIGB3ZWlnaHRlZCA9IEZgIHRoZW4gaXQgcmVwcmVzZW50cyB0aGUgbnVtYmVyIG9mIGxpbmtzIGJldHdlZW4gdGhlIHR3byB2ZXJ0aWNlcwogICAgKyBpZiBgd2VpZ2h0ZWQgPSBUYCB0aGVuIGl0IHJlcHJlc2VudHMgdGhlIGB3ZWlnaHRgIG9mIHRoZSBlZGdlCiAgICArIGlmIGB3ZWlnaHRlZCA9IGAgYSBjaGFyYWN0ZXIgY29uc3RhbnQsIHRoZSB0aGUgbnVtYmVyIGJlY29tZXMgYW4gZWRnZSBhdHRyaWJ1dGUgbmFtZWQgYWZ0ZXIgdGhlIGNvbnN0YW50CiogQSBzeW1ldHJpYyBtYXRyaXggaXMgdmVyeSBkaWZmZXJlbnQgaWYgdGhlIG91dHB1dCBncmFwaCBpcyBkaXJlY3RlZCBvciBub3QuCiAgICArIGlmIGBtb2RlID0gImRpcmVjdGVkImAgdGhlbiB0aGUgcm93cyByZXByZXNlbnQgdGhlICoqc291cmNlKiogbm9kZXMgYW5kIHRoZSBjb2x1bW5zIHJlcHJlc2VudCB0aGUgKip0YXJnZXQqKiBub2RlcwogICAgKyBpZiBgbW9kZSA9ICJ1bmRpcmVjdGVkImAgdGhlbiBvbmx5IG9uZSBlbGVtZW50IGlzIGNob3NlbiBmcm9tIGVpdGhlciBtYXRyaXhbaV1bal0gb3IgbWF0cml4W2pdW2ldIAoKYGBge3J9CnNyYyA8LSBjKCdhJywgJ2InLCAnYicsICdjJywgJ2MnKQp0Z3QgPC0gYygnYicsICdjJywgJ2QnLCAnYicsICdlJykKd2d0IDwtIGMoMSwgMSwgMiwgMSwgMikKbWF0RGF0YSA8LSBtYXRyaXgoMCwgbnJvdyA9IDUsIG5jb2wgPSA1LCBkaW1uYW1lcyA9IGxpc3QobGV0dGVyc1sxOjVdLCBsZXR0ZXJzWzE6NV0pKQoKc2FwcGx5KHNlcV9hbG9uZyhzcmMpLCBmdW5jdGlvbihpKXsKICBtYXREYXRhW3NyY1tpXSwgdGd0W2ldXSA8PC0gd2d0W2ldCn0pCgptYXREYXRhCmBgYAoKYGBge3J9CmcgPC0gZ3JhcGhfZnJvbV9hZGphY2VuY3lfbWF0cml4KG1hdERhdGEsIG1vZGUgPSAnZGlyZWN0ZWQnLCB3ZWlnaHRlZCA9ICd3ZWlnaHQnKSAKCmcKYGBgCgpJZiB3ZSB3YW50ZWQgdG8gY29udmVydCBhIGdyYXBoIGJhY2sgdG8gYSBtYXRyaXgsIHRoZW4gd2UgY2FuIGRvIHRoYXQgYXMgd2VsbDoKCiogSWYgbm8gYGF0dHJgIGlzIHByb3ZpZGVkLCB0aGVuIGFuIGFkamFjZW5jeSBtYXRyaXggaXMgcHJvdmlkZWQKKiBJZiBgYXR0cmAgaXMgcHJvdmlkZWQsIHRoZSBtYXRyaXggaXMgZmlsbGVkIHdpdGggdGhhdCBwYXJ0aWN1bGFyIGVkZ2UgYXR0cmlidXRlLiBUaGUgYXR0cmlidXRlIG11c3QgYmUgZWl0aGVyIG51bWVyaWMgb3IgbG9naWNhbApgYGB7cn0KYXNfYWRqYWNlbmN5X21hdHJpeChnKQphc19hZGphY2VuY3lfbWF0cml4KGcsIGF0dHIgPSAnd2VpZ2h0JykKYGBgCgojIyMgQ3JlYXRpbmcgYSBncmFwaCBmcm9tIGEgZGF0YSBmcmFtZQoKVGhlIG9ubHkgZGF0YSBmcmFtZSB0aGF0IGlzIHJlcXVpcmVkIHRvIGNyZWF0ZSBhIGdyYXBoIHdpdGggYGdyYXBoX2Zyb21fZGF0YV9mcmFtZSgpYCBpcyBvbmUgcmVwcmVzZW50aW5nIGFuIGVkZ2VzIGxpc3QuIEhvd2V2ZXIsIGlmIHdlIHdhbnQgdGhlIG5vZGVzIHRvIGNvbnRhaW4gaW5mb3JtYXRpb24gb3RoZXIgdGhhbiB0aGVpciBuYW1lLCB0aGVuIHdlIHdpbGwgbmVlZCB0byBhbHNvIHByb3ZpZGUgYSBkYXRhIGZyYW1lIHJlcHJlc2VudGluZyBhIG5vZGUgbGlzdC4gSXQgaXMgaW1wb3J0YW50IHRvIG5vdGU6CgoqIFRoZSBmaXJzdCB0d28gY29sdW1ucyBvZiB0aGUgZWRnZSBsaXN0IG11c3QgcmVwcmVzZW50IHRoZSBub2RlcyB0aGUgZWRnZXMgY29ubmVjdAogICAgKyBJZiBgZGlyZWN0ZWQgPSBUYCB0aGVuIHRoZSBmaXJzdCBjb2x1bW4gaXMgdGhlIHNvdXJjZSBhbmQgdGhlIHNlY29uZCBpcyB0aGUgdGFyZ2V0CiogSWYgYSBub2RlIGxpc3QgaXMgcHJvdmlkZWQsIHRoZW4gaXRzIGZpcnN0IGNvbHVtbiBtdXN0IHJlcHJlc2VudCB0aGUgbmFtZSBvZiB0aGUgbm9kZXMKICAgICsgVGhlIG5hbWVzIG9mIHRoZSBub2RlcyBtdXN0IGFsbCBiZSB1bmlxdWUKICAgICsgQW55IG5vZGVzIHJlZmVycmVkIHRvIGluIHRoZSBlZGdlIGxpc3QgbXVzdCBleGlzdCBpbiB0aGUgbm9kZSBsaXN0CgpgYGB7ciBkaXJlY3RlZF9kZiwgZWNobz1UfQpub2RlX2xpc3QgPC0gZGF0YS5mcmFtZSgKICBuYW1lID0gYygnYScsICdiJywgJ2MnLCAnZCcsICdlJyksCiAgdHlwZSA9ICJsZXR0ZXIiLAogIG9yZGVyID0gYygxLCAyLCAzLCA0LCA1KQopCgplZGdlX2xpc3QgPC0gZGF0YS5mcmFtZSgKICBzb3VyY2UgPSBjKCdhJywgJ2InLCAnYicsICdjJywgJ2MnKSwKICB0YXJnZXQgPSBjKCdiJywgJ2MnLCAnZCcsICdiJywgJ2UnKSwKICB0eXBlID0gJ2lzIGNvbm5lY3RlZCB0bycsCiAgd2VpZ2h0ID0gYygxLCAxLCAyLCAxLCAyKQopCmcgPC0gZ3JhcGhfZnJvbV9kYXRhX2ZyYW1lKGQgPSBlZGdlX2xpc3QsIAogICAgICAgICAgICAgICAgICAgICAgICAgICBkaXJlY3RlZCA9IFQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgIHZlcnRpY2VzID0gbm9kZV9saXN0KQpgYGAKClRoZSByZXN1bHRpbmcgZ3JhcGggaXMsIGZvciBhbGwgaW50ZW50cyBhbmQgcHVycG9zZXMsIGlkZW50aWNhbCB0byB0aGUgb25lIHdlIGJ1aWx0IGZyb20gYW4gZW1wdHkgZ3JhcGguCgpgYGB7cn0KZwpgYGAKCldlIGNhbiBhbHNvIGNvbnZlcnQgdGhlIGdyYXBoIGJhY2sgdG8gYSBkYXRhIGZyYW1lOgoKKiBUaGUgYHdoYXRgIGFyZ3VtZW50IGFjY2VwdHMgdGhlIHN0cmluZ3MgImVkZ2VzIiwgInZlcnRpY2VzIiwgb3IgImJvdGgiIGFuZCB3aWxsIHJldHVybiB0aGUgYXBwcm9wcmlhdGUgZGF0YSBmcmFtZS4gSWYgJ2JvdGgnIGlzIGVudGVyZWQsIHRoZW4gYSBsaXN0IHdpdGggYm90aGUgZGF0YSBmcmFtZXMgaXMgcmV0dXJuZWQuCgpgYGB7cn0KYXNfZGF0YV9mcmFtZShnLCAnYm90aCcpCmBgYAoKCiMgQWNjZXNzaW5nICYgTWFuaXB1bGF0aW5nIGdyYXBoIGNvbXBvbmVudHMKCkdyYXBocyBhcmUgYnVpbHQgd2l0aCBub2RlcyBhbmQgZWRnZXMuIFRoZXNlIGNvbXBvbmVudHMgaGF2ZSBkYXRhIHN0b3JlZCBpbiB0aGVtIGFuZCBpdCBpcyBpbXBvcnRhbnQgdG8gdW5kZXJzdGFuZCBob3cgdGhpcyBkYXRhIGNhbiBiZSBhY2Nlc3NlZC4gVGhlIHR3byB3b3JrIGhvdXJzZXMgb2YgZ3JhcGggZXhwbG9yYXRpb24gaW4gaWdyYXBoIGFyZToKCiogYFYoKWAgdG8gYWNjZXNzIGFuZCBtYW5pcHVsYXRlIGRhdGEgc3RvcmVkIGluIHZlcnRpY2VzCiogYEUoKWAgdG8gYWNjZXNzIGFuZCBtYW5pcHVsYXRlIGRhdGEgc3RvcmVkIGluIGVkZ2VzCgpPbmNlIHdlIGFyZSBjb21mb3J0YWJsZSB3aXRoIHRob3NlIHR3byBmdW5jdGlvbnMsIHdlIGNhbiB1c2UgdGhlbSB0byBtYWtlIGEgc3ViZ3JhcGggd2l0aCBlaXRoZXI6CgoqIGBpbmR1Y2VkX3N1YmdyYXBoKClgIGlmIHdlIGhhdmUgdmVjdG9yIG9mIHZlcnRpY2VzCiogYHN1YmdyYXBoLmVkZ2VzKClgIGlmIHdlIGhhdmUgYSB2ZWN0b3Igb2YgZWRnZXMKCgojIyMgVigpCgpgVigpYCBvbmx5IGFjY2VwdHMgYW4gaWdyYXBoIGdyYXBoIG9iamVjdCBhbmQgcmV0dXJucyBhIHZlY3RvciBvZiB2ZXJ0aWNlcy4gVGhpcyB2ZWN0b3IgaXMgd2hhdCB3ZSB1c2UgdG8gZXhwbG9yZSB0aGUgdmVydGljZXMgb2YgdGhlIGdyYXBoIGFuZCBpdCBhY3RzIGxpa2UgYSBub3JtYWwgYGMoKWAgdmVjdG9yIGluIFIgd2l0aCBzb21lIHN5bnRhY3RpYyBzdWdhcgoKYGBge3J9ClYoZykKYGBgCgpZb3UgY2FuIGFjY2VzcyBpbmZvcm1hdGlvbiBvZiBhIHNwZWNpZmljIHZlcnRleCBieSBpbnB1dHRpbmcgaXRzIGluZGV4IG51bWJlci4KCmBgYHtyfQpWKGcpWzNdCmBgYAoKSWYgdGhlIHZlcnRleCBoYXMgYSBuYW1lLCB0aGVuIHlvdSBjYW4gdXNlIGl0cyBuYW1lIGluc3RlYWQgb2YgdGhlIGluZGV4IG51bWJlci4gCgpgYGB7cn0KVihnKVsnYyddCmBgYAoKQWNjZXNzaW5nIGEgdmVydGV4IHVzaW5nIGRvdWJsZSBzcXVhcmUgYnJhY2tldCBub3RhdGlvbiBnaXZlcyB5b3UgYWxsIHRoZSBpbmZvcm1hdGlvbiBzdG9yZWQgaW4gaXQuCgpgYGB7cn0KVihnKVtbJ2MnXV0KYGBgCgpBIHNwZWNpZmljIGF0dHJpYnV0ZSBjYW4gYmUgYWNjZXNzZWQgdXNpbmcgZG9sbGFyIHNpZ24gbm90YXRpb24uIFlvdSBzaG91bGQgdXNlIHNpbmdsZSBzcXVhcmUgYnJhY2tldCBub3RhdGlvbiB3aGVuIGFjY2VzaW5nIHNwZWNpZmljIGF0dHJpYnV0ZXMuCgpgYGB7cn0KVihnKSRvcmRlcgpgYGAKCmBgYHtyfQpWKGcpWydjJ10kb3JkZXIgCmBgYAoKWW91IGNhbiB1c2UgdGhlIGFzc2lnbm1lbnQgYXJyb3cgKGA8LWApIHRvIGNoYW5nZSBpbmZvcm1hdGlvbiBvZiBhIHBhcnRpY3VsYXIgdmVydGV4CgpgYGB7cn0KVihnKVsnYyddJG9yZGVyIDwtIDEKCiN2Y291bnQgcHJvdmlkZXMgdGhlIG51bWJlciBvZiB2ZXJ0aWNlcyBpbiBhIGdyYXBoClYoZylbWzE6dmNvdW50KGcpXV0KYGBgCgpZb3UgY2FuIGFjY2VzcyBtdWx0aXBsZSB2ZXJ0aWNlcyBlaXRoZXIgYnkgcHJvdmlkaW5nIGEgdmVjdG9yIG9mIG5hbWVzCgpgYGB7cn0KVihnKVtbYygnYycsICdlJyldXQpgYGAKCllvdSBjYW4gYWxzbyAqKnF1ZXJ5IHRoZSBhdHRyaWJ1dGVzKiogb2YgdGhlIHZlcnRleCB2ZWN0b3IuIAoKYGBge3J9ClYoZylbW29yZGVyID09IDFdXQpgYGAKClZlcnRleCB2ZWN0b3JzIGNhbiBiZSBjb21iaW5lZCBqdXN0IGxpa2UgYW55IG90aGVyIHZlY3RvciBpbiBSCgpgYGB7cn0KYWIgPC0gVihnKVtbYygnYScsICdiJyldXQpkZSA8LSBWKGcpW1tjKCdkJywgJ2UnKV1dCmMoYWIsIGRlKQpgYGAKCiMjIyBFKCkKCmBFKClgIGJlaHZlcyBtdWNoIGluIHRoZSBzYW1lIHdheSBhcyBgVigpYC4gSXQgb25seSBhY2NlcHRzIGFuIGlncmFwaCBncmFwaCBvYmplY3QgYW5kIHJldHVybnMgYSB2ZWN0b3Igb2YgZWRnZXMuIEEgYmlnIGRpZmZlcmVuY2UsIGhvd2V2ZXIsIGlzIGhvdyB3ZSBhcHByb2FjaCBhY2Nlc3NpbmcgZGF0YSBzdHJvZWQgaW4gZWRnZXMuIFdoaWxlIGVkZ2VzIGNhbiBoYXZlIG5hbWVzIGFuZCBjYW4gYmUgYWNjZXNzZWQgZGlyZWN0bHkgdXNpbmcgZWl0aGVyIGEgbmFtZSBvciBhbiBpZCwgdGhpcyBpcyBub3QgdGhlIGJlc3QgYXBwcm9hY2ggc2luY2UgYXMgZ3JhcGhzIGdldCBsYXJnZXIsIHRoZSBzaGVlciBudW1iZXIgYW5kIHZhcmlldHkgb2YgZWRnZXMgbWFrZSBpdCB2ZXJ5IGltcHJhY3RpY2FsIHRvIGRvIHNvLiAKCgpgYGB7cn0KRShnKQpgYGAKCkluc3RlYWQgZWRnZXMgc2hvdWxkIGJlIGFjY2Vzc2VkIGJ5IHF1ZXJ5aW5nIHRoZWlyIGF0dHJpYnV0ZXMKCmBgYHtyLCBlZGdlX2FjY2VzczIsIGVjaG8gPSBUfQpFKGcpW3dlaWdodCA9PSAyXQpgYGAKClVzaW5nIGRvdWJsZSBzcXVhcmUgbm90YXRpb24gZ2l2ZXMgeW91IG1vcmUgaW5mb3JtYXRpb24gYWJvdXQgdGhlIHF1ZXJpZWQgZWRnZXMuCgpgYGB7cn0KRShnKVtbd2VpZ2h0ID09IDJdXQpgYGAKCllvdSBjYW4gYWxzbyBjaGFuZ2UgdGhlIGF0dHJpYnV0ZXMgb2YgdGhlIHNlbGVjdGVkIGVkZ2VzLiBZb3Ugc2hvdWxkIHVzZSBzaW5nbGUgc3F1YXJlIG5vdGF0aW9uCgpgYGB7cn0KRShnKVt3ZWlnaHQgPT0gMl0kd2VpZ2h0IDwtIC0yMDAwMAoKI2Vjb3VudCgpIHByb3ZpZGVzIHRoZSBudW1iZXIgb2YgZWRnZXMgaW4gYSBncmFwaApFKGcpW1sxOmVjb3VudChnKV1dCmBgYAoKV2UgY2FuIGFsc28gKipxdWVyeSBlZGdlcyBmb3IgdGhlIG5vZGVzIHRoZXkgY29ubmVjdC4qKgoKYExIUyAlLS0lIFJIU2AgcmVwcmVzZW50cyBhbnkgZWRnZSBiZXR3ZWVuIGBMSFNgIGFuZCBgUkhTYAoKYGBge3J9CkUoZylbJ2EnICUtLSUgJ2InXQpgYGAKCmBMSFMgJTwtJSBSSFNgIHJlcHJlc2VudHMgZWRnZXMgZ29pbmcgdG8gYExIU2AgZnJvbSBgUkhTYAoKYGBge3J9CkUoZylbJ2MnICU8LSUgJ2InXQpgYGAKCmBMSFMgJS0+JSBSSFNgIHJlcHJlc2VudHMgZWRnZXMgbGVhdmluZyBmcm9tIGBMSFNgIHRvIGBSSFNgCgpgYGB7cn0KI3lvdSBkb24ndCBuZWVkIHRvIG5vdyB0aGUgc3BlY2lmaWMgbmFtZSBvZiB0aGUgdmVydGljZXMKRShnKVsnYicgJS0+JSBWKGcpXQpgYGAKCkVkZ2UgdmVjdG9ycyBjYW4gYWxzbyBiZSBjb21iaW5lZCB0b2dldGhlciB1c2luZyBgYygpYAoKYGBge3J9CmIgPC0gRShnKVsnYicgJS0+JSBWKGcpXQpjIDwtIEUoZylbJ2MnICUtPiUgVihnKV0KYyhiLCBjKQpgYGAKCiMgU3ViZ3JhcGhzCgpgaW5kdWNlZF9zdWJncmFwaCgpYCBmaWx0ZXJzIHRoZSBncmFwaCB0byBpbmNsdWRlIG9ubHkgdGhlIHZlcnRpY2VzIHdpdGhpbiB0aGUgcHJvdmlkZWQgdmVydGV4IHZlY3RvciBvciB2ZWN0b3Igb2YgdmVydGV4IG5hbWVzLiBBbnkgZWRnZXMgYmV0d2VlbiB0aGUgcHJvdmlkZWQgbm9kZXMgYXJlIHByZXNlcnZlZC4gCgpgYGB7ciBzdWJncmFwaHMsIGVjaG8gPSBUfQphYmNfc3ViIDwtIGluZHVjZWRfc3ViZ3JhcGgoZywgYygnYScsICdiJywgJ2MnKSkKYWJjX3N1YgpgYGAKCmBzdWJncmFwaC5lZGdlcygpYCBmaWx0ZXJzIHRoZSBncmFwaCB0byBpbmNsdWRlIG9ubHkgdGhlIGVkZ2VzIHdpdGhpbiB0aGUgcHJvdmlkZWQgZWRnZSB2ZWN0b3IuIEJ5IGRlZmF1bHQsIG9ubHkgdmVydGljZXMgdGhhdCBhcmUgY29ubmVjdGVkIHRvIHRoZSBlZGdlcyBhcmUga2VwdC4gSWYgeW91IHdhbnQgdG8ga2VlcCBhbGwgdGhlIHZlcnRpY2VzLCB0aGVuIHlvdSBjYW4gc2V0IHRoZSBwYXJhbWV0ZXIgYGRlbGV0ZS52ZXJ0aWNlcyA9IEZgCgpgYGB7cn0KYl9zdWIgPC0gc3ViZ3JhcGguZWRnZXMoZywgRShnKVsiYiIgJS0tJSBWKGcpXSkKYl9zdWIKYGBgCgojIyMgU3ViZ3JhcGhzIEdvdGNoYXMKSW4gaWdyYXBoLCBzdWJncmFwaHMgYXJlIGNvbXBsZXRlbHkgbmV3IGdyYXBocyBhbmQgdGhlaXIgY29tcG9uZW50cyBhcmUgY29tcGxldGVseSBkaWZmZXJlbnQgZnJvbSB0aG9zZSBvZiB0aGUgZ3JhcGhzIHRoZXkgd2VyZSBjcmVhdGVkIGZyb20uIFRoZSBiZWxvdyB3b24ndCB3b3JrOgoKYGBge3IgZXZhbCA9IEZ9CkUoZylbVihiX3N1YilbJ2InXSAlLS0lIFYoYWJjX3N1YildCmBgYAoKSW5zdGVhZCwgeW91IHdpbGwgbmVlZCB0byB1c2UgYXR0cmlidXRlcyB0aGF0IHlvdSBrbm93IGFyZSBpbiBib3RoIGdyYXBocywgbGlrZSBuYW1lczoKCmBgYHtyIHN1YmdyYXBoX2dvdGNoYV9nb29kLCBlY2hvID0gVH0KRShnKVtWKGJfc3ViKVsnYiddJG5hbWUgJS0tJSBWKGFiY19zdWIpJG5hbWVdCmBgYAoKQWxzbywgaWRzIGRvbid0IHN0YXkgY29uc2lzdGVudCB3aGVuIGEgc3ViZ3JhcGggaXMgY3JlYXRlZC4gVGhhdCBpcywgYFYoZylbM11gIHdvbid0IG5lY2Vzc2FyaWx5IHJlcHJlc2VudCB0aGUgc2FtZSB2ZXJ0ZXggaW4gdGhlIHN1YmdyYXBoIGBWKHN1YmcpWzNdYC4gSXQgaXMgZ29vZCBwcmFjdGljZSB0byBuYW1lIHRoZSB2ZXJ0aWNlcyBhbmQgdXNlIHRoZSB2ZXJ0ZXggbmFtZXMgdG8ga2VlcCB0aGluZ3MgY29uc2lzdGVudC4gYFYoZylbInBlcnNvbl8xIl1gIHdpbGwgYmUgdGhlIHNhbWUgaW4gdGhlIHN1YmdyYXBoIGBWKHN1YmcpWyJwZXJzb25fMSJdYCA=</div>
 
 
 

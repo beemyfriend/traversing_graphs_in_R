@@ -1,7 +1,6 @@
 ---
 title: "Network Measurements"
 author: "Benjamin Ortiz Ulloa"
-date: "3/27/2018"
 output: 
     ioslides_presentation:  
         widescreen: true

@@ -33,7 +33,9 @@ UKfaculty %>%
   V() %>%
   .$Group %>%
   summary()
+```
 
+```{R}
 UKfaculty %>%
   E() %>%
   .$weight %>%
@@ -46,7 +48,9 @@ UKfaculty %>%
   .$Group %>%
   unique() %>%
   sort()
+```
 
+```{R}
 UKfaculty %>%
   E() %>%
   .$weight %>%
@@ -68,6 +72,8 @@ We will be filtering this graph down into a subgraph to show the power of some o
 
 ```{r}
 V(UKfaculty)$name <- paste('person', V(UKfaculty), sep = '_')
+V(UKfaculty)$name %>% 
+  head
 ```
 # Functions that provide information specific to the components
 
@@ -86,11 +92,15 @@ topLiked <- UKfaculty %>%
   head_of(UKfaculty, .)
 
 topLiked %>% sort
+```
 
+```{r}
 hist(topLiked, 
      vcount(UKfaculty),
      col = 'lightblue')
+```
 
+```{r}
 topLiked$name %>%
   table %>%
   sort(T) %>%
@@ -108,7 +118,9 @@ topLikers <- UKfaculty %>%
 hist(topLikers, 
      vcount(UKfaculty), 
      col = 'lightblue')
+```
 
+```{r}
 topLikers$name %>%
   table() %>%
   sort(T) %>%
@@ -135,7 +147,9 @@ mostLikedPerson <- topLiked$name %>%
   names()
 
 mostLikedPerson
+```
 
+```{r}
 likesTheMost <- topLikers$name %>%
   table() %>%
   sort(T) %>%
@@ -154,7 +168,9 @@ The `ego()` function provides all the nodes connected to a node or nodes of inte
 ```{r}
 mlp_likedBy <- ego(UKfaculty, 1, mostLikedPerson, 'in')
 mlp_likedBy
+```
 
+```{r}
 ltm_likes <- ego(UKfaculty, 1, likesTheMost, 'out')
 ltm_likes
 ```
@@ -170,8 +186,11 @@ let's combine these two people together and see their subnetwork
 ```{r}
 mlp_ltm <- c(mlp_likedBy[[1]], ltm_likes[[1]]) %>%
   induced_subgraph(UKfaculty, .)
-mlp_ltm
 
+mlp_ltm
+```
+
+```{r}
 set.seed(1234)
 plot(mlp_ltm,
      vertex.color = sapply(V(mlp_ltm)$name, function(x){
@@ -197,7 +216,9 @@ mlp_ltm <- mlp_ltm %>%
   subgraph.edges(mlp_ltm, .) 
 
 mlp_ltm
+```
 
+```{r}
 set.seed(1234)
 plot(mlp_ltm,
      vertex.color = sapply(V(mlp_ltm)$name, function(x){
@@ -220,11 +241,15 @@ A degree of a node is the simply the raw number of edges incident to it. You can
 degree(UKfaculty, mode = 'out') %>%
   sort(T) %>%
   head()
+```
 
+```{r}
 degree(UKfaculty, mode = 'in') %>%
   sort(T) %>%
   head()
+```
 
+```{r}
 degree(UKfaculty, c(likesTheMost, mostLikedPerson)) %>%
   sort(T)
 ```
@@ -237,9 +262,15 @@ Rather than getting the raw count of incident edges, we can also add the edge at
 strength(UKfaculty, mode = 'out', weights = E(UKfaculty)$weight) %>%
   sort(T) %>%
   head()
+```
+
+```{r}
 strength(UKfaculty, mode = 'in', weights = E(UKfaculty)$weight) %>%
   sort(T) %>%
   head()
+```
+
+```{r}
 strength(UKfaculty, c('person_31', 'person_29', 'person_69'),  weights = E(UKfaculty)$weight)
 ```
 
@@ -252,7 +283,9 @@ strength(UKfaculty, mode = 'out') %>%
   { ./degree(UKfaculty, mode = 'out')} %>%
   sort(T) %>% 
   head
+```
 
+```{r}
 strength(UKfaculty, mode = 'in') %>%
   { ./degree(UKfaculty, mode = 'in')} %>%
   sort(T) %>% 
@@ -274,10 +307,10 @@ sp <- shortest_paths(UKfaculty,
                'out', 
                output = 'both')
 sp
+```
 
-UKfaculty %>%
-  E() %>%
-  .[[. %in% sp$epath[[1]]]]
+```{r}
+sp$epath[[1]][[1:2]]
 ```
 
 It's important to note, however, that shortest paths use the weight attribute of edges. It also interpret the weights as euclidian distances - that is, paths with less accumulated weight are prioritized over paths with more accumulated weight. Sometimes, we want to ignore the weight attribute because it doesn't necessarily make sense in the context of our data.
@@ -292,7 +325,7 @@ shortest_paths(UKfaculty,
                weights = NA) %>%
   .$epath %>%
   .[[1]] %>%
-  {E(UKfaculty)[[E(UKfaculty) %in% .]]}
+  .[[1:length(.)]]
 
 
 ```
@@ -303,7 +336,13 @@ If you don't care so much about the actual path and only want to know know the m
 
 ```{r}
 distances(UKfaculty, c(likesTheMost , mostLikedPerson), c(likesTheMost, mostLikedPerson), 'out')
+```
+
+```{r}
 distances(UKfaculty, c(likesTheMost , mostLikedPerson), c(likesTheMost, mostLikedPerson), 'in')
+```
+
+```{r}
 distances(UKfaculty, c(likesTheMost , mostLikedPerson), c(likesTheMost, mostLikedPerson), 'all', weights = NA)
 ```
 
@@ -315,9 +354,23 @@ From the given start vertex, take the given number of steps, choosing an edge fr
 set.seed(1234)
 random_walk(UKfaculty, likesTheMost, 3)
 ```
+
 ```{r}
 sapply(1:100, function(i){
   random_walk(UKfaculty, likesTheMost, 3)[[2]]
+}) %>% 
+  table() %>%
+  sort(T)
+```
+
+```{r}
+set.seed(1234)
+random_walk(UKfaculty, mostLikedPerson, 3)
+```
+
+```{r}
+sapply(1:100, function(i){
+  random_walk(UKfaculty, mostLikedPerson, 3)[[2]]
 }) %>% 
   table() %>%
   sort(T)
@@ -349,6 +402,7 @@ Betweenness can also be calculated for edges by using the `edge_betweeness()` fu
 E(UKfaculty)$betweenness <- edge_betweenness(UKfaculty)
 E(UKfaculty)[[betweenness == max(betweenness)]]
 ```
+
 ```{r}
 E(UKfaculty)$unweightedBetweenness <- edge_betweenness(UKfaculty, weights = NA)
 E(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]
@@ -358,11 +412,13 @@ E(UKfaculty)[[unweightedBetweenness == max(unweightedBetweenness)]]
 
 Closeness measures how many steps is required to access every other vertex from a given vertex.
 
-```{r, warning=F}
+```{r}
 closeness(UKfaculty, mode = 'out') %>% 
   sort(T) %>% 
   head
+```
 
+```{r}
 closeness(UKfaculty, mode = 'in') %>%
   sort(T) %>%
   head
@@ -373,7 +429,7 @@ closeness(UKfaculty, mode = 'in') %>%
 In general, vertices with high eigenvector centralities are those which are connected to many other vertices which are, in turn, connected to many others (and so on). 
 
 ```{r}
-eigen_centrality(UKfaculty, directed = F)$vector %>%
+eigen_centrality(UKfaculty)$vector %>%
   sort(T) %>%
   head()
 ```
@@ -386,8 +442,10 @@ Keinberg's Hyperlink-Induced Topic Search (HITS) - also known as Hubs and Author
 authority_score(UKfaculty)$vector %>% 
   sort(T) %>%
   head()
+```
 
-page_rank(UKfaculty)$vector %>%
+```{r}
+hub_score(UKfaculty)$vector %>%
   sort(T) %>%
   head()
 ```
@@ -397,11 +455,13 @@ page_rank(UKfaculty)$vector %>%
 PageRank is a centrality metric created by Google.PageRank works by counting the number and quality of links to a page to determine a rough estimate of how important the website is. The underlying assumption is that more important websites are likely to receive more links from other websites. For undirected graphs, PageRank treats each edge as a bidirectional edge. PageRank can be calculated by using `page_rank()`
 
 ```{r}
-page_rank(UKfaculty, directed = F)$vector %>%
+page_rank(UKfaculty)$vector %>%
   sort(T) %>%
   head()
+```
 
-page_rank(UKfaculty, weights = NA, directed = F)$vector %>%
+```{r}
+page_rank(UKfaculty, weights = NA)$vector %>%
   sort(T) %>%
   head()
 

@@ -11,8 +11,9 @@ library(diagram)
 
 ## Thanks for the opportunity!
 
-![](part_1_images/thanks_20180402.png)
-
+```{r, out.width="650px"}
+knitr::include_graphics('part_1_images/thanks_20180402.png')
+```
 
 
 ## What is a graph?
@@ -433,7 +434,7 @@ knitr::include_graphics('part_1_images/twitter_trolls.png')
 
 ## Why Graph? Recommendation
 ```{r out.width = '700px'}
-knitr::include_graphics('part_1_images/youtube_recommenation.png')
+knitr::include_graphics('part_1_images/recommenation.png')
 ```
 
 ## Why Graph? Knowledge Graphs

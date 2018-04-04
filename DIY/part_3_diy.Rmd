@@ -1,0 +1,59 @@
+---
+title: 'Do It Yourself: Part 3'
+author: "Benjamin Ortiz Ulloa"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(igraph)
+trumpworld <- read_graph(file = '../Data/trumpworld.graphml', format = 'graphml')
+V(trumpworld)$name <- V(trumpworld)$id
+```
+
+Let's create a subgraph of vertices that does not include "DONALD J. TRUMP"
+
+```{r}
+#fill out the code below 
+
+notTrump <-
+
+#run the code when you're read  
+```
+
+Create a matrix that calculates the **distances** between all 'Person' type nodes. This should be derived by the `notTrump` graph calculated above. Replace any value that is greater than 5 with 0.
+
+```{r}
+#hint:
+#MATRIX[MATRIX > 5] <- 0
+
+from_names <- V(notTrump)[type == 'Person']
+to_names <- V(notTrump)[type == 'Person']
+
+peopleDistanceMatrix <- distances(notTrump, from_names, to_names)
+peopleDistanceMatrix[peopleDistanceMatrix > 3] <- 0
+```
+
+Create an undirected graph from the `peopleDistanceMatrix` you created above and call the value of the edges "distance"
+
+```{r}
+
+notTrumpGraph <- graph_from_adjacency_matrix(peopleDistanceMatrix, 'undirected', weighted = 'distance')
+
+```
+
+Who has the most connections in the "notTrumpGraph"?
+
+```{r}
+
+
+```
+
+Choose a centrality score and determine which person is deemed most central in the 'notTrumpGraph'
+
+```{r}
+
+```

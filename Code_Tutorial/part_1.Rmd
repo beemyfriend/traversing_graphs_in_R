@@ -91,7 +91,9 @@ sapply(seq_along(src), function(i){
 })
 
 matData
+```
 
+```{r}
 g <- graph_from_adjacency_matrix(matData, mode = 'directed', weighted = 'weight') 
 
 g
@@ -126,7 +128,7 @@ node_list <- data.frame(
 edge_list <- data.frame(
   source = c('a', 'b', 'b', 'c', 'c'),
   target = c('b', 'c', 'd', 'b', 'e'),
-  type = 'distance',
+  type = 'is connected to',
   weight = c(1, 1, 2, 1, 2)
 )
 g <- graph_from_data_frame(d = edge_list, 
@@ -191,6 +193,10 @@ V(g)[['c']]
 A specific attribute can be accessed using dollar sign notation. You should use single square bracket notation when accesing specific attributes.
 
 ```{r}
+V(g)$order
+```
+
+```{r}
 V(g)['c']$order 
 ```
 
@@ -226,6 +232,11 @@ c(ab, de)
 ### E()
 
 `E()` behves much in the same way as `V()`. It only accepts an igraph graph object and returns a vector of edges. A big difference, however, is how we approach accessing data stroed in edges. While edges can have names and can be accessed directly using either a name or an id, this is not the best approach since as graphs get larger, the sheer number and variety of edges make it very impractical to do so. 
+
+
+```{r}
+E(g)
+```
 
 Instead edges should be accessed by querying their attributes
 

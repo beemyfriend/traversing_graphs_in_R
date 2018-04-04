@@ -1,0 +1,72 @@
+---
+title: 'Do It Yourself: Part 1'
+author: "Benjamin Ortiz Ulloa"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+First, pull the trumpworld data using `read_graph`
+
+```{r}
+library(igraph)
+trumpworld <- read_graph(file = '../Data/trumpworld.graphml', format = 'graphml')
+```
+
+What kind of graph is this? Is it directed or undirected? What are the vertex attributes? What are the edge attributes?
+
+```{r}
+#Enter code here
+
+
+
+#press "play" once you're done
+```
+
+There are two vertex attributes? Which of these attributes would hold a value of "DONALD J. TRUMP"? Which one of these attributes would have an attribute of "Person"? Try to query the graph for a vertex that represents a "Person" named "DONALD J. TRUMP"
+
+```{r}
+#Hint:
+#V(trumpworld)[ATTRIBUTE1 == 'Person'][[ATTRIBUTE2 == 'DONALD J. TRUMP']]
+
+
+
+#press "play" once you're done
+```
+
+Now, try to find any "Organization" that has "DONALD J. TRUMP" in it's name.
+
+```{r}
+#Hint:
+#grepl("DONALD J. TRUMP", ATTRIBUTE)
+#will return TRUE for any index of ATTRIBUTE that contains "DONALD J. TRUMP" 
+#and will return FALSE for any index of ATTRIBUTE that does not contain "DONALD J. TRUMP"
+
+
+
+#press "play" once you're done
+```
+
+Create a Vertex attribute called name that equals the Vertex attribute id
+
+```{r}
+#Hint:
+#the "$" and "<-" work well together
+
+
+
+#press "play" once you're done.
+```
+
+"MICHAEL FLYNN" is the "Founder and CEO" of something. What is it?
+
+```{r}
+#Hint:
+#E(trumpworld)["MICHAEL FLYNN" ??? V(trumpworld)][[ATTRIBUTE == "Founder and CEO"]]
+
+
+
+#press 'play' once you're done.
+```
