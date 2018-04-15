@@ -25,6 +25,7 @@ library(tidyverse)
 library(ggraph)
 library(igraph)
 library(igraphdata)
+library(magrittr)
 ```
 
 
@@ -297,8 +298,10 @@ E(enron)$Time %>%
 Did you know that Enron was founded in 1985? I think this  might be something looking into. Let's filter the graph down to only include edges from 1979.
 
 ```{r}
-old_enron <- enron - E(enron)[!str_detect(E(enron)$Time, '^1979')] 
-old_enron <- old_enron - V(old_enron)[degree(old_enron) < 1]
+old_enron <- enron %>%
+  `-`(E(.)[!str_detect(E(.)$Time, '^1979')]) %>%
+  `-`(V(.)[degree(.) < 1])
+
 old_enron
 ```
 
@@ -310,5 +313,96 @@ ggraph(old_enron) +
   theme_void()
 ```
 
+```{r}
+V(old_enron)$Note %>% unique
+```
+
+```{r}
+V(old_enron)$pr <- page_rank(old_enron)$vector 
+V(old_enron)$isExec <- str_detect(V(old_enron)$Note, 'Chief|President|CEO')
+```
+
+```{r}
+set.seed(4321)
+ggraph(old_enron) + 
+  geom_edge_fan(alpha = .2) +
+  geom_edge_loop(alpha = .2) +
+  geom_node_point(aes(size = pr, 
+                      fill = isExec),
+                  shape = 21) +
+  theme_void() +
+  scale_fill_manual(values = c("TRUE" = "#8dd3c7", "FALSE" = "#bebada"))
+```
+
+You should see a major problem with the graph above. The nodes with the largest PageRank are the ones with loops. This is because the algorithm uses a random walker placed on a random node. If the walker lands starts on a looping node, then it will always end up the same node no matter how many steps the walker takes. We need to get rid of the loops if we want an accurate PageRank value. We'll need to use `simplify` to get rid of multiple edges between nodes and to get rid of loops. However, we want to keep the multiple edges
+
+```{r}
+old_enron <- simplify(old_enron, remove.multiple = F) %>%
+  `-`(V(.)[degree(.) < 1])
+```
+
+Now let's redo everything:
+
+```{r}
+V(old_enron)$pr <- page_rank(old_enron)$vector
+V(old_enron)$pr_label <- mapply(function(x,y){ifelse(x > quantile(V(old_enron)$pr, .9), y, '')}, V(old_enron)$pr, V(old_enron)$Email)
+set.seed(4321)
+ggraph(old_enron) + 
+  geom_edge_fan(alpha = .2) +
+  geom_edge_loop(alpha = .2) +
+  geom_node_point(aes(size = pr, 
+                      fill = isExec),
+                  shape = 21) +
+  geom_node_text(aes(label = pr_label)) +
+  theme_void() +
+  scale_fill_manual(values = c("TRUE" = "#8dd3c7", "FALSE" = "#bebada"))
+```
+
+### Helper Functions
+
+```{r}
+useSummaryStat <- function(graph, label, graphStat, strAttr = 'Email'){
+  graph %>%
+    set_vertex_attr(label, value = graphStat(.)$vector) %>%
+    {
+      scores <- vertex_attr(., label)
+      pullText <- vertex_attr(., strAttr)
+      set_vertex_attr(.,
+                     paste0(label, '_label'), 
+                     value = mapply(function(x,y){ifelse(x > quantile(scores, .9), y, '')}, scores, pullText))
+      }
+}
+```
+
+```{r}
+plotEnron <- function(graph, label){
+  set.seed(4321)
+  ggraph(graph) + 
+    geom_edge_fan(alpha = .2) +
+    geom_edge_loop(alpha = .2) +
+    geom_node_point(aes_string(size = label,
+                               fill = "isExec"),
+                    shape = 21) +
+    geom_node_text(aes_string(label = paste0(label, '_label'))) +
+    theme_void() +
+    scale_fill_manual(values = c("TRUE" = "#8dd3c7", "FALSE" = "#bebada"))
+}
+```
+
+
+```{r}
+useSummaryStat(old_enron, 'auth', authority_score, 'Note') %>%
+  plotEnron('auth')
+```
+
+
+```{r}
+useSummaryStat(old_enron, 'hub', hub_score, 'Note') %>%
+  plotEnron('hub')
+```
+
 ## Aggregate
+
+
+
 ## Query
