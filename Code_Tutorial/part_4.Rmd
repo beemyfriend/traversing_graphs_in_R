@@ -9,16 +9,32 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r, warning = F}
+# Introduction
+
+This section will focus on:
+1. How to engineer a graph plot:
+    + Igraph's Plot
+    + ggraph
+2. Useful tips on how to effectively use visualization for graph analysis:
+    + Filter
+    + Aggregate
+    + Query
+
+```{r, warning = F, message=F}
 library(tidyverse)
 library(ggraph)
 library(igraph)
 library(igraphdata)
 ```
 
+
+
+## Base Plot
+
 Before we try to tackle a big dataset, let's try to plot a graph that we know has structure. 
 
 ```{r}
+set.seed(4321)
 tree_g <- make_tree(40, 4) %>%
   set_edge_attr('weight', value = sample(1:3, ecount(.), replace = T)) %>%
   set_vertex_attr('degree', value = degree(.))
@@ -105,6 +121,127 @@ axis(1, at = c(-1, 0, 1), labels = c('0', 'vcount/2', 'vcount'))
 axis(2, at = c(-1, 0, 1), labels = c('0', 'vcount/2', 'vcount'))
 ```
 
+## ggraph
+
+```{r, message = F}
+set.seed(1234)
+ggraph(tree_g) +
+  geom_edge_fan() +
+  geom_node_point() +
+  theme_void()
+```
+ 
+```{r}
+set.seed(1234)
+ggraph(tree_g) +
+  geom_edge_fan(colour = 'blue',
+                arrow = arrow()) +
+  geom_node_point(size = 5, 
+                  shape = 21, 
+                  fill = 'rosybrown') +
+  theme_void()
+```
+
+```{r}
+set.seed(1234)
+ggraph(tree_g) +
+  geom_edge_fan(colour = 'blue',
+                arrow = arrow(length = unit(3, 'mm')),
+                start_cap = circle(3, 'mm'),
+                end_cap = circle(3, 'mm')) +
+  geom_node_point(size = 5, 
+                  shape = 21, 
+                  fill = 'rosybrown') +
+  theme_void()
+```
+
+
+```{r, message = F}
+set.seed(1234)
+ggraph(tree_g) +
+  geom_edge_fan(aes(color = weight, 
+                    width = weight),
+                arrow = arrow(length = unit(3, 'mm')),
+                start_cap = circle(3, 'mm'),
+                end_cap = circle(3, 'mm')) +
+  geom_node_point(aes(size = degree, 
+                      fill = as.character(degree)), 
+                  shape = 21) +
+  theme_void()
+```
+
+```{r, message = F}
+set.seed(1234)
+ggraph(tree_g) +
+  geom_edge_fan(aes(color = weight, 
+                    width = weight),
+                arrow = arrow(length = unit(3, 'mm')),
+                start_cap = circle(3, 'mm'),
+                end_cap = circle(3, 'mm')) +
+  geom_node_point(aes(size = degree, 
+                      fill = as.character(degree)), 
+                  shape = 21) +
+  theme_void() +
+  scale_edge_color_continuous(low = '#ece7f2', high = '#2b8cbe') +
+  scale_edge_width(range = c(.5, 1.5)) +
+  scale_size_area(max_size = 10) +
+  scale_fill_manual(values = c( "4" = 'red', "5" = 'white', "1" = 'blue'))
+```
+
+```{r, message = F}
+set.seed(1234)
+ggraph(tree_g, layout = 'tree') +
+  geom_edge_fan(aes(color = weight, 
+                    width = weight),
+                arrow = arrow(length = unit(3, 'mm')),
+                start_cap = circle(3, 'mm'),
+                end_cap = circle(3, 'mm')) +
+  geom_node_point(aes(size = degree, 
+                      fill = as.character(degree)), 
+                  shape = 21) +
+  theme_void() +
+  scale_edge_color_continuous(low = '#ece7f2', high = '#2b8cbe') +
+  scale_edge_width(range = c(.5, 1.5)) +
+  scale_size_area(max_size = 10) +
+  scale_fill_manual(values = c( "4" = 'red', "5" = 'white', "1" = 'blue'))
+```
+
+```{r, message = F}
+set.seed(1234)
+ggraph(tree_g, layout = 'tree', circular = T) +
+  geom_edge_fan(aes(color = weight, 
+                    width = weight),
+                arrow = arrow(length = unit(3, 'mm')),
+                start_cap = circle(3, 'mm'),
+                end_cap = circle(3, 'mm')) +
+  geom_node_point(aes(size = degree, 
+                      fill = as.character(degree)), 
+                  shape = 21) +
+  theme_void() +
+  scale_edge_color_continuous(low = '#ece7f2', high = '#2b8cbe') +
+  scale_edge_width(range = c(.5, 1.5)) +
+  scale_size_area(max_size = 10) +
+  scale_fill_manual(values = c( "4" = 'red', "5" = 'white', "1" = 'blue'))
+```
+
+```{r, message = F}
+set.seed(1234)
+ggraph(tree_g, layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = myLayout[,2])) +
+  geom_edge_fan(aes(color = weight, 
+                    width = weight),
+                arrow = arrow(length = unit(3, 'mm')),
+                start_cap = circle(3, 'mm'),
+                end_cap = circle(3, 'mm')) +
+  geom_node_point(aes(size = degree, 
+                      fill = as.character(degree)), 
+                  shape = 21) +
+  theme_void() +
+  scale_edge_color_continuous(low = '#ece7f2', high = '#2b8cbe') +
+  scale_edge_width(range = c(.5, 1.5)) +
+  scale_size_area(max_size = 10) +
+  scale_fill_manual(values = c( "4" = 'red', "5" = 'white', "1" = 'blue'))
+```
+
 ```{r}
 data(enron)
 enron
@@ -141,11 +278,9 @@ edge_attr(enron) %>%
 
 ```{r}
 set.seed(1234)
-plot(enron,
-     vertex.size = 5,
-     edge.color = 'lightgrey',
-     edge.arrow.size = .1,
-     vertex.label = NA)
+ggraph(enron) +
+  geom_edge_fan(alpha = .1) +
+  geom_node_point()
 ```
 
 ## Filter
@@ -162,14 +297,17 @@ E(enron)$Time %>%
 Did you know that Enron was founded in 1985? I think this  might be something looking into. Let's filter the graph down to only include edges from 1979.
 
 ```{r}
-old_enron <- enron - E(enron)[!str_detect(E(enron)$Time, '^1979')]
+old_enron <- enron - E(enron)[!str_detect(E(enron)$Time, '^1979')] 
+old_enron <- old_enron - V(old_enron)[degree(old_enron) < 1]
 old_enron
 ```
 
 ```{r}
-plot(old_enron,
-     vertex.label = NA,
-     edge.arrow.size = .1)
+set.seed(4321)
+ggraph(old_enron) + 
+  geom_edge_fan(alpha = .2) +
+  geom_node_point() +
+  theme_void()
 ```
 
 ## Aggregate
