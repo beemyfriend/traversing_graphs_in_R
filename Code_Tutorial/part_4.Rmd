@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache = T)
 ```
 
 # Introduction
@@ -403,6 +403,48 @@ useSummaryStat(old_enron, 'hub', hub_score, 'Note') %>%
 
 ## Aggregate
 
+Let's explore the execs for all the years. 
 
+```{r}
+exec_list <- as_data_frame(enron, 'both')
+
+exec_list$vertices <- exec_list$vertices %>%
+  filter(str_detect(Note, 'Chief|President|CEO')) %>%
+  select(c('name', names(.)[! names(.) %in% 'name']))
+
+exec_list$edges <- exec_list$edges %>%
+  filter(to %in% exec_list$vertices$name,
+         from %in% exec_list$vertices$name,
+         to != from) %>%
+  group_by(from, to, LDC_topic) %>%
+  summarize(weight = n())
+
+exec_enron <- graph_from_data_frame(exec_list$edges, T, exec_list$vertices)
+```
+
+```{r}
+set.seed(1234)
+exec_enron %>%
+  useSummaryStat('auth', authority_score, 'Note') %>%
+  ggraph() +
+    geom_edge_fan(aes(alpha = weight)) +
+    geom_node_point(aes(size = auth), shape = 21, fill = 'lightblue') +
+    theme_void()
+```
+
+```{r}
+wc <- cluster_walktrap(exec_enron)
+V(exec_enron)$community <- membership(wc)
+```
+
+```{r}
+set.seed(1234)
+exec_enron %>%
+  useSummaryStat('auth', authority_score, 'Note') %>%
+  ggraph() +
+    geom_edge_fan(aes(alpha = weight)) +
+    geom_node_point(aes(size = auth, fill = as.character(community)), shape = 21) +
+    theme_void()
+```
 
 ## Query
