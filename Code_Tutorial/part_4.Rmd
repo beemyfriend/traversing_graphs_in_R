@@ -265,7 +265,7 @@ vertex_attr(enron) %>%
 
 ```
 
-So it seems that the `Email` attribute is the best candidate for the `name` because the number of unique `Emails` matches the number of unique nodes (`r vcount(enron)`)
+So it seems that the `Email` attribute is the best candidate for the `name` because the number of unique `Emails` matches the number of unique nodes.
 
 ```{r}
 V(enron)$name <- V(enron)$Email
@@ -445,6 +445,60 @@ exec_enron %>%
     geom_edge_fan(aes(alpha = weight)) +
     geom_node_point(aes(size = auth, fill = as.character(community)), shape = 21) +
     theme_void()
+```
+
+```{r}
+exec_list <- as_data_frame(exec_enron, 'both')
+community_edges <- exec_list$edges %>%
+  left_join(exec_list$vertices %>% select(name, community), by = c('from' = 'name')) %>%
+  left_join(exec_list$vertices %>% select(name, community), by = c('to' = 'name')) %>%
+  filter(community.x != community.y) %>%
+  group_by(community.x, community.y, LDC_topic) %>%
+  summarize(weight = sum(weight)) %>%
+  mutate_all(as.integer)
+community_nodes <- exec_list$vertices %>%
+  group_by(community) %>%
+  count(sort = T) %>%
+  mutate_all(as.integer)
+exec_community <- graph_from_data_frame(community_edges, T, community_nodes)
+```
+
+```{r}
+set.seed(1234)
+ggraph(exec_community) +
+    geom_edge_fan(aes(alpha = weight)) +
+    geom_node_point(aes(size = n, fill = name), shape = 21) +
+    theme_void()
+```
+
+```{r}
+set.seed(1234)
+exec_community %>%
+  `-`(E(.)[weight < 20 ]) %>%
+  `-`(E(.)[LDC_topic < 1]) %>%
+  ggraph() +
+    geom_edge_fan(aes(alpha = weight, color = factor(LDC_topic, sort(unique(LDC_topic))))) +
+    geom_node_point(aes(size = n, fill = name), shape = 21) +
+    theme_void() +
+    scale_edge_color_brewer(type='qual', palette = 2)
+```
+
+```{r}
+graph_attr(enron, 'LDC_desc')[c(1, 5, 7, 8, 9, 16, 20, 32)]
+```
+
+
+```{r}
+set.seed(1234)
+exec_community %>%
+  `-`(E(.)[weight < 20 ]) %>%
+  `-`(E(.)[LDC_topic < 1]) %>%
+  set_edge_attr(., 'LDC_topic', value = sapply(E(.)$LDC_topic, function(x){ifelse(x %in% c(1,5,7,8), 1, x)})) %>%
+  ggraph() +
+    geom_edge_fan(aes( color = factor(LDC_topic, sort(unique(LDC_topic)))), width = 1.25, arrow = arrow(length = unit(3, 'mm'))) +
+    geom_node_point(aes(size = n, fill = name), shape = 21) +
+    theme_void() +
+    scale_edge_color_brewer(type='qual', palette = 2) 
 ```
 
 ## Query
