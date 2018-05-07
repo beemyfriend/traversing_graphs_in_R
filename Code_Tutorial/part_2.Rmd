@@ -273,9 +273,97 @@ plot(just_char,
      vertex.label.cex = .6)
 ```
 
+```{r}
+just_char %>%
+  {. - E(.)[shared_movies < 4]} %>%
+  {. - V(.)[degree(.) == 0]} %>% 
+  plot(
+    .,
+    vertex.size = 5,
+    vertex.label.cex = .7
+  )
+```
 
+```{r}
+V(sw_g)$height <- as.double(V(sw_g)$height)
+write_graph(sw_g, '../Data/starwars_knowledge_graph.graphml', 'graphml')
+```
 
+## Bonus for after next section
+```{r}
+vader_g <- sw_g - E(sw_g)[type == 'APPEARED WITH']
 
+anakin_movies <- vader_g %>%
+  E() %>%
+  .[type == 'APPEARS IN'] %>%
+  (function(x){
+    vader <- x[V(vader_g)[str_detect(name, 'Vader')] %--% V(vader_g)] %>%
+      head_of(vader_g, .)
+    anakin <- x[V(vader_g)[str_detect(name, 'Anakin')] %--% V(vader_g)] %>%
+      head_of(vader_g, .)
+    anakin[!anakin %in% vader]
+  })
+
+vader_g <- vader_g %>% 
+  add_edges(
+   matrix(c(rep('Darth Vader', 2), anakin_movies$name),2, 2, T),
+   type = 'APPEARS IN' 
+   )
+```
+
+```{r}
+get_indirect <- function(graph, interest, connector, weightType, edgeType){
+  el <- as_data_frame(graph, 'edges')
+  nl <- as_data_frame(graph, 'vertices')
+  
+  main <- el %>%
+    filter(type == connector) %>%
+    select(from, to)
+  
+  other <- main %>%
+    rename_("changed1" = interest) %>%
+    nest(changed1)
+  
+  main %<>%
+    rename_('changed2' = interest) %>%
+    left_join(other) %>%
+    unnest() %>%
+    group_by(changed1, changed2) %>%
+    summarise(weight = n()) 
+  
+  unique_main <- main %>%
+    select(changed1, changed2) %>%
+    apply(1, sort) %>%
+    t() %>%
+    as.tibble() %>%
+    distinct() %>%
+    rename(changed1 = V1,
+           changed2 = V2) %>%
+    filter(changed1 != changed2) %>%
+    left_join(main) %>%
+    mutate(type = edgeType)
+  
+  names(unique_main) <- c('from', 'to', weightType, 'type')
+  el <- list(el, unique_main) %>%
+    bind_rows
+  graph_from_data_frame(el, F, nl)
+}
+
+vader_g <- get_indirect(vader_g, interest= 'from', connector = 'APPEARS IN', weightType = 'shared_movies', edgeType = 'APPEARED WITH')
+```
+
+```{r}
+vader_g %>%
+ {. - E(.)[type != 'APPEARED WITH']} %>%
+ {. - V(.)[type != 'CHARACTER']} %>%
+ {. - E(.)[shared_movies < 4 ]} %>%
+ {. - V(.)[degree(.) == 0]} %>%
+  plot(
+    ., 
+    vertex.size = 5,
+    vertex.label.cex = .7
+  )
+```
 
 
 ```{r message = F}
