@@ -5,10 +5,287 @@ output:
   html_notebook: default
 ---
 
+
+# Introduction
+
+In this section we will cover some essential **R** functions and packages that facilitate the creation and exploration of networks. We will look at both useful functions in *base R* as well as their **tidverse** equivalents:
+
+1. Iteration:
+    + apply
+    + *apply and map_\*
+    + mapply and map2_\*
+2. string:
+    + stringr
+        + str_detect
+        + str_replace
+    + grep/grepl/gsub
+3. tidyverse
+    + un/nest()
+    + _join
+    + filter
+4. magrittr
+5. miscellaneous
+    + t()
+    
+    
+## Starwars Network
+
+```{r message = F}
+library(tidyverse)
+library(magrittr)
+library(igraph)
+data(starwars)
+```
+
+```{r}
+starwars
+starwars$films[[1]]
+starwars %>% select(name, films)
+```
+
+```{r}
+sw_character_films <- starwars %>%
+  select(name, films) %>%
+  unnest() %>%
+  rename(from = name,
+         to = films) %>%
+  mutate(type = 'APPEARED IN')
+
+sw_character_films
+
+sw_characters <- sw_character_films %>%
+  select(from) %>%
+  rename(name = from) %>%
+  distinct() %>%
+  mutate(type = 'CHARACTER')
+
+sw_characters
+
+sw_films <- sw_character_films %>%
+  select(to) %>%
+  rename(name = to) %>%
+  distinct() %>%
+  mutate(type = 'FILM') 
+
+sw_films
+```
+
+```{r}
+g <- graph_from_data_frame(sw_character_films, F, rbind(sw_characters, sw_films))
+```
+
+```{r}
+plot(g,
+     vertex.size = 5,
+     vertex.color = sapply(V(g)$type,
+                           function(x){switch(x, 'CHARACTER' = 'lightblue', 'FILM' = 'orangered')}),
+     vertex.label.cex = .65
+     )
+```
+
+## generalizing the network creation process 
+
+```{r}
+head(starwars)
+```
+
+```{r}
+sw_net_creator <- tibble(
+  from = 'name',
+  to = c('hair_color', 'skin_color', 'eye_color', 'gender', 'homeworld', 
+         'species', 'films', 'vehicles', 'starships'),
+  type = c('HAS HAIR COLOR', 'HAS SKIN COLOR', 'HAS EYE COLOR', 'HAS GENDER', 'HAS HOMEWORLD',
+           'HAS SPECIES', 'APPEARS IN', 'PILOTS (VEHICLE)', 'PILOTS (STARSHIP)')
+)
+```
+
+```{r}
+sw_el_creator <- function(from, to, type){
+  df <- starwars %>%
+    select(from, to) %>%
+    unnest() %>%
+    mutate(type = type) %>%
+    rename_("from" = from,
+           "to" = to)
+}
+```
+
+```{r}
+sw_el <- pmap(sw_net_creator, sw_el_creator) %>%
+  bind_rows %>%
+  filter(!is.na(to),
+         to != "none")
+```
+
+```{r}
+sw_nl <- c(sw_net_creator$from,
+           sw_net_creator$to) %>%
+  unique %>% 
+  lapply(function(x){
+    if(x == 'name'){
+      tibble(
+        name = starwars[[x]],
+        type = 'CHARACTER',
+        height = starwars[['height']],
+        mass = starwars[['mass']],
+        birth_year = starwars[['birth_year']]
+        ) 
+      } else {
+        tibble(
+          name = starwars[[x]] %>% unlist,
+          type = ifelse(str_detect(x, 'color'), 'COLOR', str_to_upper(x))
+        ) %>%
+          filter(!is.na(name))
+      }
+    }) %>%
+  bind_rows() %>%
+  distinct() %>%
+  filter(name != 'none')
+```
+
+```{r}
+sw_g <- graph_from_data_frame(sw_el, T, sw_nl)
+```
+
+```{r}
+sw_g %>%
+  V(.) %>%
+  .[str_detect(name, 'Naboo')] %>%
+  {E(sw_g)[. %--% V(sw_g)]} %>%
+  .['Padmé Amidala' %--% V(sw_g)] %>%
+  .[type == 'PILOTS (STARSHIP)']
+```
+
+## making indirect connections
+
+```{r}
+sw_nodes <- as_data_frame(sw_g, 'vertices')
+sw_edges <- as_data_frame(sw_g, 'edges')
+head(sw_nodes)
+head(sw_edges)
+```
+
+```{r}
+sw_nested_films <- sw_edges %>%
+  filter(type == 'APPEARS IN') %>%
+  select(from, to) %>%
+  rename(character = from) %>%
+  nest(character)
+
+sw_nested_films
+```
+
+```{r}
+sw_chr_chr <- sw_edges %>%
+  filter(type == 'APPEARS IN') %>%
+  select(from, to) %>%
+  left_join(sw_nested_films) %>%
+  unnest()
+
+sw_chr_chr %>%
+  head
+```
+
+```{r}
+sw_chr_chr %<>% 
+  group_by(from, character) %>%
+  summarise(shared_movies = n())
+
+sw_chr_chr %>% 
+  head
+```
+
+```{r}
+sw_chr_chr %>% 
+  arrange(desc(shared_movies)) %>%
+  filter(from != character) %>%
+  head
+```
+
+```{r}
+sw_chr_chr %>% 
+  arrange(desc(shared_movies)) %>%
+  filter(from != character) %>%
+  head() %>%
+  apply(1, sort)
+```
+
+```{r}
+sw_chr_chr %>% 
+  arrange(desc(shared_movies)) %>%
+  filter(from != character) %>%
+  select(from, character) %>%
+  head() %>%
+  apply(1, sort) %>%
+  t()
+```
+
+```{r}
+sw_unique_chr_chr <- sw_chr_chr %>%
+  select(from, character) %>%
+  filter(from != character) %>%
+  apply(1, sort) %>%
+  t() %>%
+  as.tibble() %>%
+  distinct() %>%
+  rename(from = V1, character = V2)
+```
+
+```{r}
+sw_unique_chr_chr %<>%
+  left_join(sw_chr_chr)
+
+sw_unique_chr_chr %>%
+  arrange(desc(shared_movies))
+```
+
+```{r}
+sw_unique_chr_chr %<>%
+  rename(to = character) %>%
+  mutate(type = 'APPEARED WITH')
+```
+
+```{r}
+sw_edges <- list(sw_edges, sw_unique_chr_chr) %>%
+  bind_rows
+```
+
+```{r}
+sw_g <- graph_from_data_frame(sw_edges, F, sw_nodes)
+```
+
+```{r}
+plot(sw_g,
+     vertex.size = 5,
+     vertex.label.cex = .65)
+```
+
+```{r}
+just_char <- sw_g  %>% 
+  {. - E(.)[type != 'APPEARED WITH'] } %>%
+  {. - V(.)[type != 'CHARACTER']}
+just_char
+```
+
+```{r}
+plot(just_char,
+     vertex.size = 5, 
+     vertex.label.cex = .6)
+```
+
+
+
+
+
+
 ```{r message = F}
 library(igraph)
 library(magrittr)
 ```
+
+
+
+
 
 ## Quick Review of Magrittr:
 
