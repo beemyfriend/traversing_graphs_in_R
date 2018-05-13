@@ -80,12 +80,88 @@ movie_g <- movie_g %>%
       V() %>%
       .[is.na(type)] %>%
       set_vertex_attr(x, 'type', ., 'MOVIE')
+  }) %>%
+  (function(x){
+    E(x)[V(x)[type == 'MOVIE'] %<-% V(x)[type == 'USER']] %>%
+      subgraph.edges(x, .) %>%
+      as_data_frame() %>%
+      group_by(to) %>%
+      summarize(ave_rating = mean(rating)) %>%
+      {set_vertex_attr(x, 'ave_rating', .$to, .$ave_rating)}
   })
 
 movie_g %>%
   V() %>%
   .[type == 'MOVIE'] %>%
-  map(function(x){
-    E(movie_g)[x %--% V(movie_g)] %>%
-      .[type == 'RATED']
-  })
+  .[1:20] %>%
+  incident_edges(movie_g, .)
+
+movie_g %>%
+  {. - E(.)[type != 'RATED']} %>%
+  {. - V(.)[degree(.) < 1]} %>%
+  {
+    tibble(
+      movie = head_of(., E(.))$name,
+      rating = E(.)$rating
+      ) %>%
+      group_by(movie) %>%
+      summarize(
+        ave_rating = mean(rating),
+        num_rates = n()
+      )
+  } %>%
+  arrange(desc(ave_rating), desc(num_rates)) %>%
+  filter(num_rates >= 10)
+
+movie_g %>%
+  V() %>%
+  .[str_detect(name, 'Godfather, The|Shawshank Redemption')] %>%
+  adjacent_vertices(movie_g, ., 'in') %>%
+  do.call(c, .)%>%
+  .[type == 'USER'] %>%
+  unique %>%
+  {E(movie_g)[. %--% V(movie_g)[type == 'MOVIE']]} %>%
+  {movie_g - (E(movie_g)[!E(movie_g) %in% .])} %>%
+  (function(x){
+    edge.attributes(x) %>%
+      as.tibble() %>%
+      mutate(
+        tail = tail_of(x, E(x))$name,
+        head = head_of(x, E(x))$name
+      )
+  }) %>%
+  filter(tail== 'USER:443')
+  group_by(tail) %>%
+  summarize(
+    ave_rating = mean(rating),
+    num_rates = n()
+  ) %>%
+  arrange(desc(ave_rating), desc(num_rates)) 
+
+movie_g %>%
+  {E(.)['USER:443' %--% V(.)[type == 'MOVIE']]} %>%
+  head_of(movie_g, .) %>%
+  {E(movie_g)[. %--% V(movie_g)[type == 'USER']]} %>%
+  .[rating >= 4] %>%
+  {movie_g - E(movie_g)[!E(movie_g) %in% .]} %>%
+  degree(.,V(.)[type == 'USER']) %>%
+  sort(T) %>%
+  .[1:5] %>%
+  names %>%
+  {V(movie_g)[name %in% .]} %>%
+  {E(movie_g)[. %--% V(movie_g)[type == 'MOVIE']]} %>%
+  subgraph.edges(movie_g, .) %>%
+  {. - V(.)[degree(.) < 4]} %>%
+  {. - V(.)[ends(., E(.)['USER:443' %--% V(.)]) %>% unlist %>% unique]} %>%
+  (function(x){
+    #info <- x %>%
+    x %>%
+      as_data_frame() %>%
+      group_by(to) %>%
+      summarize(ave_rating = mean(rating)) %>%
+      arrange(desc(ave_rating))
+    
+    #set_vertex_attr(x, 'ave_rating', info$to, info$ave_rating)
+  }) 
+
+

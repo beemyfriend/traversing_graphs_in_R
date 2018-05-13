@@ -1,0 +1,557 @@
+The Tidyverse: 
+========================================================
+author: 
+date: 
+autosize: true
+Graph Creation and Exploration with the Tidyverse!
+
+<style>
+.small-code pre code {
+  font-size: 1em;
+}
+</style>
+
+graph_from_data_frame()
+========================================================
+```{r, include=F}
+library(tidyverse)
+```
+A graph can be created with either one or two data frames
+
+- a data frame of edges is required
+    - requires that the first two columns represents the **from** nodes and the **to** nodes
+    - any subsequent column represents an edge attribute
+- a data frame that represents the nodes is optional
+    - requires that the first column represents **unique names** of the nodes referred to in the data frame of edges
+    - any subsequent column represents a node attribute
+
+tidyverse
+========================================================
+
+the **tidyverse** has revolutionized the creation and manipulation of vectors and data frames
+
+- **magrittr**
+- **dplyr**
+- **purr**
+- **stringr**
+- **tibble**
+- **tidyr**
+- **...**
+
+
+tidyverse + graph_from_data_frame() = <3
+========================================================
+
+Because a graph can be represented with only two data frames, the **tidyverse** makes graph creation incredibly easy. 
+
+Because nodes and edges in **igraph** are just vectors, the **tidyverse** provides amazing shortcuts to graph traversals.
+
+**This section is dedicated to the tidyverse because of these advantages**
+
+mutlitple functions - as variables
+========================================================
+class: small-code
+```{r}
+x <- 1:3
+x <- letters[x]
+x <- paste(x, 'is a letter in the alphabet')
+x <- toupper(x)
+x
+```
+
+multiple functions - nested within eachother
+========================================================
+class: small-code
+```{r}
+toupper(
+  paste(
+    letters[1:3], 'is a letter in the alphabet'
+    )
+  )
+```
+
+multiple functions - with magrittr's pipe
+========================================================
+class: small-code
+```{r}
+1:3 %>%
+  letters[.] %>%
+  paste(., 'is a letter in the alphabet') %>%
+  toupper
+```
+
+multiple functions - piping anonymous functions 
+========================================================
+class: small-code
+```{r}
+1:3 %>%
+{
+  paste(letters[.], 'is letter number', ., 'out of', length(.))
+} %>%
+  toupper
+```
+
+multiple functions - piping within anonymous functions 
+========================================================
+class: small-code
+```{r}
+1:3 %>%
+  (function(x){
+    squared = x * x
+    paste(letters[x], 'squared is', letters[squared]) %>%
+      toupper
+  })
+```
+
+vectors - filtering normally
+========================================================
+class: small-code
+```{r}
+myVector <- 1:10
+myVector[myVector %% 2 == 0]
+```
+
+vectors - filtering with the pipe
+========================================================
+class: small-code
+```{r}
+myVector <- 1:10
+
+myVector %>%
+  .[. %% 2 == 0]
+
+myVector %>%
+  exp() %>%
+  floor() %>%
+  .[. %% 2  == 0]
+```
+
+data frames - filtering normally
+============
+class: small-code
+```{r}
+iris[iris$Species == 'setosa',] %>%
+  head()
+```
+
+data frames - filtering with dplyr
+======
+class: small-code
+```{r}
+iris %>%
+  filter(Species == 'setosa') %>%
+  head()
+```
+
+data frames - base column creation
+=====
+class: small-code
+```{r}
+tempIris <- iris
+tempIris$sepalArea = iris$Sepal.Length * iris$Sepal.Width
+tempIris[1:5, c('Sepal.Length', 'Sepal.Width', 'sepalArea')]
+```
+
+data frames - dplyr column creation
+=====
+class: small-code
+```{r}
+iris %>%
+  mutate(sepalArea = Sepal.Length * Sepal.Width) %>%
+  select(Sepal.Length, Sepal.Width, sepalArea) %>%
+  head(5)
+```
+
+data frame - base summarization
+====
+class: small-code
+```{r}
+aggregate(. ~ Species, data = iris, mean)
+```
+
+data frame - dplyr summarization
+=====
+class: small-code
+```{r}
+iris %>%
+  group_by(Species) %>%
+  summarize_all(mean) 
+```
+
+data frame - dplyr summarization with different functions
+====
+class: small-code
+```{r}
+iris %>%
+  group_by(Species) %>%
+  summarize(
+    MinPedalLength = median(Petal.Length),
+    MaxPedalWidth = max(Petal.Width),
+    MedianSepalLength = median(Sepal.Length),
+    MeanSepalWidth = mean(Sepal.Width)
+  )
+```
+
+data frame - tidyr nesting
+====
+class: small-code
+```{r}
+iris %>%
+  group_by(Species) %>%
+  nest()
+```
+
+iteration - base (l)apply rowwise
+======
+class: small-code
+```{r}
+lapply(seq_along(iris$Species), function(i){
+  iris$Sepal.Length[i] + 
+    iris$Sepal.Width[i] +
+    iris$Petal.Length[i] +
+    iris$Petal.Width[i]
+})
+```
+
+iteration - purrr pmap rowwise
+====
+class: small-code
+```{r}
+iris %>%
+  pmap(
+    function(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, ...){
+      Sepal.Length + 
+        Sepal.Width + 
+        Petal.Length +
+        Petal.Width
+      }) %>%
+  head()
+```
+
+
+iteration - base apply columnwise
+====
+class: small-code
+```{r}
+apply(iris[which(names(iris) != 'Species')], 2, sum)
+```
+
+
+... and now with igraph...
+=====
+class: small-code
+we'll create a knowledge graph with the **starwars** dataset
+
+```{r}
+starwars %>%
+  summarise_all(typeof) %>%
+  transpose %>%
+  unlist %>%
+  enframe
+```
+
+starwars graph schema
+========
+class: small-code
+```{r, echo=F, width="2"}
+library(diagram)
+pos <- coordinates(c(5,5,5,5,5))
+openplotmat()
+nodePos <- c(3, 10, 20, 22, 24, 16, 6) 
+map(nodePos,
+        function(i){
+         straightarrow(pos[13,], 
+                       pos[i,], 
+                       lwd = 3, 
+                       arr.lwd = 3, 
+                       arr.adj =1)
+       }) %>%
+  {}
+nodeNames <- c('Character', 'Color', 'Gender', 'Homeworld',
+               'Species', 'Films', 'Vehicles', 'Starships')
+map2(c(13, nodePos), nodeNames, function(i,x){
+  textellipse(pos[i,], 
+              .1, 
+              lab = x, 
+              box.col = '#89cff0',
+              shadow.size = .005, 
+              cex = 1.5)
+}) %>%
+  {}
+
+title("Starwars\nThe Knowledge Graph")
+```
+
+
+Starwars Graph - Edge List Creation: Planning DF
+====
+class: small-code
+```{r}
+el_schema <- tibble(
+  from = 'name',
+  to = names(starwars) %>% .[!. %in% c('name', 'height', 'mass', 'birth_year')],
+  type = to
+)
+el_schema
+```
+
+Starwars Graph - Edge List Creation: Planning Function
+====
+class: small-code
+```{r}
+el_function <- function(from, to, type){
+  starwars %>%
+    select(from, to) %>%
+    unnest() %>%
+    mutate(type = type) %>%
+    rename_(
+      'from' = from,
+      'to' = to
+    )
+}
+```
+
+Starwars Graph - Edge List Creation: Execution
+====
+class: small-code
+```{r}
+el <- pmap(el_schema, el_function) %>%
+  bind_rows() %>%
+  filter(!is.na(to))
+el
+```
+
+Starwars Graph - Edge List: Clean Up
+====
+class: small-code
+```{r}
+el %<>%
+  mutate(to = map(to, function(x){
+    str_split(x, ',') %>% 
+      unlist %>%
+      str_trim()
+  }) ) %>%
+  unnest %>%
+  mutate(
+    from = str_c('character:', from),
+    to = pmap_chr(., function(to, type, ...){
+      str_c(type, ':', to)
+    })
+  ) %>%
+  select(from, to, type)
+```
+
+Starwars Graph - Edge List: Final
+====
+class: small-code
+```{r}
+el
+```
+
+Starwars Graph - Node List
+=====
+class: small-code
+```{r}
+nl <- el %>%
+  {c(.$from, .$to)} %>%
+  unique %>%
+  tibble(
+    name = .,
+    type = sapply(str_split(., ':'), '[[', 1), 
+    data = lapply(., function(x){
+      if(str_detect(x, '^character')){
+        starwars %>%
+          filter(name == str_replace(x, 'character:', '')) %>%
+          select(height, mass, birth_year)
+      } else {
+        tibble(height = NA,
+               mass = NA,
+               birth_year = NA)
+      }})
+    ) %>%
+  unnest()
+```
+
+Starwars Graph - Node List
+====
+class: small-code
+```{r}
+nl
+```
+
+Starwars Graph - All Direct Relationships
+=====
+class: small-code
+```{r messages = F}
+library(igraph)
+g <- graph_from_data_frame(el, T, nl)
+g
+```
+
+Starwars Graph - Indirect Relationships
+=====
+class: small-code
+```{r echo = F}
+library(diagram)
+pos <- coordinates(c(3,3,3))
+openplotmat()
+nodePos <- c(4, 8, 6)
+nodeNames <- c('Character', 'Film', 'Character')
+
+straightarrow(pos[4,],pos[8,], lwd=3, arr.lwd = 3, arr.adj=1)
+straightarrow(pos[6,],pos[8,], lwd=3, arr.lwd = 3, arr.adj=1)
+straightarrow(pos[4,],pos[6,], lwd=3, arr.lwd = 3, arr.adj=1, lty = 2)
+straightarrow(pos[6,],pos[4,], lwd=3, arr.lwd = 3, arr.adj=1, lty = 2)
+map2(nodePos, nodeNames, function(i,x){
+  textellipse(pos[i,], 
+              .1, 
+              lab = x, 
+              box.col = '#89cff0',
+              shadow.size = .005, 
+              cex = 1.5)
+}) %>%
+  {}
+
+```
+
+Starwars Graph - Indirect Relationships
+====
+class: small-code
+```{r}
+character_film <- starwars %>%
+  select(name, films) %>%
+  unnest() 
+
+character_film
+```
+
+Starwars Graph - Indirect Relationships
+====
+class: small-code
+```{r}
+film <- character_film %>%
+  nest(name)
+film
+```
+
+Starwars Graph - Indirect Relationships
+=====
+class: small-code
+```{r}
+character_character <- character_film %>%
+  left_join(film) %>%
+  rename(character = name) %>%
+  unnest() 
+character_character
+```
+
+Starwars Graph - Indeirect Relationships
+====
+class: small-code
+```{r}
+character_character %<>%
+  group_by(character, name) %>%
+  count(sort = T) %>%
+  filter(character != name) %>%
+  rename(movies_shared = n)
+
+character_character
+```
+
+Starwars Graph - Indirect Relationships
+====
+class: small-code
+```{r}
+character_character %<>%
+  pmap(function(character, name, ...){
+    c(character, name) %>% 
+      sort %>%
+      {tibble(character = .[1], name = .[2])}
+    }) %>%
+  bind_rows() %>%
+  distinct() %>%
+  left_join(character_character)
+
+character_character
+```
+
+
+Starwars Graph - Indirect Relationships
+====
+class: small-code
+```{r}
+g <- g %>%
+  add_edges(.,
+            character_character %>%
+              pmap(function(character, name, ...){
+                c(character, name)
+              }) %>%
+              unlist() %>%
+              str_c('character:', .),
+            movies_shared = character_character$movies_shared
+            )
+```
+
+Starwars Graph - indeirect Relationships
+====
+class: small-code
+```{r}
+g %>%
+  summary
+```
+
+Starwars Graph - filtering
+=====
+class: small-code
+```{r}
+g %>%
+  {. - E(.)[is.na(movies_shared)]} %>%
+  {. - V(.)[type != 'character']} %>%
+  summary
+```
+
+Starwars Graph - filtering
+=====
+class: small-code
+```{r, fig.width = 14}
+g %>%
+  {. - E(.)[is.na(movies_shared)]} %>%
+  {. - V(.)[type != 'character']} %>%
+  plot()
+```
+
+
+Starwars Graph - filtering
+=====
+class: small-code
+```{r}
+g %>%
+  {. - E(.)[is.na(movies_shared)]} %>%
+  {. - V(.)[type != 'character']} %>%
+  {. - E(.)[movies_shared < 4]} %>%
+  summary
+```
+
+Starwars Graph - filtering
+=====
+class: small-code
+```{r}
+g %>%
+  {. - E(.)[is.na(movies_shared)]} %>%
+  {. - V(.)[type != 'character']} %>%
+  {. - E(.)[movies_shared < 4]} %>%
+  {. - V(.)[degree(.) == 0]} %>%
+  summary
+```
+
+Starwars Graph - filtering
+=====
+class: small-code
+```{r fig.width = 14}
+g %>%
+  {. - E(.)[is.na(movies_shared)]} %>%
+  {. - V(.)[type != 'character']} %>%
+  {. - E(.)[movies_shared < 4]} %>%
+  {. - V(.)[degree(.) == 0]} %>%
+  plot()
+```

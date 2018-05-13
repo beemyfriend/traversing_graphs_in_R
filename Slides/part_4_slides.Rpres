@@ -1,0 +1,213 @@
+Plotting Graphs!
+========================================================
+author: 
+date: 
+autosize: true
+
+<style>
+.small-code pre code {
+  font-size: 1em;
+}
+</style>
+
+The Data Set
+========================================================
+
+```{r}
+library(igraph)
+library(igraphdata)
+data(UKfaculty)
+summary(UKfaculty)
+```
+
+
+Plotting As Is
+========================================================
+```{r, fig.width = 12}
+set.seed(4321)
+plot(UKfaculty)
+```
+
+Controlling Vertex Attributes
+=======
+- vertex.size
+- vertex.color
+- vertex.shape
+- vertex.label
+
+Controlling Edge Attributes
+========================================================
+
+- edge.color
+- edge.width
+- edge.arrow.size
+- edge.arrow.width
+- edge.lty
+- edge.label
+
+Plotting Without Changing the Data
+=====
+class: small-code
+
+```{r, fig.width = 12}
+set.seed(4321)
+plot(
+  UKfaculty,
+  vertex.size = UKfaculty %>%
+    {degree(.)/max(degree(.)) * 15},
+  vertex.shape = ifelse(V(UKfaculty) %% 2 == 0, 'circle', 'square'),
+  vertex.color = V(UKfaculty)$Group,
+  vertex.label = NA,
+  edge.arrow.size = .1,
+)
+```
+
+Plotting by changing the data
+=====
+class: small-code
+```{r,  fig.width = 12}
+set.seed(4321)
+g <- UKfaculty %>%
+  set_vertex_attr('size', value = degree(.)/max(degree(.)) * 15) %>%
+  set_vertex_attr('shape', value = ifelse(V(.) %% 2 == 0, 'circle', 'square')) %>%
+  set_vertex_attr('color', value = V(.)$Group) %>%
+  set_vertex_attr('label', value= NA) %>%
+  set_edge_attr('arrow.size', value = .1)
+
+plot(g)
+```
+
+Plotting with ggraph
+====
+class: small-code
+```{r, fig.width =12}
+library(ggraph)
+set.seed(4321)
+gg <- UKfaculty %>%
+  set_vertex_attr('degree', value = degree(.)) %>%
+  set_vertex_attr('Group', value = as.character(V(.)$Group)) %>%
+  set_vertex_attr('shape', value = V(.) %% 2 == 0)
+
+ggraph(gg) +
+  geom_edge_link(
+    alpha = .5
+  ) +
+  geom_node_point(
+    aes(
+      fill = Group,
+      size = degree,
+      shape = shape
+    )
+  ) +
+  scale_size_area(max_size = 10) +
+  scale_fill_manual(values = c('1' = 'yellow','2'= 'blue', '3' = 'green', '4' = 'orange')) +
+  scale_shape_manual(values = c('FALSE' = 21, 'TRUE' = 22)) +
+  theme_void()
+```
+
+layouts
+======
+```{r, fig.width = 12}
+set.seed(1234)
+l <- layout_nicely(g)
+plot(g, layout = l)
+```
+
+layouts
+=====
+```{r, fig.width = 12}
+g %>%
+  set_vertex_attr('index', value = V(.)) %>%
+  {. - V(.)[Group != 1]} %>%
+  plot(., layout = l[V(.)$index,])
+```
+
+layouts
+=====
+```{r, fig.width = 12}
+g %>%
+  set_vertex_attr('index', value = V(.)) %>%
+  {. - V(.)[Group == 1]} %>%
+  plot(., layout = l[V(.)$index,])
+```
+
+layouts
+=====
+They're just two column matrices. 
+- xmax is `vcount(g)`
+- ymax is `vcount(g)`
+```{r}
+library(tidyverse)
+myLayout <- map2(V(g)$Group, V(g), function(x,y){
+  tibble(
+    Group = x %>% as.integer(),
+    index = y
+  )
+}) %>%
+  bind_rows() %>%
+  group_by(Group) %>%
+  nest() %>%
+  mutate(data = lapply(data, function(x){
+    print(nrow(x))
+    x %>%
+      mutate(y = (1:nrow(.))/nrow(.))
+    
+  })) %>%
+  unnest()
+myLayout
+```
+
+layouts
+====
+```{r}
+myLayout %<>% 
+  arrange(index) %>%
+  select(Group, y) %>%
+  mutate(Group = Group/4) %>%
+  as.matrix()
+
+myLayout 
+```
+
+layouts
+=====
+class: small-code
+```{r, fig.width = 14}
+plot(g, layout = myLayout * vcount(g), asp=0)
+axis(1, at = c(-1, 0, 1), labels = c('0', 'vcount/2', 'vcount'))
+axis(2, at = c(-1, 0, 1), labels = c('0', 'vcount/2', 'vcount'))
+```
+
+layouts
+====
+class: small-code
+```{r, fig.width = 14}
+g %>%
+  set_vertex_attr('index', value = V(.)) %>%
+  {. - V(.)[!Group %in% c(1, 4)]} %>%
+  plot(., layout = myLayout[V(.)$index, ])
+```
+
+layouts
+===
+class: small-code
+the layout needs to be a data frame for ggraph
+
+```{r, fig.width = 14}
+ggraph(gg, layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = myLayout[,2])) +
+  geom_edge_link(
+    alpha = .5
+  ) +
+  geom_node_point(
+    aes(
+      fill = Group,
+      size = degree,
+      shape = shape
+    )
+  ) +
+  scale_size_area(max_size = 10) +
+  scale_fill_manual(values = c('1' = 'yellow','2'= 'blue', '3' = 'green', '4' = 'orange')) +
+  scale_shape_manual(values = c('FALSE' = 21, 'TRUE' = 22)) +
+  theme_void()
+```
+
