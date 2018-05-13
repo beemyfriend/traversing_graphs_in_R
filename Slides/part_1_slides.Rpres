@@ -1,17 +1,24 @@
----
-title: "Introduction to igraph"
-author: "Benjamin Ortiz Ulloa"
-output: ioslides_presentation
----
+GRAPHS
+========================================================
+author: 
+date: 
+autosize: true
+<style>
+.small-code pre code {
+  font-size: 1em;
+}
+</style>
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(diagram)
+library(igraph)
 ```
 
-## What is a graph?
-
-```{r}
+What is a graph?
+====
+```{r, fig.width = 14}
 #knitr::include_graphics('part_1_images/nodes_and_vertices1.png')
 openplotmat()
 pos <- coordinates(c(3,3,3))
@@ -19,10 +26,10 @@ textellipse(pos[7,], .1, lab = 'Node', box.col = '#89cff0',
             shadow.size = .005, cex = 1.5)
 title("Nodes\n")
 ```
-
-## What is a graph?
-
-```{r}
+ 
+What is a graph?
+====
+```{r, fig.width = 14}
 #knitr::include_graphics('part_1_images/nodes_and_vertices1.png')
 openplotmat()
 textellipse(pos[7,], .1, lab = 'Node', box.col = '#89cff0',
@@ -32,9 +39,9 @@ textellipse(pos[9,], .1, lab = 'Vertex', box.col = '#89cff0',
 title("Nodes & Vertices\n")
 ```
 
-## What is a graph?
-
-```{r}
+What is a graph?
+====
+```{r, fig.width = 14}
 #knitr::include_graphics('part_1_images/nodes_and_vertices2.png')
 openplotmat()
 textellipse(pos[2,], .1, lab = 'A Thing', box.col = '#89cff0',
@@ -46,9 +53,9 @@ textellipse(pos[9,], .1, lab = 'Vertex', box.col = '#89cff0',
 title("Nodes & Vertices\nAre Just Things")
 ```
 
-## What is a graph?
-
-```{r}
+What is a graph?
+====
+```{r, fig.width = 14}
 pos = coordinates(c(3,3,3,3))
 openplotmat()
 textellipse(pos[2,], .1, lab = 'A Thing', box.col = '#89cff0',
@@ -66,9 +73,9 @@ text(pos[2,1], pos[2,2], 'type: thing', pos = 1, cex = 1, offset = 3)
 title("Nodes & Vertices\nAre Just Things")
 ```
 
-## What is a graph?
-
-```{r}
+What is a graph?
+=====
+```{r, fig.width = 14}
 #knitr::include_graphics('part_1_images/edges_and_links1.png')
 openplotmat()
 straightarrow(pos[7,], pos[2,], lwd = 3, arr.width = 0)
@@ -93,9 +100,9 @@ text(pos[2,1], pos[2,2], 'type: thing', pos = 1, cex = 1, offset = 3)
 title("Edges\n")
 ```
 
-## What is a graph?
-
-```{r}
+What is a graph?
+===
+```{r, fig.width = 14}
 #knitr::include_graphics('part_1_images/edges_and_links1.png')
 openplotmat()
 straightarrow(pos[7,], pos[2,], lwd = 3, arr.width = 0)
@@ -126,9 +133,9 @@ text(pos[2,1], pos[2,2], 'type: thing', pos = 1, cex = 1, offset = 3)
 title("Edges & Links\n")
 ```
 
-## What is a graph?
-
-```{r}
+What is a graph?
+===
+```{r, fig.width = 14}
 #knitr::include_graphics('part_1_images/edges_and_links2.png')
 openplotmat()
 straightarrow(pos[7,], pos[2,], lwd = 3, arr.width = 0)
@@ -166,9 +173,9 @@ title("Edges & Links\nAre Just Relationships")
 ```
 
 
-## What is a graph?
-
-```{r}
+What is a graph?
+=====
+```{r, fig.width = 14}
 #knitr::include_graphics('part_1_images/edges_and_links2.png')
 openplotmat()
 straightarrow(pos[7,], pos[2,], lwd = 3, arr.width = 0)
@@ -223,9 +230,9 @@ text(pos[2,1], pos[2,2], 'type: thing', pos = 1, cex = 1, offset = 3)
 title("Edges & Links\nAre Just Relationships")
 ```
 
-## What is a graph?
-
-```{r}
+What is a graph?
+=====
+```{r, fig.width = 14}
 #knitr::include_graphics('part_1_images/edges_and_links3.png')
 openplotmat()
 straightarrow(pos[7,], pos[2,], lwd = 3, arr.lwd = 3, arr.adj =1)
@@ -279,9 +286,9 @@ text(pos[2,1], pos[2,2], 'type: thing', pos = 1, cex = 1, offset = 3)
 title("Edges & Links\nCan Have Direction")
 ```
 
-## What is a graph?
-
-```{r}
+What is a graph?
+===
+```{r, fig.width = 14}
 #knitr::include_graphics('part_1_images/edges_and_links4.png')
 openplotmat()
 straightarrow(pos[7,], pos[2,], lwd = 3, arr.lwd = 3, arr.adj =1)
@@ -341,9 +348,9 @@ text(pos[2,1], pos[2,2], 'type: thing', pos = 1, cex = 1, offset = 3)
 title("Edges & Links\nThere Can be Multiple Between Nodes")
 ```
 
-## What is a graph?
-
-```{r}
+What is a graph?
+===
+```{r, fig.width = 14}
 pos <- coordinates(c(5,5,5,5,5))
 openplotmat()
 
@@ -374,9 +381,9 @@ text(pos[15,1], pos[15,2], 'Job: Politician', pos = 1, cex = 1, offset = 3)
 title("Property Graph")
 ```
 
-## What is a graph?
-
-```{r}
+What is a graph?
+===
+```{r, fig.width = 14}
 pos <- coordinates(c(5,5,5,5,5))
 openplotmat()
 
@@ -420,49 +427,56 @@ textellipse(pos[15,], .075, lab = 'Jared', box.col = '#8da0cb',
 title("RDF Graph")
 ```
 
-## Why Graph? Social Network Analysis
-```{r out.width = '650px'}
+Why Graph? Social Network Analysis
+===
+```{r , fig.width = 14}
 knitr::include_graphics('part_1_images/twitter_trolls.png')
 ```
 
-## Why Graph? Recommendation
-```{r out.width = '700px'}
+Why Graph? Recommendation
+===
+```{r , fig.width = 14}
 knitr::include_graphics('part_1_images/recommenation.png')
 ```
 
-## Why Graph? Knowledge Graphs
-```{r out.width = '700px'}
+Why Graph? Knowledge Graphs
+===
+```{r , fig.width = 14}
 knitr::include_graphics("part_1_images/knowledge_graph.png")
 ```
 
-## Why Graph? Fraud Detection
-```{r, out.width = "650px"}
+Why Graph? Fraud Detection
+====
+```{r, fig.width = 14}
 knitr::include_graphics("part_1_images/fraud.png")
 ```
 
-## Why Graph? NLP
-```{r, out.width = '650px'}
+Why Graph? NLP
+===
+```{r, fig.width = 14}
 knitr::include_graphics('part_1_images/4-Figure2-1.png')
 ```
 
-## Why Graph? Databases 1
-```{r, out.width = '700px'}
+Why Graph? Databases 1
+===
+```{r, fig.width = 14}
 knitr::include_graphics('part_1_images/sql_dbs.png')
 ```
 
-## Why Graph? Databases 2
-
-```{r, out.width = '700px'}
+Why Graph? Databases 2
+====
+```{r, fig.width = 14}
 knitr::include_graphics('part_1_images/graph_dbs.png')
 ```
 
-## IGRAPH!!!!!
-
+IGRAPH!!!!!
+====
 let's begin...
 
-### Build Graph from nothing
-
-```{r}
+Build Graph from Nothing
+====
+class: small-code
+```{r, echo = T}
 library(igraph)
 g <- make_empty_graph(directed = T) +
   vertices(c('a', 'b', 'c', 'd', 'e'),
@@ -477,4 +491,198 @@ g <- make_empty_graph(directed = T) +
         weight = c(1, 1, 2, 1, 2))
 
 g
+```
+
+Build Graph from Nothing
+============
+```{r, fig.width = 14}
+set.seed(1234)
+plot(g)
+```
+
+Build Graph from Matrix
+=====
+class: small-code
+```{r, echo =T}
+src <- c('a', 'b', 'b', 'c', 'c')
+tgt <- c('b', 'c', 'd', 'b', 'e')
+wgt <- c(1, 1, 2, 1, 2)
+matData <- matrix(0, nrow = 5, ncol = 5, dimnames = list(letters[1:5], letters[1:5]))
+
+sapply(seq_along(src), function(i){
+  matData[src[i], tgt[i]] <<- wgt[i]
+})
+
+matData
+```
+
+
+Build Graph from Matrix
+=====
+class: small-code
+```{r, fig.width = 14}
+g <- graph_from_adjacency_matrix(matData, mode = 'directed', weighted = 'weight') 
+
+set.seed(1234)
+plot(g)
+```
+
+Build Matrix from Graph
+====
+class: small-code
+```{r, echo = T}
+as_adjacency_matrix(g)
+as_adjacency_matrix(g, attr = 'weight')
+```
+
+Build Graph from Data Frame(s)
+===
+class: small-code
+```{r directed_df, echo=T}
+node_list <- data.frame(
+  name = c('a', 'b', 'c', 'd', 'e'),
+  type = "letter",
+  order = c(1, 2, 3, 4, 5)
+)
+
+edge_list <- data.frame(
+  source = c('a', 'b', 'b', 'c', 'c'),
+  target = c('b', 'c', 'd', 'b', 'e'),
+  type = 'is connected to',
+  weight = c(1, 1, 2, 1, 2)
+)
+g <- graph_from_data_frame(d = edge_list, 
+                           directed = T,
+                           vertices = node_list)
+```
+
+Build Graph from Data Frame(s)
+=====
+```{r, fig.width =14}
+set.seed(1234)
+plot(g)
+```
+
+Build Data Frame(s) from Graph
+====
+class:small-code
+```{r, echo = T}
+as_data_frame(g, 'both')
+```
+
+Accessing Vertices
+====
+```{r, echo = T}
+V(g)
+```
+
+Accessing Vertices
+====
+```{r, echo = T}
+V(g)[3]
+
+V(g)['c']
+
+V(g)[['c']]
+```
+
+Accessing/Setting Vertices
+====
+class:small-code
+```{r, echo =T}
+V(g)$order
+
+V(g)['c']$order 
+
+V(g)['c']$order <- 1
+
+g <- set_vertex_attr(g, name = 'entity', value = 'A NODE!')
+
+V(g)[[]]
+```
+
+Querying Vertices
+====
+```{r, echo = T}
+V(g)[[c('a', 'c')]]
+
+V(g)[[order == 1]]
+```
+
+Vertices are just vectors
+=====
+```{r echo = T}
+ab <- V(g)[[c('a', 'b')]]
+de <- V(g)[[c('d', 'e')]]
+aa <- V(g)[[c('a', 'a')]]
+c(ab, de, aa)
+```
+
+Accessing Edges
+====
+class:small-code
+```{r, echo = T}
+E(g)
+
+E(g)[weight == 2]
+
+E(g)[[weight == 2]]
+```
+
+Setting Edges
+====
+class:small-code
+```{r, echo = T}
+E(g)[weight == 2]$weight <- -20000
+
+g <- set_edge_attr(g, 'entity', value = 'A LINK!')
+
+E(g)[[]]
+```
+
+ASCII ART - Querying Edges
+====
+class:small-code
+```{r, echo = T}
+E(g)['a' %<-% 'b']
+
+#you don't need to know the specific name of the vertices
+E(g)['c' %->% V(g)]
+
+#you don't need to know the specific direction of edges
+E(g)['b' %--% V(g)]
+```
+
+Edges are just vectors
+====
+```{r echo = T}
+b <- E(g)['b' %->% V(g)]
+c <- E(g)['c' %->% V(g)]
+c(b, c)
+```
+
+Subgraph - Using Vertices
+====
+```{r subgraphs, echo = T}
+abc_sub <- induced_subgraph(g, c('a', 'b', 'c'))
+abc_sub
+```
+
+Subgraph - Using Edges
+=====
+```{r echo = T}
+b_sub <- subgraph.edges(g, E(g)["b" %--% V(g)])
+b_sub
+```
+
+Subgraph - By Deletion
+====
+```{r, echo = T, fig.width= 14}
+g - V(g)['c']
+```
+
+Subgraph - By Deletion
+====
+```{r, echo = T}
+g - E(g)[weight < 1]
 ```
