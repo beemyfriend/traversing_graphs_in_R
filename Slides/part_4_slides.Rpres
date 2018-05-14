@@ -96,7 +96,7 @@ Plotting with ggraph
 ===
 class:small-code
 ```{r, fig.width = 12}
-ggraph(gg) +
+toShow <- ggraph(gg) +
   geom_edge_link(
     alpha = .5
   ) +
@@ -111,6 +111,12 @@ ggraph(gg) +
   scale_fill_manual(values = c('1' = 'yellow','2'= 'blue', '3' = 'green', '4' = 'orange')) +
   scale_shape_manual(values = c('FALSE' = 21, 'TRUE' = 22)) +
   theme_void()
+```
+
+Plotting with ggraph
+====
+```{r, fig.width = 14}
+toShow
 ```
 
 layouts
@@ -144,6 +150,7 @@ g %>%
 
 layouts
 =====
+class:small-code
 They're just two column matrices. 
 - xmax is `vcount(g)`
 - ymax is `vcount(g)`
@@ -165,11 +172,18 @@ myLayout <- map2(V(g)$Group, V(g), function(x,y){
     
   })) %>%
   unnest()
-myLayout
 ```
 
 layouts
 ====
+class:small-code
+```{r}
+myLayout
+```
+
+layouts
+===
+class:small-code
 ```{r}
 myLayout %<>% 
   arrange(index) %>%
@@ -205,7 +219,8 @@ class: small-code
 the layout needs to be a data frame for ggraph
 
 ```{r, fig.width = 14}
-ggraph(gg, layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = myLayout[,2])) +
+toShow <- gg %>%
+  ggraph(layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = myLayout[,2])) +
   geom_edge_link(
     alpha = .5
   ) +
@@ -220,6 +235,12 @@ ggraph(gg, layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = 
   scale_fill_manual(values = c('1' = 'yellow','2'= 'blue', '3' = 'green', '4' = 'orange')) +
   scale_shape_manual(values = c('FALSE' = 21, 'TRUE' = 22)) +
   theme_void()
+```
+
+layouts
+===
+```{r, fig.width = 14}
+toShow
 ```
 
 

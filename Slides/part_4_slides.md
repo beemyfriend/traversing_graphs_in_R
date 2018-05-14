@@ -114,7 +114,7 @@ Plotting with ggraph
 class:small-code
 
 ```r
-ggraph(gg) +
+toShow <- ggraph(gg) +
   geom_edge_link(
     alpha = .5
   ) +
@@ -131,7 +131,14 @@ ggraph(gg) +
   theme_void()
 ```
 
-![plot of chunk unnamed-chunk-6](part_4_slides-figure/unnamed-chunk-6-1.png)
+Plotting with ggraph
+====
+
+```r
+toShow
+```
+
+![plot of chunk unnamed-chunk-7](part_4_slides-figure/unnamed-chunk-7-1.png)
 
 layouts
 ======
@@ -143,7 +150,7 @@ l <- layout_nicely(g)
 plot(g, layout = l)
 ```
 
-![plot of chunk unnamed-chunk-7](part_4_slides-figure/unnamed-chunk-7-1.png)
+![plot of chunk unnamed-chunk-8](part_4_slides-figure/unnamed-chunk-8-1.png)
 
 layouts
 =====
@@ -156,7 +163,7 @@ g %>%
   plot(., layout = l[V(.)$index,])
 ```
 
-![plot of chunk unnamed-chunk-8](part_4_slides-figure/unnamed-chunk-8-1.png)
+![plot of chunk unnamed-chunk-9](part_4_slides-figure/unnamed-chunk-9-1.png)
 
 layouts
 =====
@@ -169,10 +176,11 @@ g %>%
   plot(., layout = l[V(.)$index,])
 ```
 
-![plot of chunk unnamed-chunk-9](part_4_slides-figure/unnamed-chunk-9-1.png)
+![plot of chunk unnamed-chunk-10](part_4_slides-figure/unnamed-chunk-10-1.png)
 
 layouts
 =====
+class:small-code
 They're just two column matrices. 
 - xmax is `vcount(g)`
 - ymax is `vcount(g)`
@@ -204,6 +212,10 @@ myLayout <- map2(V(g)$Group, V(g), function(x,y){
 [1] 2
 ```
 
+layouts
+====
+class:small-code
+
 ```r
 myLayout
 ```
@@ -226,7 +238,8 @@ myLayout
 ```
 
 layouts
-====
+===
+class:small-code
 
 ```r
 myLayout %<>% 
@@ -333,7 +346,7 @@ axis(1, at = c(-1, 0, 1), labels = c('0', 'vcount/2', 'vcount'))
 axis(2, at = c(-1, 0, 1), labels = c('0', 'vcount/2', 'vcount'))
 ```
 
-![plot of chunk unnamed-chunk-12](part_4_slides-figure/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-14](part_4_slides-figure/unnamed-chunk-14-1.png)
 
 layouts
 ====
@@ -346,7 +359,7 @@ g %>%
   plot(., layout = myLayout[V(.)$index, ])
 ```
 
-![plot of chunk unnamed-chunk-13](part_4_slides-figure/unnamed-chunk-13-1.png)
+![plot of chunk unnamed-chunk-15](part_4_slides-figure/unnamed-chunk-15-1.png)
 
 layouts
 ===
@@ -355,7 +368,8 @@ the layout needs to be a data frame for ggraph
 
 
 ```r
-ggraph(gg, layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = myLayout[,2])) +
+toShow <- gg %>%
+  ggraph(layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = myLayout[,2])) +
   geom_edge_link(
     alpha = .5
   ) +
@@ -372,7 +386,14 @@ ggraph(gg, layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = 
   theme_void()
 ```
 
-![plot of chunk unnamed-chunk-14](part_4_slides-figure/unnamed-chunk-14-1.png)
+layouts
+===
+
+```r
+toShow
+```
+
+![plot of chunk unnamed-chunk-17](part_4_slides-figure/unnamed-chunk-17-1.png)
 
 
 Play with your data
@@ -404,7 +425,7 @@ plot(UKfaculty,
      )
 ```
 
-![plot of chunk unnamed-chunk-16](part_4_slides-figure/unnamed-chunk-16-1.png)
+![plot of chunk unnamed-chunk-19](part_4_slides-figure/unnamed-chunk-19-1.png)
 
 People to Follow
 =====
