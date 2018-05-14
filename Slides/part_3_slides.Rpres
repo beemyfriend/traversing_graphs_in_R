@@ -1,0 +1,717 @@
+Traversal Functions
+========================================================
+author: 
+date: 
+autosize: true
+<style>
+.small-code pre code {
+  font-size: 1em;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(diagram)
+library(tidyverse)
+library(igraph)
+library(igraphdata)
+library(ggplot2)
+library(ggraph)
+data("UKfaculty")
+starwars_g <- read_graph('../Data/starwars_knowledge_graph.graphml','graphml')
+```
+
+Traversal: Relative Orientation
+===
+```{r, fig.width = 14}
+pos = coordinates(c(3))
+openplotmat()
+
+arrow1 <- straightarrow(pos[1,], pos[2,], lwd = 3)
+arrow2 <- straightarrow(pos[2,], pos[3,], lwd = 3)
+textellipse(pos[1,], .1, lab = 'Node 1', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[2,], .1, lab = 'Node 2', box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+textellipse(pos[3,], .1, lab = "Node 3", box.col = '#89cff0',
+            shadow.size = .005, cex = 1.5)
+text(arrow1[1],
+     arrow1[2],
+     "Link 1",
+     pos = 3,
+     cex = 1.5)
+text(arrow2[1],
+     arrow2[2],
+     "Link 2",
+     pos = 3,
+     cex = 1.5)
+```
+
+Traversal: Sequential Queries
+====
+```{r, fig.width = 14}
+pos <- coordinates(c(3,3,3))
+openplotmat()
+
+
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+
+```
+
+Traversal: Sequential Queries
+====
+```{r, fig.width =14}
+pos <- coordinates(c(3,3,3))
+openplotmat()
+
+teaches <- straightarrow(pos[4,], pos[5,], lwd = 3)
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[5,], .075, lab = 'Course 1', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+
+text(teaches[1],
+     teaches[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+```
+
+Traversal: Sequential Queries
+====
+```{r, fig.width = 14}
+pos <- coordinates(c(3,3,3))
+openplotmat()
+
+teaches <- straightarrow(pos[4,], pos[5,], lwd = 3)
+attends1 <- straightarrow(pos[3,], pos[5,], lwd = 3)
+attends2 <- straightarrow(pos[6,], pos[5,], lwd = 3)
+attends3 <- straightarrow(pos[9,], pos[5,], lwd = 3)
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[5,], .075, lab = 'Course 1', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[3,], .075, lab = 'Student 1', box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[6,], .075, lab = "Student 2", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[9,], .075, lab = "Student 3", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+
+text(teaches[1],
+     teaches[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(attends1[1],
+     attends1[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends2[1],
+     attends2[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends3[1],
+     attends3[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+
+```
+
+Traversal: Sequential Queries
+=====
+```{r, fig.width = 14}
+pos <- coordinates(c(3,3,3,3,3))
+openplotmat()
+
+teaches1 <- straightarrow(pos[4,], pos[5,], lwd = 3)
+teaches2 <- straightarrow(pos[10,], pos[11,], lwd = 3)
+attends1 <- straightarrow(pos[3,], pos[5,], lwd = 3)
+attends2 <- straightarrow(pos[6,], pos[5,], lwd = 3)
+attends3 <- straightarrow(pos[9,], pos[5,], lwd = 3)
+attends4 <- straightarrow(pos[9,], pos[11,], lwd = 3)
+attends5 <- straightarrow(pos[12,], pos[11,], lwd = 3)
+attends6 <- straightarrow(pos[15,], pos[11,], lwd = 3)
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[10,], .075, lab = 'Teacher 2', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[5,], .075, lab = 'Course 1', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[11,], .075, lab = 'Course 2', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[3,], .075, lab = 'Student 1', box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[6,], .075, lab = "Student 2", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[9,], .075, lab = "Student 3", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[12,], .075, lab = "Student 4", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[15,], .075, lab = "Student 5", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+
+text(teaches1[1],
+     teaches1[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(teaches2[1],
+     teaches2[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(attends1[1],
+     attends1[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends2[1],
+     attends2[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends3[1],
+     attends3[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends4[1],
+     attends4[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends5[1],
+     attends5[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends6[1],
+     attends6[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+
+```
+
+Traversal: Sequential Queries
+====
+```{r,fig.width = 14}
+pos <- coordinates(c(3,3,3,3,3))
+openplotmat()
+
+teaches1 <- straightarrow(pos[4,], pos[5,], lwd = 3)
+teaches2 <- straightarrow(pos[10,], pos[11,], lwd = 3)
+attends1 <- straightarrow(pos[3,], pos[5,], lwd = 3)
+attends2 <- straightarrow(pos[6,], pos[5,], lwd = 3)
+attends3 <- straightarrow(pos[9,], pos[5,], lwd = 3)
+attends4 <- straightarrow(pos[9,], pos[11,], lwd = 3)
+attends5 <- straightarrow(pos[12,], pos[11,], lwd = 3)
+attends6 <- straightarrow(pos[15,], pos[11,], lwd = 3)
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[10,], .075, lab = 'Teacher 2', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[5,], .075, lab = 'Course 1', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[11,], .075, lab = 'Course 2', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[3,], .075, lab = 'Student 1', box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[6,], .075, lab = "Student 2", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[9,], .075, lab = "Student 3", box.col = 'gold',
+            shadow.size = .005, cex = 1)
+textellipse(pos[12,], .075, lab = "Student 4", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[15,], .075, lab = "Student 5", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+
+text(teaches1[1],
+     teaches1[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(teaches2[1],
+     teaches2[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(attends1[1],
+     attends1[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends2[1],
+     attends2[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends3[1],
+     attends3[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends4[1],
+     attends4[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends5[1],
+     attends5[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends6[1],
+     attends6[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+
+```
+
+
+Traversal: Sequential Queries
+====
+```{r, fig.width = 14}
+pos <- coordinates(c(3,3,3,3,3))
+openplotmat()
+
+teaches1 <- straightarrow(pos[4,], pos[5,], lwd = 3)
+teaches2 <- straightarrow(pos[10,], pos[11,], lwd = 3)
+attends1 <- straightarrow(pos[3,], pos[5,], lwd = 3)
+attends2 <- straightarrow(pos[6,], pos[5,], lwd = 3)
+attends3 <- straightarrow(pos[9,], pos[5,], lwd = 3)
+attends4 <- straightarrow(pos[9,], pos[11,], lwd = 3)
+attends5 <- straightarrow(pos[12,], pos[11,], lwd = 3)
+attends6 <- straightarrow(pos[15,], pos[11,], lwd = 3)
+
+textellipse(pos[4,], .075, lab = 'Teacher 1', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[10,], .075, lab = 'Teacher 2', box.col = '#66c2a5',
+            shadow.size = .005, cex = 1)
+textellipse(pos[5,], .075, lab = 'Biology 101', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[11,], .075, lab = 'Physics 101', box.col = '#fc8d62',
+            shadow.size = .005, cex = 1)
+textellipse(pos[3,], .075, lab = 'Envir. Studies\nMajor', box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[6,], .075, lab = "Biology\nMajor", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[9,], .075, lab = "PreMed\nMajor", box.col = 'gold',
+            shadow.size = .005, cex = 1)
+textellipse(pos[12,], .075, lab = "Engineering\nMajor", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+textellipse(pos[15,], .075, lab = "Physics\nMajor", box.col = '#8da0cb',
+            shadow.size = .005, cex = 1)
+
+text(teaches1[1],
+     teaches1[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(teaches2[1],
+     teaches2[2],
+     "Teaches",
+     pos = 3,
+     cex = 1)
+text(attends1[1],
+     attends1[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends2[1],
+     attends2[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends3[1],
+     attends3[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends4[1],
+     attends4[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends5[1],
+     attends5[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+text(attends6[1],
+     attends6[2],
+     "Attends",
+     pos = 3,
+     cex = 1)
+
+```
+
+Ends of Edges
+=====
+class:small-code
+```{r, echo=T}
+character_film <- E(starwars_g)[type == 'films']
+
+tail_of(starwars_g, character_film) %>%
+  head()
+
+head_of(starwars_g, character_film) %>% 
+  head()
+
+ends(starwars_g, character_film) %>%
+  .[1:5,]
+```
+
+Who Was in A New Hope and Attack of the Clones
+=====
+class:small-code
+```{r, echo = T}
+starwars_g %>%
+  {V(.)[str_detect(name, 'A New Hope')]} %>%
+  {E(starwars_g)[V(starwars_g)[type == 'character'] %--% .]} %>%
+  tail_of(starwars_g, .) %>%
+  {E(starwars_g)[V(starwars_g)[str_detect(name, 'Attack of the Clones')] %--% .]} 
+```
+
+Who Was in A New Hope and Attack of the Clones?
+=====
+class:small-code
+```{r, echo = T, fig.width = 10}
+starwars_g %>%
+  {V(.)[str_detect(name, 'A New Hope')]} %>%
+  {E(starwars_g)[V(starwars_g)[type == 'character'] %--% .]} %>%
+  tail_of(starwars_g, .) %>%
+  {E(starwars_g)[V(starwars_g)[str_detect(name, 'Attack of the Clones')] %--% .]} %>%
+  {c(., E(starwars_g)[tail_of(starwars_g, .) %--% V(starwars_g)[str_detect(name, 'A New Hope')]])} %>%
+  subgraph.edges(starwars_g, .) %>%
+  plot()
+```
+
+
+Summary Statistics
+====
+class:small-code
+```{r echo = T}
+starwars_char <- starwars_g %>%
+  {. - V(.)[type != 'character']} %>%
+  {. - E(.)[is.na(movies_shared)]} 
+
+starwars_char
+```
+
+Degree
+====
+```{r, fig.width = 14}
+#![](part_3_images/UKfaculty_degree.png)
+V(starwars_char)$dgr <- degree(starwars_char)
+V(starwars_char)$dgr_color <- V(starwars_char)$dgr %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+set.seed(1234)
+ggraph(starwars_char, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = dgr_color,
+                      size = dgr), shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Degree:** The number of edges connected to a node
+
+Degree
+=====
+class:small-code
+```{r, echo = T}
+degree(starwars_char) %>%
+  sort(decreasing = T) %>%
+  head
+```
+
+Strength
+===
+```{r, fig.width = 14}
+V(starwars_char)$str <- starwars_char %>%
+  {strength(., weights = E(.)$movies_shared)}
+V(starwars_char)$str_color <- V(starwars_char)$str %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+set.seed(1234)
+ggraph(starwars_char, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = str_color,
+                      size = str), shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Strength:** The cummulative weight of all the edges connected to a node
+
+Strength
+=====
+class:small-code
+```{r, echo = T}
+starwars_char %>%
+  strength(., weights = E(.)$movies_shared) %>%
+  sort(decreasing = T) %>%
+  head
+```
+
+Shortest Paths
+====
+```{r, fig.width = 14}
+sp <- starwars_char %>%
+  farthest_vertices(weights = NA) %>%
+  .$vertices %>%
+  {
+    shortest_paths(starwars_char, .[1], .[2], 'out', output = 'both')
+  }
+
+V(starwars_char)$inDiam <- V(starwars_char) %in% sp$vpath[[1]]
+V(starwars_char)$longLabel <- ifelse(V(starwars_char)$inDiam, V(starwars_char)$name %>% str_replace('character:', ''), NA)
+E(starwars_char)$inDiam <- E(starwars_char) %in% sp$epath[[1]]
+
+set.seed(1234)
+ggraph(starwars_char, layout = 'drl' ) +
+  geom_edge_link(aes(colour = inDiam,
+                     edge_width = inDiam),
+                 alpha = .25) +
+  geom_node_point(aes(fill = inDiam), size = 4, shape = 21) +
+  geom_node_text(aes(label = longLabel))+
+  theme_void() +
+  scale_edge_colour_manual(values = c('lightgrey', 'black')) +
+  scale_edge_width_manual(values = c(.5, 2)) +
+  theme(legend.position = 'none')
+
+```
+
+Shortest Paths
+=====
+class:small-code
+```{r, echo = T}
+starwars_char %>%
+  farthest_vertices(weights = NA) %>%
+  .$vertices 
+
+starwars_char %>%
+  farthest_vertices(weights = NA) %>%
+  .$vertices %>%
+  {
+    shortest_paths(starwars_char, .[1], .[2], 'out', output = 'both')
+  }
+```
+
+Betweeness
+====
+```{r, fig.width = 14}
+#![](part_3_images/UKfaculty_betweenness.png)
+V(starwars_char)$btw <- betweenness(starwars_char)
+
+V(starwars_char)$btw_color <- V(starwars_char)$btw %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+set.seed(1234)
+ggraph(starwars_char, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = btw_color,
+                      size = btw), shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Betweeness:** Defined by the number of shortest paths going through an edge
+
+Betweeness
+=====
+class:small-code
+```{r, echo = T}
+starwars_char %>%
+  betweenness(., directed = F) %>%
+  sort(decreasing = T) %>%
+  head
+```
+
+Closeness
+====
+```{r, warning=F, fig.width = 14}
+#![](part_3_images/UKfaculty_closeness.png)
+V(starwars_char)$cls <- closeness(starwars_char)
+V(starwars_char)$cls_color <- V(starwars_char)$cls  %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+
+set.seed(1234)
+ggraph(starwars_char, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = cls_color,
+                      size = cls), shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Closeness:** Defined by the number of steps required to access every other vertex from a given vertex
+
+Closeness
+=====
+class:small-code
+```{r, echo = T}
+starwars_char %>%
+  closeness(., mode = 'all') %>%
+  sort(decreasing = T) %>%
+  head
+```
+
+UKFACULTY
+====
+class:small-code
+```{r,echo = T}
+library(igraphdata)
+data(UKfaculty)
+UKfaculty
+```
+
+Eigenvector Centrality
+====
+```{r, warning=F, fig.width = 14}
+V(UKfaculty)$ec <- eigen_centrality(UKfaculty, directed = T)$vector
+V(UKfaculty)$ec_color <- V(UKfaculty)$ec  %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = ec_color,
+                      size = ec), shape = 21)  +
+  theme_void() +
+  theme(legend.position = 'none')
+
+```
+
+Eigen Centrality
+====
+class:small-code
+```{r, echo = T}
+eigen_centrality(UKfaculty, directed = T)$vector 
+```
+ 
+Authority Score
+=====
+```{r, fig.width = 14}
+#![](part_3_images/UKfaculty_authority_score.png)
+V(UKfaculty)$auth <- authority_score(UKfaculty)$vector
+V(UKfaculty)$auth_color <- V(UKfaculty)$auth  %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = auth_color,
+                      size = auth), shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Authority Score:** Defined by the number of Hubs pointing to the node
+
+Authority Score
+=====
+class:small-code
+```{r, echo = T}
+authority_score(UKfaculty)$vector
+```
+
+Hub Score
+====
+```{r, fig.width =14}
+#![](part_3_images/UKfaculty_hub_score.png)
+V(UKfaculty)$hub <- hub_score(UKfaculty)$vector
+V(UKfaculty)$hub_color <- V(UKfaculty)$hub  %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = hub_color,
+                      size = hub), shape = 21)  +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+**Hub Score:** Defined by the number of Authorities the node points to
+
+Hub Score
+====
+class:small-code
+```{r, echo = T}
+hub_score(UKfaculty)$vector
+```
+
+Page Rank
+====
+```{r, fig.width = 14}
+#![](part_3_images/UKfaculty_page_rank.png)
+V(UKfaculty)$pr <- page_rank(UKfaculty)$vector
+V(UKfaculty)$pr_color <- V(UKfaculty)$pr %>%
+  sapply(function(x){
+    pct <- (length(.)-5)/length(.)
+    pct <- quantile(., pct)
+    x >= pct
+  })
+
+set.seed(1234)
+ggraph(UKfaculty, layout = 'drl' ) +
+  geom_edge_link(colour = 'lightgrey') +
+  geom_node_point(aes(fill = pr_color,
+                      size = pr), shape = 21) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+Google interprets a link from page A to page B as a vote, by page A, for page B ... Votes cast by pages that are themselves ‘important’ weigh more heavily.
+
+Page Rank
+=====
+class:small-code
+```{r, echo = T}
+page_rank(UKfaculty)$vector
+```
