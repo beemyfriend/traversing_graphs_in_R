@@ -121,7 +121,8 @@ movie_g %>%
   .[type == 'USER'] %>%
   unique %>%
   {E(movie_g)[. %--% V(movie_g)[type == 'MOVIE']]} %>%
-  {movie_g - (E(movie_g)[!E(movie_g) %in% .])} %>%
+  {movie_g - (E(movie_g)[!E(movie_g) %in% .])}
+%>%
   (function(x){
     edge.attributes(x) %>%
       as.tibble() %>%

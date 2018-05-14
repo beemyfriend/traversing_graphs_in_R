@@ -13,6 +13,8 @@ autosize: true
 The Data Set
 ========================================================
 
+We're going to use the UKfaculty data set found in the **igraphdata** pacage 
+
 
 ```r
 library(igraph)
@@ -30,6 +32,7 @@ IGRAPH 6f42903 D-W- 81 817 --
 
 Plotting As Is
 ========================================================
+
 
 ```r
 set.seed(4321)
@@ -104,7 +107,13 @@ gg <- UKfaculty %>%
   set_vertex_attr('degree', value = degree(.)) %>%
   set_vertex_attr('Group', value = as.character(V(.)$Group)) %>%
   set_vertex_attr('shape', value = V(.) %% 2 == 0)
+```
 
+Plotting with ggraph
+===
+class:small-code
+
+```r
 ggraph(gg) +
   geom_edge_link(
     alpha = .5
@@ -122,10 +131,11 @@ ggraph(gg) +
   theme_void()
 ```
 
-![plot of chunk unnamed-chunk-5](part_4_slides-figure/unnamed-chunk-5-1.png)
+![plot of chunk unnamed-chunk-6](part_4_slides-figure/unnamed-chunk-6-1.png)
 
 layouts
 ======
+class:small-code
 
 ```r
 set.seed(1234)
@@ -133,10 +143,11 @@ l <- layout_nicely(g)
 plot(g, layout = l)
 ```
 
-![plot of chunk unnamed-chunk-6](part_4_slides-figure/unnamed-chunk-6-1.png)
+![plot of chunk unnamed-chunk-7](part_4_slides-figure/unnamed-chunk-7-1.png)
 
 layouts
 =====
+class:small-code
 
 ```r
 g %>%
@@ -145,10 +156,11 @@ g %>%
   plot(., layout = l[V(.)$index,])
 ```
 
-![plot of chunk unnamed-chunk-7](part_4_slides-figure/unnamed-chunk-7-1.png)
+![plot of chunk unnamed-chunk-8](part_4_slides-figure/unnamed-chunk-8-1.png)
 
 layouts
 =====
+class:small-code
 
 ```r
 g %>%
@@ -157,7 +169,7 @@ g %>%
   plot(., layout = l[V(.)$index,])
 ```
 
-![plot of chunk unnamed-chunk-8](part_4_slides-figure/unnamed-chunk-8-1.png)
+![plot of chunk unnamed-chunk-9](part_4_slides-figure/unnamed-chunk-9-1.png)
 
 layouts
 =====
@@ -321,7 +333,7 @@ axis(1, at = c(-1, 0, 1), labels = c('0', 'vcount/2', 'vcount'))
 axis(2, at = c(-1, 0, 1), labels = c('0', 'vcount/2', 'vcount'))
 ```
 
-![plot of chunk unnamed-chunk-11](part_4_slides-figure/unnamed-chunk-11-1.png)
+![plot of chunk unnamed-chunk-12](part_4_slides-figure/unnamed-chunk-12-1.png)
 
 layouts
 ====
@@ -334,7 +346,7 @@ g %>%
   plot(., layout = myLayout[V(.)$index, ])
 ```
 
-![plot of chunk unnamed-chunk-12](part_4_slides-figure/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-13](part_4_slides-figure/unnamed-chunk-13-1.png)
 
 layouts
 ===
@@ -360,14 +372,46 @@ ggraph(gg, layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = 
   theme_void()
 ```
 
-![plot of chunk unnamed-chunk-13](part_4_slides-figure/unnamed-chunk-13-1.png)
+![plot of chunk unnamed-chunk-14](part_4_slides-figure/unnamed-chunk-14-1.png)
 
-People to Watch Out For
+
+Play with your data
+====
+
+```r
+whyNot <- ego(UKfaculty) %>%
+  lapply(function(x){
+    grp <- x$Group
+    one <- grp[grp == 1] %>% length
+    two <- grp[grp == 2] %>% length
+    three <- grp[grp == 3] %>% length
+    four <- grp[grp == 4] %>% length
+    c(one, two, three, four)
+  })
+```
+
+Play with your data
+===
+class:small-code
+
+```r
+plot(UKfaculty,
+     vertex.shape = 'pie',
+     vertex.pie = whyNot,
+     vertex.pie.color = list(heat.colors(4)),
+     vertex.size = (degree(UKfaculty)/max(degree(UKfaculty))) * 20,
+     vertex.label = NA
+     )
+```
+
+![plot of chunk unnamed-chunk-16](part_4_slides-figure/unnamed-chunk-16-1.png)
+
+People to Follow
 =====
 
 **Katerine Ognyanova**
 
-http://kateto.net/
+[http://kateto.net/](http://kateto.net/)
 
 @ognyanova
 
@@ -375,7 +419,7 @@ http://kateto.net/
 
 **Thomas Lin Pedersen** 
 
-https://www.data-imaginist.com/
+[https://www.data-imaginist.com/](https://www.data-imaginist.com/)
 
 @thomasp85
 

@@ -13,6 +13,8 @@ autosize: true
 The Data Set
 ========================================================
 
+We're going to use the UKfaculty data set found in the **igraphdata** pacage 
+
 ```{r}
 library(igraph)
 library(igraphdata)
@@ -23,6 +25,7 @@ summary(UKfaculty)
 
 Plotting As Is
 ========================================================
+
 ```{r, fig.width = 12}
 set.seed(4321)
 plot(UKfaculty)
@@ -87,7 +90,12 @@ gg <- UKfaculty %>%
   set_vertex_attr('degree', value = degree(.)) %>%
   set_vertex_attr('Group', value = as.character(V(.)$Group)) %>%
   set_vertex_attr('shape', value = V(.) %% 2 == 0)
+```
 
+Plotting with ggraph
+===
+class:small-code
+```{r, fig.width = 12}
 ggraph(gg) +
   geom_edge_link(
     alpha = .5
@@ -107,6 +115,7 @@ ggraph(gg) +
 
 layouts
 ======
+class:small-code
 ```{r, fig.width = 12}
 set.seed(1234)
 l <- layout_nicely(g)
@@ -115,6 +124,7 @@ plot(g, layout = l)
 
 layouts
 =====
+class:small-code
 ```{r, fig.width = 12}
 g %>%
   set_vertex_attr('index', value = V(.)) %>%
@@ -124,6 +134,7 @@ g %>%
 
 layouts
 =====
+class:small-code
 ```{r, fig.width = 12}
 g %>%
   set_vertex_attr('index', value = V(.)) %>%
@@ -211,12 +222,40 @@ ggraph(gg, layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = 
   theme_void()
 ```
 
-People to Watch Out For
+
+Play with your data
+====
+```{r}
+whyNot <- ego(UKfaculty) %>%
+  lapply(function(x){
+    grp <- x$Group
+    one <- grp[grp == 1] %>% length
+    two <- grp[grp == 2] %>% length
+    three <- grp[grp == 3] %>% length
+    four <- grp[grp == 4] %>% length
+    c(one, two, three, four)
+  })
+```
+
+Play with your data
+===
+class:small-code
+```{r, fig.width = 14}
+plot(UKfaculty,
+     vertex.shape = 'pie',
+     vertex.pie = whyNot,
+     vertex.pie.color = list(heat.colors(4)),
+     vertex.size = (degree(UKfaculty)/max(degree(UKfaculty))) * 20,
+     vertex.label = NA
+     )
+```
+
+People to Follow
 =====
 
 **Katerine Ognyanova**
 
-http://kateto.net/
+[http://kateto.net/](http://kateto.net/)
 
 @ognyanova
 
@@ -224,7 +263,7 @@ http://kateto.net/
 
 **Thomas Lin Pedersen** 
 
-https://www.data-imaginist.com/
+[https://www.data-imaginist.com/](https://www.data-imaginist.com/)
 
 @thomasp85
 

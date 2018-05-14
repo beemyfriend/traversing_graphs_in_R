@@ -283,3 +283,12 @@ g2016 %>%
   str_trim() %>%
   str_replace('- ', '')
 ```
+
+Papers to Read and Authors to Look Out For
+====
+
+**TextRank: Bringing Order into Text**
+Rada Mihalcea and Paul Tarau
+
+**PositionRank: An Unsupervised Approach to Keyphrase Extraction from Scholarly Documents **
+Corina Florescu and Cornelia Caragea

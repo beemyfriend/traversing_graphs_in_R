@@ -357,6 +357,14 @@ text(attends6[1],
 
 ```
 
+Adjacent Nodes
+===
+class:small-code
+```{r, echo = T}
+ego(starwars_g, 1, V(starwars_g)[str_detect(name, 'Darth Vader')])
+```
+
+
 Ends of Edges
 =====
 class:small-code
