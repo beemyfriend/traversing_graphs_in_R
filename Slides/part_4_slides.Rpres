@@ -211,3 +211,20 @@ ggraph(gg, layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = 
   theme_void()
 ```
 
+People to Watch Out For
+=====
+
+**Katerine Ognyanova**
+
+http://kateto.net/
+
+@ognyanova
+
+
+
+**Thomas Lin Pedersen** 
+
+https://www.data-imaginist.com/
+
+@thomasp85
+

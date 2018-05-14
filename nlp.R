@@ -4,11 +4,24 @@ library(openNLP)
 library(NLP)
 
 g2016 <- read_graph('traversing_graphs_in_R/Data/g2016.graphml', 'graphml')
-
+g2016 <- read_graph('Data/g2016.graphml', 'graphml')
 sent_token_annotator <- Maxent_Sent_Token_Annotator()
 word_token_annotator <- Maxent_Word_Token_Annotator()
 pos_tag_annotator <- Maxent_POS_Tag_Annotator()
 
+V(g2016)
+test <- g2016  %>%
+  (function(x){
+    set_vertex_attr(x,
+                    'abstract',
+                    V(x)[nodeType == 'ABSTRACT'],
+                    V(x)[nodeType == 'ABSTRACT']$pageBody  %>%
+                      str_extract('(?<=Abstract:).+(?=Keywords:)') %>%
+                      str_trim() %>%
+                      str_replace_all('(?<=\\w)- (?=\\w)', ''))
+    })
+
+write_graph(test, 'Data/g2016_abstract.graphml', 'graphml')
 abstracts <- V(g2016)[nodeType == 'ABSTRACT'] %>%
   .$pageBody %>%
   str_extract('(?<=Abstract:).+(?=Keywords:)') %>%

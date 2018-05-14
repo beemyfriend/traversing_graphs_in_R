@@ -1,0 +1,285 @@
+NLP - TEXT RANK
+========================================================
+author: 
+date: 
+autosize: true
+<style>
+.small-code pre code {
+  font-size: 1em;
+}
+</style>
+
+Concept - Language As Graph
+========================================================
+- Words are nodes
+- Proximity are relationships
+- "You can judge a word by the company it keeps"
+
+Example
+========================================================
+
+"Graphs are an awesome data structure. You can store your data in a graph to optimize data queries. You can also create recommendation systems with graphs."
+
+```{r echo = F}
+example_text <- "Graphs are an awesome data structure. You can store your data in a graph to optimize data queries. You can also create recommendation systems with graphs."
+```
+
+Graph Example
+==========
+class:small-code
+```{r}
+library(tidyverse)
+library(SnowballC)
+library(igraph)
+
+text_df <- example_text %>%
+  str_split('\\.') %>%
+  unlist() %>%
+  str_trim() %>%
+  str_to_lower() %>%
+  str_split(' ') %>%
+  map(function(x){
+    tibble(from = x[1:(length(x)-1)],
+           to = x[2:length(x)],
+           next_id = 1:(length(x)-1))
+  }) %>%
+  enframe(name = 'sentence_id') %>%
+  unnest() %>%
+  filter() %>%
+  select(from, to, sentence_id, next_id) %>%
+  filter(to != '',
+         from != '')
+```
+
+Graph Example
+=====
+```{r}
+text_df
+```
+
+Graph Example
+=====
+```{r, fig.width = 14}
+text_df %>%
+  graph_from_data_frame() %>%
+  plot()
+```
+
+Stem Example
+====
+```{r, fig.width = 14}
+text_df %>%
+  mutate(from = wordStem(from),
+         to = wordStem(to)) %>%
+  graph_from_data_frame() %>%
+  plot()
+```
+
+Text Rank
+=====
+Let's pull keyphrases from the 2016 useR Abstract Book
+
+1. only keep words that are adjectives and nouns
+2. link two words together if they are within n (2) word spaces from eachother
+3. get the page rank of the word graph
+4. Keep top 1/3 words
+5. if any of the top 1/3 words are adjacent, then they produce a key phrase
+
+
+Annotating Text - Part of Speech - NLP
+====
+class:small-code
+```{r}
+library(openNLP)
+library(NLP)
+
+sent_token_annotator <- Maxent_Sent_Token_Annotator()
+word_token_annotator <- Maxent_Word_Token_Annotator()
+pos_tag_annotator <- Maxent_POS_Tag_Annotator()
+
+annotated_example <- example_text %>%
+  as.String() %>%
+  annotate(list(sent_token_annotator,
+                word_token_annotator,
+                pos_tag_annotator)) %>%
+  {
+    annotations_in_spans(subset(., type == 'word'),
+                         subset(., type == 'sentence'))
+  }
+```
+
+Annotating Text - Part of Speech - NLP
+=====
+class:small-code
+```{r}
+annotated_example
+```
+
+Annotating Text - Partof Speech - NLP
+===
+class:small-code
+```{r}
+example_text %>%
+  as.String() %>%
+  .[annotated_example]
+```      
+
+Abstract Graph
+=====
+class:small-code
+```{r, echo=F, results='hidden'}
+g2016 <- read_graph('../Data/g2016_abstract.graphml', 'graphml')
+```
+
+```{r}
+summary(g2016)
+g2016 %>% V %>% .[nodeType == 'ABSTRACT'] %>% .$pageBody %>% .[2]
+```
+
+Abstract Graph
+=====
+class:small-code
+```{r}
+abstracts <- g2016 %>%
+  V() %>%
+  .[nodeType == 'ABSTRACT'] %>%
+  .$abstract %>%
+  str_replace_all('(?<=\\w)- (?=\\w)', '') %>%
+  map(function(x){
+    s <- as.String(x)
+    a <- annotate(s , list(sent_token_annotator, word_token_annotator, pos_tag_annotator)) %>%
+      {annotations_in_spans(subset(., type == 'word'),
+                           subset(., type == 'sentence'))}
+  })
+```
+
+Abstract Graph
+======
+```{r}
+s <- V(g2016)[nodeType == 'ABSTRACT']$abstract %>%
+  map(as.String)
+
+index = 2
+```
+
+Abstract Graph
+===
+class:small-code
+```{r}
+s[[index]][abstracts[[index]]]
+```
+
+Abstract Graph
+===
+class:small-code
+```{r}
+annotated_abstract <- abstracts[[index]] %>%
+  map(function(x){
+    sapply(x, function(y){
+      original <- s[[index]][y] %>%
+        str_to_upper()
+      pos <- y$features[[1]]$POS
+      str_c(pos, ':', original)
+  }) %>%
+    c('BEGIN_SENT', ., 'END_SENT') %>%
+    {
+      tibble(from = .[1:(length(.)-1)],
+             to = .[2:length(.)])
+    } %>%
+    mutate(order = 1:nrow(.),
+           type = 'next')
+}) %>%
+  enframe(name = 'sentence') %>%
+  unnest() %>%
+  select(from, to, sentence, order, type)
+```
+
+Abstract Graph
+===
+class:small-code
+```{r}
+annotated_abstract
+```
+
+Abstract Graph
+====
+class:small-code
+```{r}
+g <- graph_from_data_frame(annotated_abstract, T) 
+
+top_3rd <- g %>%
+  {. - V(.)[!str_detect(name, '^NN|^JJ')]} %>%
+  {page_rank(.)$vector} %>%
+  sort(T) %>%
+  .[1:(length(.)/3)]
+
+top_3rd
+```
+
+Absract Graph
+====
+class:small-code
+```{r, fig.width = 12}
+g %>%
+  {. - V(.)[!name %in% names(top_3rd)]} %>%
+  plot(
+    vertex.size = 0,
+    vertex.label.cex = .7,
+    edge.arrow.size = .5
+  )
+```
+
+Abstract Graph
+====
+class:small-code
+```{r}
+tr <- V(g) %>%
+  ego(g, 2, ., 'out') %>%
+  map(function(x){
+    if(length(x) == 3 && names(x)[3] != 'END_SENT' && names(x)[1] != 'BEGIN_SENT'){
+      names(x)[c(1, 3)]
+    }
+  }) %>%
+  unlist %>%
+  {g + edges(., type = 'close')} %>%
+  {. - V(.)[!str_detect(name, '^NN|^JJ')]}
+
+top_third <- page_rank(tr)$vector %>%
+  sort(T) %>%
+  .[1:(length(.)/3)]
+```
+
+Abstract Graph
+====
+class:small-code
+```{r}
+top_third
+```
+
+Abstract Graph
+====
+class:small-code
+```{r, fig.width = 12}
+g %>%
+  {. - V(.)[!name %in% names(top_third)]} %>%
+  {. - E(.)[type != 'next']} %>%
+  plot(
+    vertex.label.cex = .7,
+    vertex.size = 0,
+    edge.arrow.size = .5
+  )
+```
+
+Abstract Graph
+====
+```{r, echo = F}
+g2016 %>% 
+  V %>% 
+  .[nodeType == 'ABSTRACT'] %>% 
+  .$pageBody %>% 
+  .[2] %>%
+  str_trim %>%
+  str_extract('Keywords:.+(?=\\d\\d$)') %>%
+  str_trim() %>%
+  str_replace('- ', '')
+```

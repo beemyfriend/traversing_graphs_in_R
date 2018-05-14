@@ -362,3 +362,20 @@ ggraph(gg, layout = 'manual', node.positions = data.frame(x = myLayout[,1], y = 
 
 ![plot of chunk unnamed-chunk-13](part_4_slides-figure/unnamed-chunk-13-1.png)
 
+People to Watch Out For
+=====
+
+**Katerine Ognyanova**
+
+http://kateto.net/
+
+@ognyanova
+
+
+
+**Thomas Lin Pedersen** 
+
+https://www.data-imaginist.com/
+
+@thomasp85
+
