@@ -158,7 +158,7 @@ movie_g %>%
 ```
 
 ```
-IGRAPH 181a94e DN-- 10395 122936 -- 
+IGRAPH acdc002 DN-- 10395 122936 -- 
 + attr: name (v/c), type (e/c), info (e/c), rating (e/n),
 | timestamp (e/n)
 ```
@@ -271,7 +271,7 @@ explore
 ```
 
 ```
-+ 2/10395 vertices, named, from 181a94e:
++ 2/10395 vertices, named, from acdc002:
 [1] Shawshank Redemption, The (1994) Godfather, The (1972)           
 ```
 
@@ -290,7 +290,7 @@ explore
 ```
 
 ```
-+ 382/10395 vertices, named, from 181a94e:
++ 382/10395 vertices, named, from acdc002:
   [1] Shawshank Redemption, The (1994).USER:3  
   [2] Shawshank Redemption, The (1994).USER:7  
   [3] Shawshank Redemption, The (1994).USER:8  
@@ -317,10 +317,10 @@ explore
 ```
 
 ```
-IGRAPH d83ef7b DN-B 10395 78296 -- 
+IGRAPH f8a15c4 DN-B 10395 78296 -- 
 + attr: name (v/c), type (v/c), ave_rating (v/n), type (e/c), info
 | (e/c), rating (e/n), timestamp (e/n)
-+ edges from d83ef7b (vertex names):
++ edges from f8a15c4 (vertex names):
  [1] USER:3->Indian in the Cupboard, The (1995)
  [2] USER:3->Braveheart (1995)                 
  [3] USER:3->Heavenly Creatures (1994)         
@@ -416,7 +416,7 @@ explore2
 ```
 
 ```
-+ 2890/122936 edges from 181a94e (vertex names):
++ 2890/122936 edges from acdc002 (vertex names):
  [1] USER:2->Terminator 2: Judgment Day (1991)                    
  [2] USER:3->Shawshank Redemption, The (1994)                     
  [3] USER:3->Forrest Gump (1994)                                  
@@ -450,10 +450,10 @@ explore2
 ```
 
 ```
-IGRAPH 49f457c DN-B 8547 63656 -- 
+IGRAPH 225a19a DN-B 8547 63656 -- 
 + attr: name (v/c), type (v/c), ave_rating (v/n), type (e/c), info
 | (e/c), rating (e/n), timestamp (e/n)
-+ edges from 49f457c (vertex names):
++ edges from 225a19a (vertex names):
 [1] USER:1->Dangerous Minds (1995)                        
 [2] USER:1->Dumbo (1941)                                  
 [3] USER:1->Sleepers (1996)                               

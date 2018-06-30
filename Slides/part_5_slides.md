@@ -217,7 +217,7 @@ summary(g2016)
 ```
 
 ```
-IGRAPH f997191 DN-- 1580 1635 -- 
+IGRAPH 16cd4c4 DN-- 1580 1635 -- 
 + attr: name (v/c), nodeType (v/c), pageBody (v/c), abstractType
 | (v/c), id (v/c), abstract (v/c), type (e/c)
 ```
@@ -469,3 +469,12 @@ Abstract Graph
 ```
 [1] "Keywords: MCMC, simulation, parallel computing, distributed computing, Metropolis"
 ```
+
+Papers to Read and Authors to Look Out For
+====
+
+**TextRank: Bringing Order into Text**
+Rada Mihalcea and Paul Tarau
+
+**PositionRank: An Unsupervised Approach to Keyphrase Extraction from Scholarly Documents **
+Corina Florescu and Cornelia Caragea

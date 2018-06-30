@@ -1068,10 +1068,10 @@ g
 ```
 
 ```
-IGRAPH 7b5e1a8 DN-B 253 738 -- 
+IGRAPH d767af7 DN-B 253 738 -- 
 + attr: name (v/c), type (v/c), height (v/n), mass (v/n),
 | birth_year (v/n), type (e/c)
-+ edges from 7b5e1a8 (vertex names):
++ edges from d767af7 (vertex names):
  [1] character:Luke Skywalker    ->hair_color:blond 
  [2] character:Darth Vader       ->hair_color:none  
  [3] character:Leia Organa       ->hair_color:brown 
@@ -1267,7 +1267,7 @@ g %>%
 ```
 
 ```
-IGRAPH 2716e12 DN-B 253 2531 -- 
+IGRAPH d472b40 DN-B 253 2531 -- 
 + attr: name (v/c), type (v/c), height (v/n), mass (v/n),
 | birth_year (v/n), type (e/c), movies_shared (e/n)
 ```
@@ -1284,7 +1284,7 @@ g %>%
 ```
 
 ```
-IGRAPH d2abe0a DN-B 87 1793 -- 
+IGRAPH 045c9fc DN-B 87 1793 -- 
 + attr: name (v/c), type (v/c), height (v/n), mass (v/n),
 | birth_year (v/n), type (e/c), movies_shared (e/n)
 ```
@@ -1316,7 +1316,7 @@ g %>%
 ```
 
 ```
-IGRAPH 79fe954 DN-B 87 32 -- 
+IGRAPH eec8c3c DN-B 87 32 -- 
 + attr: name (v/c), type (v/c), height (v/n), mass (v/n),
 | birth_year (v/n), type (e/c), movies_shared (e/n)
 ```
@@ -1335,7 +1335,7 @@ g %>%
 ```
 
 ```
-IGRAPH 092a536 DN-B 10 32 -- 
+IGRAPH 6670ec5 DN-B 10 32 -- 
 + attr: name (v/c), type (v/c), height (v/n), mass (v/n),
 | birth_year (v/n), type (e/c), movies_shared (e/n)
 ```

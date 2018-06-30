@@ -40,6 +40,31 @@ Traversal: Sequential Queries
 ====
 ![plot of chunk unnamed-chunk-7](part_3_slides-figure/unnamed-chunk-7-1.png)
 
+Adjacent Nodes
+===
+class:small-code
+
+```r
+ego(starwars_g, 1, V(starwars_g)[str_detect(name, 'Darth Vader')])
+```
+
+```
+[[1]]
++ 63/253 vertices, named, from 685f095:
+ [1] character:Darth Vader           character:Luke Skywalker       
+ [3] character:Leia Organa           character:Owen Lars            
+ [5] character:Beru Whitesun lars    character:Biggs Darklighter    
+ [7] character:Obi-Wan Kenobi        character:Anakin Skywalker     
+ [9] character:Wilhuff Tarkin        character:Chewbacca            
+[11] character:Han Solo              character:Wedge Antilles       
+[13] character:Jek Tono Porkins      character:Yoda                 
+[15] character:Palpatine             character:Boba Fett            
+[17] character:IG-88                 character:Bossk                
+[19] character:Lando Calrissian      character:Lobot                
++ ... omitted several vertices
+```
+
+
 Ends of Edges
 =====
 class:small-code
@@ -52,7 +77,7 @@ tail_of(starwars_g, character_film) %>%
 ```
 
 ```
-+ 6/253 vertices, named, from 718f4b4:
++ 6/253 vertices, named, from 685f095:
 [1] character:Luke Skywalker character:Luke Skywalker
 [3] character:Luke Skywalker character:Luke Skywalker
 [5] character:Luke Skywalker character:C-3PO         
@@ -64,7 +89,7 @@ head_of(starwars_g, character_film) %>%
 ```
 
 ```
-+ 6/253 vertices, named, from 718f4b4:
++ 6/253 vertices, named, from 685f095:
 [1] films:Revenge of the Sith     films:Return of the Jedi     
 [3] films:The Empire Strikes Back films:A New Hope             
 [5] films:The Force Awakens       films:Attack of the Clones   
@@ -97,7 +122,7 @@ starwars_g %>%
 ```
 
 ```
-+ 5/2531 edges from 718f4b4 (vertex names):
++ 5/2531 edges from 685f095 (vertex names):
 [1] character:C-3PO             ->films:Attack of the Clones
 [2] character:R2-D2             ->films:Attack of the Clones
 [3] character:Owen Lars         ->films:Attack of the Clones
@@ -120,7 +145,7 @@ starwars_g %>%
   plot()
 ```
 
-![plot of chunk unnamed-chunk-10](part_3_slides-figure/unnamed-chunk-10-1.png)
+![plot of chunk unnamed-chunk-11](part_3_slides-figure/unnamed-chunk-11-1.png)
 
 
 Summary Statistics
@@ -136,10 +161,10 @@ starwars_char
 ```
 
 ```
-IGRAPH e206477 DN-B 87 1793 -- 
+IGRAPH d320aa4 DN-B 87 1793 -- 
 + attr: name (v/c), type (v/c), height (v/n), mass (v/n),
 | birth_year (v/n), id (v/c), type (e/c), movies_shared (e/n)
-+ edges from e206477 (vertex names):
++ edges from d320aa4 (vertex names):
 [1] character:C-3PO         ->character:Obi-Wan Kenobi
 [2] character:C-3PO         ->character:R2-D2         
 [3] character:Obi-Wan Kenobi->character:R2-D2         
@@ -152,7 +177,7 @@ IGRAPH e206477 DN-B 87 1793 --
 
 Degree
 ====
-![plot of chunk unnamed-chunk-12](part_3_slides-figure/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-13](part_3_slides-figure/unnamed-chunk-13-1.png)
 
 **Degree:** The number of edges connected to a node
 
@@ -177,7 +202,7 @@ degree(starwars_char) %>%
 
 Strength
 ===
-![plot of chunk unnamed-chunk-14](part_3_slides-figure/unnamed-chunk-14-1.png)
+![plot of chunk unnamed-chunk-15](part_3_slides-figure/unnamed-chunk-15-1.png)
 
 **Strength:** The cummulative weight of all the edges connected to a node
 
@@ -203,7 +228,7 @@ starwars_char %>%
 
 Shortest Paths
 ====
-![plot of chunk unnamed-chunk-16](part_3_slides-figure/unnamed-chunk-16-1.png)
+![plot of chunk unnamed-chunk-17](part_3_slides-figure/unnamed-chunk-17-1.png)
 
 Shortest Paths
 =====
@@ -216,7 +241,7 @@ starwars_char %>%
 ```
 
 ```
-+ 2/87 vertices, named, from e206477:
++ 2/87 vertices, named, from d320aa4:
 [1] character:Cordé            character:Jek Tono Porkins
 ```
 
@@ -232,7 +257,7 @@ starwars_char %>%
 ```
 $vpath
 $vpath[[1]]
-+ 5/87 vertices, named, from e206477:
++ 5/87 vertices, named, from d320aa4:
 [1] character:Cordé                 character:Dooku                
 [3] character:Eeth Koth             character:Jabba Desilijic Tiure
 [5] character:Jek Tono Porkins     
@@ -240,7 +265,7 @@ $vpath[[1]]
 
 $epath
 $epath[[1]]
-+ 4/1793 edges from e206477 (vertex names):
++ 4/1793 edges from d320aa4 (vertex names):
 [1] character:Cordé                ->character:Dooku                
 [2] character:Dooku                ->character:Eeth Koth            
 [3] character:Eeth Koth            ->character:Jabba Desilijic Tiure
@@ -256,7 +281,7 @@ NULL
 
 Betweeness
 ====
-![plot of chunk unnamed-chunk-18](part_3_slides-figure/unnamed-chunk-18-1.png)
+![plot of chunk unnamed-chunk-19](part_3_slides-figure/unnamed-chunk-19-1.png)
 
 **Betweeness:** Defined by the number of shortest paths going through an edge
 
@@ -280,7 +305,7 @@ starwars_char %>%
 
 Closeness
 ====
-![plot of chunk unnamed-chunk-20](part_3_slides-figure/unnamed-chunk-20-1.png)
+![plot of chunk unnamed-chunk-21](part_3_slides-figure/unnamed-chunk-21-1.png)
 
 **Closeness:** Defined by the number of steps required to access every other vertex from a given vertex
 
@@ -331,7 +356,7 @@ IGRAPH 6f42903 D-W- 81 817 --
 
 Eigenvector Centrality
 ====
-![plot of chunk unnamed-chunk-23](part_3_slides-figure/unnamed-chunk-23-1.png)
+![plot of chunk unnamed-chunk-24](part_3_slides-figure/unnamed-chunk-24-1.png)
 
 Eigen Centrality
 ====
@@ -363,7 +388,7 @@ eigen_centrality(UKfaculty, directed = T)$vector
  
 Authority Score
 =====
-![plot of chunk unnamed-chunk-25](part_3_slides-figure/unnamed-chunk-25-1.png)
+![plot of chunk unnamed-chunk-26](part_3_slides-figure/unnamed-chunk-26-1.png)
 
 **Authority Score:** Defined by the number of Hubs pointing to the node
 
@@ -397,7 +422,7 @@ authority_score(UKfaculty)$vector
 
 Hub Score
 ====
-![plot of chunk unnamed-chunk-27](part_3_slides-figure/unnamed-chunk-27-1.png)
+![plot of chunk unnamed-chunk-28](part_3_slides-figure/unnamed-chunk-28-1.png)
 
 **Hub Score:** Defined by the number of Authorities the node points to
 
@@ -431,7 +456,7 @@ hub_score(UKfaculty)$vector
 
 Page Rank
 ====
-![plot of chunk unnamed-chunk-29](part_3_slides-figure/unnamed-chunk-29-1.png)
+![plot of chunk unnamed-chunk-30](part_3_slides-figure/unnamed-chunk-30-1.png)
 
 Google interprets a link from page A to page B as a vote, by page A, for page B ... Votes cast by pages that are themselves ‘important’ weigh more heavily.
 

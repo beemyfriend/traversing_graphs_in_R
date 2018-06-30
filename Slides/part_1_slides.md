@@ -115,10 +115,10 @@ g
 ```
 
 ```
-IGRAPH 43be504 DNWB 5 5 -- 
+IGRAPH fcd961c DNWB 5 5 -- 
 + attr: name (v/c), type (v/c), order (v/n), type (e/c), weight
 | (e/n)
-+ edges from 43be504 (vertex names):
++ edges from fcd961c (vertex names):
 [1] a->b b->c b->d c->b c->e
 ```
 
@@ -256,7 +256,7 @@ V(g)
 ```
 
 ```
-+ 5/5 vertices, named, from 17ea8f4:
++ 5/5 vertices, named, from 2ee3296:
 [1] a b c d e
 ```
 
@@ -268,7 +268,7 @@ V(g)[3]
 ```
 
 ```
-+ 1/5 vertex, named, from 17ea8f4:
++ 1/5 vertex, named, from 2ee3296:
 [1] c
 ```
 
@@ -277,7 +277,7 @@ V(g)['c']
 ```
 
 ```
-+ 1/5 vertex, named, from 17ea8f4:
++ 1/5 vertex, named, from 2ee3296:
 [1] c
 ```
 
@@ -286,7 +286,7 @@ V(g)[['c']]
 ```
 
 ```
-+ 1/5 vertex, named, from 17ea8f4:
++ 1/5 vertex, named, from 2ee3296:
   name   type order
 3    c letter     3
 ```
@@ -320,7 +320,7 @@ V(g)[[]]
 ```
 
 ```
-+ 5/5 vertices, named, from 17ea8f4:
++ 5/5 vertices, named, from 2ee3296:
   name   type order  entity
 1    a letter     1 A NODE!
 2    b letter     2 A NODE!
@@ -337,7 +337,7 @@ V(g)[[c('a', 'c')]]
 ```
 
 ```
-+ 2/5 vertices, named, from 17ea8f4:
++ 2/5 vertices, named, from 2ee3296:
   name   type order  entity
 1    a letter     1 A NODE!
 3    c letter     1 A NODE!
@@ -348,7 +348,7 @@ V(g)[[order == 1]]
 ```
 
 ```
-+ 2/5 vertices, named, from 17ea8f4:
++ 2/5 vertices, named, from 2ee3296:
   name   type order  entity
 1    a letter     1 A NODE!
 3    c letter     1 A NODE!
@@ -365,7 +365,7 @@ c(ab, de, aa)
 ```
 
 ```
-+ 6/5 vertices, named, from 17ea8f4:
++ 6/5 vertices, named, from 2ee3296:
 [1] a b d e a a
 ```
 
@@ -378,7 +378,7 @@ E(g)
 ```
 
 ```
-+ 5/5 edges from 17ea8f4 (vertex names):
++ 5/5 edges from 2ee3296 (vertex names):
 [1] a->b b->c b->d c->b c->e
 ```
 
@@ -387,7 +387,7 @@ E(g)[weight == 2]
 ```
 
 ```
-+ 2/5 edges from 17ea8f4 (vertex names):
++ 2/5 edges from 2ee3296 (vertex names):
 [1] b->d c->e
 ```
 
@@ -396,7 +396,7 @@ E(g)[[weight == 2]]
 ```
 
 ```
-+ 2/5 edges from 17ea8f4 (vertex names):
++ 2/5 edges from 2ee3296 (vertex names):
   tail head tid hid            type weight
 3    b    d   2   4 is connected to      2
 5    c    e   3   5 is connected to      2
@@ -415,7 +415,7 @@ E(g)[[]]
 ```
 
 ```
-+ 5/5 edges from 17ea8f4 (vertex names):
++ 5/5 edges from 2ee3296 (vertex names):
   tail head tid hid            type weight  entity
 1    a    b   1   2 is connected to      1 A LINK!
 2    b    c   2   3 is connected to      1 A LINK!
@@ -433,7 +433,7 @@ E(g)['a' %<-% 'b']
 ```
 
 ```
-+ 0/5 edges from 17ea8f4 (vertex names):
++ 0/5 edges from 2ee3296 (vertex names):
 ```
 
 ```r
@@ -442,7 +442,7 @@ E(g)['c' %->% V(g)]
 ```
 
 ```
-+ 2/5 edges from 17ea8f4 (vertex names):
++ 2/5 edges from 2ee3296 (vertex names):
 [1] c->b c->e
 ```
 
@@ -452,7 +452,7 @@ E(g)['b' %--% V(g)]
 ```
 
 ```
-+ 4/5 edges from 17ea8f4 (vertex names):
++ 4/5 edges from 2ee3296 (vertex names):
 [1] a->b b->c b->d c->b
 ```
 
@@ -466,7 +466,7 @@ c(b, c)
 ```
 
 ```
-+ 4/5 edges from 17ea8f4 (vertex names):
++ 4/5 edges from 2ee3296 (vertex names):
 [1] b->c b->d c->b c->e
 ```
 
@@ -479,10 +479,10 @@ abc_sub
 ```
 
 ```
-IGRAPH 0d76618 DNWB 3 3 -- 
+IGRAPH 5b3c186 DNWB 3 3 -- 
 + attr: name (v/c), type (v/c), order (v/n), entity (v/c), type
 | (e/c), weight (e/n), entity (e/c)
-+ edges from 0d76618 (vertex names):
++ edges from 5b3c186 (vertex names):
 [1] a->b b->c c->b
 ```
 
@@ -495,10 +495,10 @@ b_sub
 ```
 
 ```
-IGRAPH 95ebf29 DNWB 4 4 -- 
+IGRAPH 2d87327 DNWB 4 4 -- 
 + attr: name (v/c), type (v/c), order (v/n), entity (v/c), type
 | (e/c), weight (e/n), entity (e/c)
-+ edges from 95ebf29 (vertex names):
++ edges from 2d87327 (vertex names):
 [1] a->b b->c b->d c->b
 ```
 
@@ -510,10 +510,10 @@ g - V(g)['c']
 ```
 
 ```
-IGRAPH 3693f12 DNWB 4 2 -- 
+IGRAPH 870fb95 DNWB 4 2 -- 
 + attr: name (v/c), type (v/c), order (v/n), entity (v/c), type
 | (e/c), weight (e/n), entity (e/c)
-+ edges from 3693f12 (vertex names):
++ edges from 870fb95 (vertex names):
 [1] a->b b->d
 ```
 
@@ -525,9 +525,9 @@ g - E(g)[weight < 1]
 ```
 
 ```
-IGRAPH ed7708c DNWB 5 3 -- 
+IGRAPH c7b64ab DNWB 5 3 -- 
 + attr: name (v/c), type (v/c), order (v/n), entity (v/c), type
 | (e/c), weight (e/n), entity (e/c)
-+ edges from ed7708c (vertex names):
++ edges from c7b64ab (vertex names):
 [1] a->b b->c c->b
 ```
