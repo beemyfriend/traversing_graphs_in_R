@@ -32,7 +32,7 @@ the **tidyverse** has revolutionized the creation and manipulation of vectors an
 
 - **magrittr**
 - **dplyr**
-- **purr**
+- **purrr**
 - **stringr**
 - **tibble**
 - **tidyr**
