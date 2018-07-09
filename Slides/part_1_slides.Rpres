@@ -3,6 +3,7 @@ GRAPHS
 author: 
 date: 
 autosize: true
+transition: fade
 <style>
 .small-code pre code {
   font-size: 1em;
